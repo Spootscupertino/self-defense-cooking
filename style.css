@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&family=Noto+Sans+JP:wght@400;700&display=swap');
+
 body {
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   margin: 0;
   padding: 0;
   background-image: url('https://images.pexels.com/photos/31240275/pexels-photo-31240275.jpeg');
@@ -15,9 +17,12 @@ header, main, footer {
   margin: 0;
 }
 
-header {
-  padding: 30px;
-  text-align: center;
+header h1 {
+  font-family: 'Sawarabi Mincho', serif;
+  font-size: 3rem;
+  letter-spacing: 1px;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 #chef-img {
@@ -26,10 +31,11 @@ header {
 }
 
 #quote {
-  font-size: 1.2rem;
+  font-family: 'Sawarabi Mincho', serif;
+  font-size: 1.5rem;
   margin-top: 20px;
   font-style: italic;
-  color: #eee;
+  color: #ffe;
   text-align: center;
 }
 
