@@ -1,32 +1,38 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+  font-family: 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  line-height: 1.6;
 }
+
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 30px;
+  text-align: center;
 }
-nav ul {
-    list-style: none;
-    padding: 0;
+
+#chef-img {
+  max-width: 200px;
+  margin-top: 20px;
 }
-nav ul li {
-    display: inline-block;
-    margin-right: 10px;
+
+#quote {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  font-style: italic;
+  color: #555;
+  text-align: center;
 }
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
+
 main {
-    padding: 20px;
+  padding: 40px;
 }
+
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
