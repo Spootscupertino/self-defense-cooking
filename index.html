@@ -1,35 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Self Defense Cooking</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Self-Defense Cooking | Chef Chilla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Self-Defense Cooking – the book, the app, and daily defense techniques from Chef Chilla, the chinchilla chef with a black belt."
+  />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Self Defense Cooking</h1>
-    <!-- Chef Chinchilla image placeholder; update src when image is uploaded -->
-    <img id="chef-img" src="images/chef-chinchilla.png" alt="Chef Chinchilla">
-    <p id="quote">if everything goes perfect we will barely make it</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="images/chef-chilla.png" alt="Chef Chilla" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-title">Self-Defense Cooking</span>
+          <span class="logo-subtitle">with Chef Chilla</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#app">App</a>
+        <a href="#book">Book</a>
+        <a href="#daily-defense">Daily Defense</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>Welcome to Self Defense Cooking! This site will teach you how to cook with style and maybe some martial arts fun.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Protect your time, energy, and kitchen.</h1>
+          <p>
+            Chef Chilla is your slightly unhinged chinchilla chef with a black belt – teaching you how to defend
+            yourself from chaos in the kitchen, the workplace, and life.
+          </p>
+          <div class="hero-buttons">
+            <a href="#app" class="btn primary">See the App</a>
+            <a href="#book" class="btn secondary">About the Book</a>
+          </div>
+          <p class="hero-caption">
+            One defense technique at a time. No guru BS. Just real stories, real systems, and a tiny angry fluffball.
+          </p>
+        </div>
+
+        <div class="hero-image">
+          <div class="hero-image-card">
+            <img src="images/chef-chilla.png" alt="Chef Chilla" class="hero-chilla">
+            <span class="hero-tag">Chef Chilla • Head Instructor</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="recipes">
-      <h2>Recipes</h2>
-      <p>Coming soon...</p>
+    <!-- WHO IS CHEF CHILLA -->
+    <section class="section" id="chef-chilla">
+      <div class="container two-column">
+        <div>
+          <h2>Meet Chef Chilla</h2>
+          <p>
+            Part chef, part martial artist, part exhausted service-industry therapist. Chef Chilla shows up
+            every day with one job: help you stop getting kicked in the soul by disorganized kitchens, clueless
+            managers, and unrealistic expectations.
+          </p>
+          <ul class="bullet-list">
+            <li>Daily “defense techniques” you can actually use at work.</li>
+            <li>Short, punchy lessons – like getting pulled aside by a brutally honest mentor.</li>
+            <li>Centered around real restaurant, bar, and hospitality life.</li>
+          </ul>
+        </div>
+        <div class="card callout">
+          <h3>Defense, not perfection.</h3>
+          <p>
+            This isn’t about being a flawless chef. It’s about surviving the shift, protecting your energy, and
+            building systems so you don’t get crushed by the next wave.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE APP -->
+    <section class="section section-alt" id="app">
+      <div class="container two-column reverse">
+        <div>
+          <h2>The App</h2>
+          <p>
+            The Self-Defense Cooking app is being built for people who actually work in kitchens, not tech bros making
+            pretend food in slide decks.
+          </p>
+          <ul class="bullet-list">
+            <li>Track product, prep, and counts without fighting your tools.</li>
+            <li>Designed for low-friction, real-world use on the line.</li>
+            <li>Simple first version – upgrades later once it’s battle tested.</li>
+          </ul>
+          <p class="tagline">
+            Launch timeline: as soon as it’s good enough that Chef Chilla isn’t embarrassed by it.
+          </p>
+        </div>
+        <div class="card app-card">
+          <h3>Want in early?</h3>
+          <p>Drop your email below to get early access when the app hits Google Play.</p>
+          <form class="email-form">
+            <input type="email" placeholder="you@example.com" required>
+            <button type="submit" class="btn primary btn-full">Notify Me</button>
+          </form>
+          <p class="form-note">No spam. No annoying funnels. Just updates when it actually matters.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BOOK -->
+    <section class="section" id="book">
+      <div class="container two-column">
+        <div>
+          <h2>The Book: Self-Defense Cooking</h2>
+          <p>
+            A collection of stories, systems, and defense strategies from a working Food & Beverage director who’s
+            seen just about everything on the line – and lived to write it down.
+          </p>
+          <ul class="bullet-list">
+            <li>Real stories from the kitchen, bar, and banquets.</li>
+            <li>Practical “moves” for dealing with chaos, bad systems, and wild personalities.</li>
+            <li>Written for cooks, managers, bartenders, and anyone who lives in the service industry trenches.</li>
+          </ul>
+          <p class="tagline">
+            If everything goes perfect, we’ll barely make it. The book explains what to do when things don’t.
+          </p>
+        </div>
+        <div class="card book-card">
+          <h3>Stay in the loop</h3>
+          <p>Get progress updates when new chapters drop and when pre-orders go live.</p>
+          <form class="email-form">
+            <input type="email" placeholder="you@example.com" required>
+            <button type="submit" class="btn secondary btn-full">Book Updates</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAILY DEFENSE -->
+    <section class="section section-alt" id="daily-defense">
+      <div class="container">
+        <h2>Daily Defense with Chef Chilla</h2>
+        <p class="section-intro">
+          Tiny, sharp hits of reality and defense strategies – delivered where you already scroll.
+        </p>
+
+        <div class="card-grid">
+          <div class="card social-card">
+            <h3>TikTok</h3>
+            <p>Fast, dirty, to-the-point defense moves. 30–60 seconds. No fluff.</p>
+            <a href="#" class="text-link">Follow on TikTok (soon)</a>
+          </div>
+          <div class="card social-card">
+            <h3>Instagram</h3>
+            <p>Carousels, quotes, and breakdowns from the book and app.</p>
+            <a href="#" class="text-link">Follow on Instagram (soon)</a>
+          </div>
+          <div class="card social-card">
+            <h3>Email</h3>
+            <p>Occasional long-form breakdowns for people who actually want depth.</p>
+            <a href="#book" class="text-link">Join the list</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Self Defense Cooking. All rights reserved.</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Self-Defense Cooking</span>
+      <span class="footer-chilla">Powered by bad decisions &amp; better systems • Chef Chilla 🐹🥋</span>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
