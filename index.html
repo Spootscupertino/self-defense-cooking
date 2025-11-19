@@ -1,40 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Self-Defense Cooking</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Defense Cooking Dojo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<header>
+    <h1>Self Defense Cooking</h1>
+
+    <nav>
+        <ul>
+            <li class="menu">Book
+                <ul class="dropdown">
+                    <li><a href="#">Self Defense Cooking</a></li>
+                </ul>
+            </li>
+
+            <li class="menu">Apps
+                <ul class="dropdown">
+                    <li><a href="#">Inventory Voice Command</a></li>
+                    <li><a href="#">Conversions Calculator</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
 <!-- DOJO BACKGROUND -->
-<div style="
-  background-image: url('dojo%20image.png'); 
-  background-size: cover; 
-  background-position: center; 
-  width: 100vw; 
-  height: 100vh; 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  z-index: -1;">
+<div class="dojo-background">
+    <!-- Replace dojo_image.png with your real filename -->
+    <img src="dojo image.png" alt="Dojo Background">
 </div>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">Self-Defense Cooking</div>
-  <ul class="nav-links">
-    <li class="dropdown">
-      <a href="#" class="drop-btn">Book ▾</a>
-      <ul class="dropdown-menu">
-        <li>Self-Defense Cooking — Coming Soon!</li>
-      </ul>
-    </li>
-    <li class="dropdown">
-      <a href="#" class="drop-btn">Apps ▾</a>
-      <ul class="dropdown-menu">
-        <li>Inventory Voice Command — Coming Soon!</li>
-        <li>Conversion Calculator — Coming Soon!</li>
-      <
+
+<!-- SDC CALLIGRAPHY (BURNED WOOD VERSION) -->
+<div class="sdc-logo">
+    <!-- Replace sdc-wood.png with your real filename -->
+    <img src="sdc-wood.png" alt="SDC Logo">
+</div>
+
+
+<!-- CHEF CHILLA -->
+<div class="chilla-container">
+    <!-- Replace chef-chilla-dojo.png with your real filename -->
+    <img src="chef-chilla-dojo.png" alt="Chef Chilla">
+</div>
+
+
+<!-- EMAIL FORM -->
+<section class="contact-box">
+    <h2>Message Chef Chilla</h2>
+
+    <form action="mailto:REPLACE_WITH_YOUR_EMAIL" method="POST" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name">
+        <input type="email" name="email" placeholder="Your Email">
+        <textarea name="message" placeholder="Your message for Chef Chilla..."></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+
+</body>
+</html>
