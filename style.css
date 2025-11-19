@@ -284,3 +284,25 @@ body {
     50% { transform: rotate(1.4deg); }
     100% { transform: rotate(0deg); }
 }
+/* SUBTLE DOJO BACKGROUND SMOKE */
+.subtle-smoke {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translateX(-50%);
+    background: url("https://i.imgur.com/3eVY9QX.png") no-repeat center;
+    background-size: contain;
+    opacity: 0.08; /* super subtle */
+    filter: blur(4px);
+    animation: subtleSmoke 14s infinite ease-in-out;
+    z-index: 1; /* stays behind everything */
+}
+
+@keyframes subtleSmoke {
+    0%   { transform: translate(-50%, 0) scale(1); opacity: 0.07; }
+    40%  { opacity: 0.11; }
+    80%  { transform: translate(-50%, -90px) scale(1.15); opacity: 0.05; }
+    100% { opacity: 0.02; }
+}
