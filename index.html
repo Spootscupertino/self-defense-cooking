@@ -9,61 +9,67 @@
 
 <body>
 
-<header>
-    <h1>Self Defense Cooking</h1>
+<!-- ===================== HEADER / NAV BAR ===================== -->
+<header class="dojo-header">
+    <div class="header-inner">
+        <div class="brand-title">Self Defense Cooking</div>
 
-    <nav>
-        <ul>
-            <li class="menu">Book
-                <ul class="dropdown">
-                    <li><a href="#">Self Defense Cooking</a></li>
-                </ul>
-            </li>
+        <nav>
+            <ul class="nav-menu">
+                <li class="menu">Book
+                    <ul class="dropdown">
+                        <li><a href="#">Self Defense Cooking</a></li>
+                    </ul>
+                </li>
 
-            <li class="menu">Apps
-                <ul class="dropdown">
-                    <li><a href="#">Inventory Voice Command</a></li>
-                    <li><a href="#">Conversions Calculator</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+                <li class="menu">Apps
+                    <ul class="dropdown">
+                        <li><a href="#">Inventory Voice Command</a></li>
+                        <li><a href="#">Conversions Calculator</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
-
-<!-- DOJO BACKGROUND -->
-<div class="dojo-background">
-    <!-- Replace dojo_image.png with your real filename -->
-    <img src="dojo image.png" alt="Dojo Background">
+<!-- ===================== DOJO BACKGROUND ===================== -->
+<div class="dojo-bg-wrapper">
+    <img src="dojo image.png" class="dojo-bg" alt="Dojo Background">
+    <div class="bg-dim-overlay"></div>
 </div>
 
-
-<!-- SDC CALLIGRAPHY (BURNED WOOD VERSION) -->
+<!-- ===================== BURNED LOGO ===================== -->
 <div class="sdc-logo">
-    <!-- Replace sdc-wood.png with your real filename -->
-    <img src="sdc-wood.png" alt="SDC Logo">
+    <img src="sdcburnedwood.png" alt="SDC Logo">
 </div>
 
-
-<!-- CHEF CHILLA -->
-<div class="chilla-container">
-    <!-- Replace chef-chilla-dojo.png with your real filename -->
-    <img src="chef-chilla-dojo.png" alt="Chef Chilla">
+<!-- ===================== CHEF CHILLA ===================== -->
+<div class="chilla-wrapper">
+    <div class="tatami-mat"></div>
+    <img src="chef-chilla.png" class="chef-chilla" alt="Chef Chilla">
 </div>
 
+<!-- ===================== HANGING SIGN CONTACT FORM ===================== -->
+<section class="contact-section">
 
-<!-- EMAIL FORM -->
-<section class="contact-box">
-    <h2>Message Chef Chilla</h2>
+    <div class="hanging-sign">
+        <div class="rope left-rope"></div>
+        <div class="rope right-rope"></div>
 
-    <form action="mailto:REPLACE_WITH_YOUR_EMAIL" method="POST" enctype="text/plain">
-        <input type="text" name="name" placeholder="Your Name">
-        <input type="email" name="email" placeholder="Your Email">
-        <textarea name="message" placeholder="Your message for Chef Chilla..."></textarea>
-        <button type="submit">Send Message</button>
-    </form>
+        <div class="sign-board">
+            <h2>Message Chef Chilla</h2>
+
+            <form action="mailto:eric@selfdefensecooking.com" method="POST" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name">
+                <input type="email" name="email" placeholder="Your Email">
+                <textarea name="message" placeholder="Your message for Chef Chilla..."></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
 </section>
-
 
 </body>
 </html>
