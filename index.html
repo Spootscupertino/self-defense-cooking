@@ -1,49 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Self Defense Cooking</title>
+    <title>Self-Defense Cooking</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <header class="top-header">
-        <div class="logo">Self Defense Cooking</div>
-        <nav>
-            <a href="#book">Book</a>
-            <a href="#apps">Apps</a>
-        </nav>
-    </header>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">Self-Defense Cooking</div>
 
-    <section class="dojo">
-        <img src="chef chilla.png" alt="Chef Chilla" class="chef-image">
-    </section>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#" class="drop-btn">Book ▾</a>
+                <ul class="dropdown-menu">
+                    <li>Self-Defense Cooking — Coming Soon!</li>
+                </ul>
+            </li>
 
-    <section id="book" class="section-block">
-        <h2>The Book</h2>
-        <p>Chef Chilla guides you through stories, philosophy, and defensive cooking wisdom.</p>
-    </section>
+            <li class="dropdown">
+                <a href="#" class="drop-btn">Apps ▾</a>
+                <ul class="dropdown-menu">
+                    <li>Inventory Voice Command — Coming Soon!</li>
+                    <li>Conversion Calculator — Coming Soon!</li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-    <section id="apps" class="section-block">
-        <h2>The Apps</h2>
-        <p>Inventory tools, training guides, and more. Coming soon.</p>
-    </section>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Train Your Mind.  
+                <br/>Master Your Kitchen.</h1>
 
-    <section id="contact" class="contact-section">
-        <h2>Contact</h2>
-        <form action="https://formsubmit.co/eric@selfdefensecooking.com" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
+            <p class="tagline">Where discipline meets flavor.</p>
 
-            <!-- Prevent spam -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-
-            <button type="submit">Send Message</button>
-        </form>
+            <img src="chef chilla.png" alt="Chef Chilla" class="hero-chef" />
+        </div>
     </section>
 
 </body>
