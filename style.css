@@ -230,3 +230,57 @@ body {
 .sign-board button:hover {
     background: #e6c187;
 }
+/* =========================================================
+   INCENSE SMOKE ANIMATION
+   ========================================================= */
+
+.smoke {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    transform: translateX(-50%);
+    background: url("https://i.imgur.com/3eVY9QX.png") no-repeat center;
+    background-size: contain;
+    opacity: 0.18;
+    animation: smokeRise 8s infinite ease-in-out;
+    z-index: 5;
+}
+
+@keyframes smokeRise {
+    0% { transform: translate(-50%, 0) scale(1); opacity: 0.18; }
+    40% { opacity: 0.3; }
+    80% { transform: translate(-50%, -80px) scale(1.2); opacity: 0.1; }
+    100% { opacity: 0; }
+}
+
+/* =========================================================
+   CHEF CHILLA BREATHING
+   ========================================================= */
+
+.chef-chilla {
+    width: 360px;
+    animation: breathing 5s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* =========================================================
+   HANGING SIGN SWAY
+   ========================================================= */
+
+.hanging-sign {
+    animation: sway 6s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+@keyframes sway {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(1.4deg); }
+    100% { transform: rotate(0deg); }
+}
