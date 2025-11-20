@@ -3,88 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDC DOJO | Self-Defense Cooking</title>
+    <title>Self Defense Cooking</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;600&family=Shojumaru&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;500&family=Yuji+Syuku&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
 </head>
 <body>
-    <div class="wood-grain-overlay"></div>
-    <div class="breeze-overlay"></div>
+    <div class="dojo-container">
+        <!-- Atmosphere Layers -->
+        <div class="vignette-overlay"></div>
+        <div class="dust-particles"></div>
+        
+        <!-- Steam & Smoke Effects -->
+        <div class="steam-layer left-steam"></div>
+        <div class="smoke-layer right-smoke"></div>
 
-    <nav class="dojo-nav fade-in-down">
-        <div class="brand">
-            <h1 class="emblem">SDC DOJO</h1>
-        </div>
-        <div class="nav-links">
-            <a href="#training" class="nav-item">Training</a>
-            <a href="#apps" class="nav-item">Tools</a>
-        </div>
-    </nav>
-
-    <header class="hero-section">
-        <div class="lantern-glow"></div>
-        <div class="sensei-container hover-levitate">
-            <!-- Using chef-chilla.png from your repo list -->
-            <img src="chef-chilla.png" alt="Chef Chilla" class="sensei-avatar">
-            <div class="rank-badge">Sensei</div>
-        </div>
-        <div class="hero-content fade-in-up">
-            <h2 class="hero-title">Defend Your Hunger</h2>
-            <p class="hero-subtitle">Precision. Heat. Flavor.</p>
-        </div>
-    </header>
-
-    <main>
-        <!-- The Request Scroll -->
-        <section class="scroll-section fade-in-up delay-1">
-            <div class="ancient-scroll">
-                <div class="scroll-content">
-                    <h3>The Request Scroll</h3>
-                    <p>The Sensei awaits your challenge. What dish do you wish to master?</p>
-                    <div class="ink-input-wrapper">
-                        <input type="text" id="recipe-request" placeholder="ex: The Perfect Carbonara..." class="ink-input">
-                        <button id="send-scroll" class="stamp-btn">
-                            <span class="btn-text">Summon Recipe</span>
-                            <span class="ink-splash"></span>
-                        </button>
-                    </div>
-                    <div class="direct-contact">
-                        <span>or strike directly at </span>
-                        <a href="mailto:eric@selfdefensecooking.com" class="gold-link">eric@selfdefensecooking.com</a>
-                    </div>
-                </div>
+        <header class="dojo-header">
+            <!-- The Hanging SDC Brand Sign -->
+            <div class="brand-sign-wrapper">
+                <img src="sdcburnedwood.png" alt="SDC Dojo" class="hanging-sign">
             </div>
-        </section>
+            
+            <h1 class="main-title">Self Defense Cooking</h1>
+            
+            <nav class="top-nav">
+                <a href="#recipes" class="nav-link">Recipes</a>
+                <a href="#apps" class="nav-link">Apps</a>
+            </nav>
+        </header>
 
-        <!-- Dojo Tools (Apps) -->
-        <section id="apps" class="tools-section fade-in-up delay-2">
-            <h3 class="section-header">Dojo Artifacts</h3>
-            <div class="tools-grid">
-                <div class="tool-card wood-border">
-                    <div class="icon">⏱️</div>
-                    <h4>Timer Katana</h4>
-                    <p>Cut time with precision.</p>
-                </div>
-                <div class="tool-card wood-border">
-                    <div class="icon">🔥</div>
-                    <h4>Heat Mastery</h4>
-                    <p>Control the flame.</p>
-                </div>
-                <div class="tool-card wood-border">
-                    <div class="icon">⚖️</div>
-                    <h4>Scale of Truth</h4>
-                    <p>Balance every ingredient.</p>
-                </div>
+        <main class="main-stage">
+            <!-- Chef Chilla Centered & Breathing -->
+            <div class="chef-wrapper">
+                <img src="chef-chilla.png" alt="Chef Chilla" class="chef-avatar breathing">
             </div>
-        </section>
-    </main>
+        </main>
 
-    <footer class="dojo-footer">
-        <p>&copy; 2025 Self-Defense Cooking. Sharpen your blade.</p>
-    </footer>
+        <footer class="dojo-footer">
+            <!-- Minimal Sliding Email Interaction -->
+            <div class="email-drawer" id="email-drawer">
+                <div class="drawer-handle">
+                    <span>Inquire</span>
+                </div>
+                <form class="drawer-content" action="mailto:eric@selfdefensecooking.com">
+                    <input type="text" class="dojo-input" placeholder="Request a technique...">
+                    <button type="submit" class="dojo-btn">Send</button>
+                </form>
+            </div>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
