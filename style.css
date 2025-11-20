@@ -1,19 +1,22 @@
 /* ================================
-   GLOBAL VARIABLES (THEME)
+   GLOBAL THEME VARIABLES
 ================================ */
 :root {
-    --ink-black: #0d0d0d;
-    --wood-tone: #5D4037;
-    --lantern-red: #b71c1c;
-    --tea-green: #558b2f;
-    --gold-accent: #C5A059;
+    --ink-black: #0a0a0a;
+    --warm-wood: #4a3427;
+    --crisp-white: #f0f0f0;
+    --lantern-red: #b7181a;
+    --bamboo-green: #5a7f3f;
+    --gold-accent: #c5a059;
 
     --font-title: 'Yuji Syuku', serif;
     --font-body: 'Kiwi Maru', serif;
+
+    --glow: 0 0 20px rgba(255, 215, 150, 0.15);
 }
 
 /* ================================
-   BASE STYLES
+   BASE RESET
 ================================ */
 * {
     margin: 0;
@@ -22,22 +25,22 @@
 }
 
 body {
-    background-color: var(--ink-black);
-    color: #eee;
+    background: var(--ink-black);
+    color: var(--crisp-white);
+    font-family: var(--font-body);
     height: 100vh;
     overflow: hidden;
-    font-family: var(--font-body);
 }
 
 /* ================================
-   MAIN DOJO CONTAINER
+   DOJO BACKGROUND WRAPPER
 ================================ */
 .dojo-container {
     position: relative;
     width: 100%;
     height: 100%;
 
-    /* FIX: escape the space in filename */
+    /* Dojo background */
     background-image: url("dojo%20image.png");
     background-size: cover;
     background-position: center bottom;
@@ -46,385 +49,149 @@ body {
     flex-direction: column;
     justify-content: space-between;
 
-    /* unified warmth + cinematic fade */
-    filter: brightness(1.05) sepia(0.15);
-    box-shadow: inset 0 0 200px rgba(0,0,0,0.75);
+    filter: brightness(1.05) sepia(0.12);
 }
 
 /* ================================
-   HEADER / SIGN / NAV
+   OVERLAY — subtle cinematic fade
 ================================ */
-.dojo-header {
+.dojo-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        rgba(0,0,0,0.2) 0%,
+        rgba(0,0,0,0.55) 70%);
+    pointer-events: none;
+}
+
+/* ================================
+   NAV BAR
+================================ */
+nav {
+    width: 100%;
+    padding: 1.2rem 2rem;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 2rem;
-    z-index: 20;
+    align-items: center;
+
+    background: rgba(10,10,10,0.55);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
-.brand-sign-wrapper {
-    width: 80px;
-    margin-top: -12px;
-}
-
-.hanging-sign {
-    width: 100%;
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.85));
-    transform-origin: top center;
-    animation: gentleSway 8s ease-in-out infinite;
-}
-
-.main-title {
-    flex-grow: 1;
-    text-align: center;
-    margin-top: 1.8rem;
+nav h1 {
     font-family: var(--font-title);
-    font-size: 2.8rem;
-    text-shadow: 0 2px 12px rgba(0,0,0,1);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--gold-accent);
+    text-shadow: var(--glow);
 }
 
-.top-nav {
-    margin-top: 2.8rem;
+/* Dropdown container */
+.nav-group {
     display: flex;
     gap: 2rem;
 }
 
-.nav-link {
-    color: #ccc;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 0.9rem;
+.nav-item {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    color: var(--crisp-white);
+    cursor: pointer;
+    position: relative;
 }
-.nav-link:hover {
+
+.nav-item:hover {
     color: var(--gold-accent);
 }
 
-/* ================================
-   MAIN STAGE — WHERE CHILLA LIVES
-================================ */
-.main-stage {
-    flex-grow: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-
-    /* FLOOR ALIGNMENT PERFECT FOR DOJO PHOTO */
-    align-items: flex-end;
-    padding-bottom: 18vh;
-
-    perspective: 1000px;
-    z-index: 10;
-}
-
-.chef-composition {
-    position: relative;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* --- Chef Avatar (Cinematic) --- */
-.chef-avatar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    z-index: 3;
-
-    /* Warm grading to match dojo */
-    filter:
-        brightness(1.1)
-        contrast(1.15)
-        saturate(1.05)
-        sepia(0.25)
-        drop-shadow(0 15px 25px rgba(0,0,0,0.55));
-}
-
-/* --- Ground Shadow (Physical Contact Point) --- */
-.floor-shadow {
+/* Dropdown list */
+.dropdown {
     position: absolute;
-    bottom: 6px;
-    width: 60%;
-    height: 24px;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(0,0,0,0.5),
-        rgba(0,0,0,0) 70%
-    );
-    filter: blur(6px);
-    z-index: 1;
-}
-
-/* --- Reflection on polished floor --- */
-.chef-reflection-wrapper {
-    height: 110px;
-    overflow: hidden;
-    margin-top: -15px;
-    opacity: 0.22;
-    transform: scaleY(-1) skewX(-4deg);
-    filter: blur(2.5px);
-
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-}
-
-.chef-reflection {
-    width: 100%;
-}
-
-/* ================================
-   PROPS — LANTERN, TEA, INCENSE
-================================ */
-.lantern-container {
-    position: absolute;
-    top: -20px;
-    left: 12%;
-    z-index: 5;
-    transform-origin: top center;
-    animation: lanternSwing 6s ease-in-out infinite;
-}
-
-.string {
-    width: 2px;
-    height: 60px;
-    background: #333;
-    margin: 0 auto;
-}
-
-.lantern {
-    width: 60px;
-    height: 80px;
-    background: var(--lantern-red);
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    box-shadow:
-        inset 0 0 20px rgba(0,0,0,0.5),
-        0 0 20px rgba(255,100,0,0.3);
-}
-
-.lantern::before,
-.lantern::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 6px;
-    background: #222;
-}
-
-.lantern::before { top: 0; }
-.lantern::after { bottom: 0; }
-
-.kanji {
-    color: rgba(0,0,0,0.6);
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-.lantern-glow {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(255, 160, 0, 0.18), transparent 70%);
-    pointer-events: none;
-}
-
-/* --- Tea Cup (Foreground prop) --- */
-.prop-tea {
-    position: absolute;
-    bottom: 7vh;
-    right: 20%;
-    z-index: 15;
-}
-
-.tea-cup {
-    width: 32px;
-    height: 26px;
-    background: #ddd;
-    border-radius: 0 0 15px 15px;
-    box-shadow: inset -4px 0 6px rgba(0,0,0,0.15);
-    position: relative;
-}
-
-.tea-cup::after {
-    content: "";
-    position: absolute;
-    right: -8px;
-    top: 5px;
-    width: 9px;
-    height: 13px;
-    border: 3px solid #ddd;
-    border-radius: 50%;
-}
-
-.tea-shadow {
-    position: absolute;
-    bottom: -6px;
-    left: 6px;
-    width: 20px;
-    height: 6px;
-    background: rgba(0,0,0,0.5);
-    border-radius: 50%;
-    filter: blur(3px);
-    z-index: -1;
-}
-
-.tea-steam-particles {
-    position: absolute;
-    bottom: 25px;
-    left: 6px;
-    width: 20px;
-    height: 40px;
-    background: radial-gradient(rgba(255,255,255,0.45), transparent);
-    filter: blur(8px);
-    animation: riseSteam 3s infinite;
-}
-
-/* --- Incense --- */
-.prop-incense {
-    position: absolute;
-    bottom: 9vh;
-    left: 14%;
-    z-index: 12;
-}
-
-.incense-stick {
-    width: 2px;
-    height: 40px;
-    background: #8d6e63;
-    transform: rotate(10deg);
-}
-
-.incense-glow {
-    position: absolute;
-    top: 0;
-    right: -1px;
-    width: 5px;
-    height: 5px;
-    background: #ff5722;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #ff5722;
-}
-
-.smoke-stream {
-    position: absolute;
-    bottom: 40px;
+    top: 120%;
     left: 0;
-    width: 2px;
-    height: 100px;
-    background: linear-gradient(to top, rgba(255,255,255,0.3), transparent);
-    filter: blur(4px);
-    animation: snakeSmoke 5s infinite linear;
+    min-width: 180px;
+
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 0.5rem 0;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+
+    display: none;
+    flex-direction: column;
+}
+
+.dropdown a {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    color: var(--crisp-white);
+    text-decoration: none;
+}
+
+.dropdown a:hover {
+    background: rgba(255,255,255,0.07);
+    color: var(--gold-accent);
+}
+
+.nav-item:hover .dropdown {
+    display: flex;
 }
 
 /* ================================
-   Atmosphere Layers
+   CENTER TITLE AREA
 ================================ */
-.vignette-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(transparent 55%, black 100%);
-    pointer-events: none;
-    z-index: 18;
+.hero-text {
+    position: relative;
+    text-align: center;
+    margin-top: 6vh;
+    z-index: 5;
 }
 
-.dust-particles {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,200,0.25) 1px, transparent 1px);
-    background-size: 100px 100px;
-    animation: floatDust 45s linear infinite;
-    z-index: 19;
-    pointer-events: none;
+.hero-text h2 {
+    font-family: var(--font-title);
+    font-size: 3.5rem;
+    color: var(--crisp-white);
+    text-shadow: var(--glow);
+    letter-spacing: 4px;
+}
+
+.hero-text p {
+    font-size: 1.3rem;
+    margin-top: 0.6rem;
+    opacity: 0.85;
 }
 
 /* ================================
-   Footer Drawer
+   CHEF CHILLA CHARACTER
 ================================ */
-.dojo-footer {
+.chef-chilla {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 30;
+    right: 0;
+
+    width: 360px;
+    max-width: 30vw;
+
+    transform: translateY(10px);
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.55));
+    animation: floatChilla 4.2s ease-in-out infinite;
 }
 
-.email-drawer {
-    width: 300px;
-    background: rgba(15,14,12,0.95);
-    border: 1px solid var(--wood-tone);
-    transform: translateY(85%);
-    transition: transform 0.4s ease;
-}
-
-.email-drawer:hover,
-.email-drawer.open {
-    transform: translateY(0);
-}
-
-.drawer-handle {
-    text-align: center;
-    padding: 12px;
-    color: var(--gold-accent);
-    cursor: pointer;
-    letter-spacing: 2px;
-}
-
-.drawer-content {
-    padding: 20px;
-    display: flex;
-    gap: 10px;
-}
-
-.dojo-input {
-    flex-grow: 1;
-    padding: 8px;
-    background: #222;
-    color: white;
-    border: 1px solid #444;
-}
-
-.dojo-btn {
-    padding: 8px 15px;
-    background: var(--wood-tone);
-    color: white;
-    border: none;
-    cursor: pointer;
+@keyframes floatChilla {
+    0% { transform: translateY(12px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(12px); }
 }
 
 /* ================================
-   ANIMATIONS
+   FOOTER AREA
 ================================ */
-@keyframes gentleSway {
-    0%   { transform: rotate(0deg); }
-    50%  { transform: rotate(2deg); }
-    100% { transform: rotate(0deg); }
-}
-
-@keyframes lanternSwing {
-    0%   { transform: rotate(-2deg); }
-    50%  { transform: rotate(2deg); }
-    100% { transform: rotate(-2deg); }
-}
-
-@keyframes riseSteam {
-    0%   { transform: translateY(0); opacity: 0.8; }
-    100% { transform: translateY(-25px); opacity: 0; }
-}
-
-@keyframes snakeSmoke {
-    0%   { transform: translateX(0); }
-    50%  { transform: translateX(6px); }
-    100% { transform: translateX(-6px); }
-}
-
-@keyframes floatDust {
-    0%   { background-position: 0 0; }
-    100% { background-position: 200px 200px; }
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    letter-spacing: 1px;
 }

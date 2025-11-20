@@ -1,108 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Self Defense Cooking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Defense Cooking Dojo</title>
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;500&family=Yuji+Syuku&display=swap"
-        rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Kiwi+Maru&display=swap" rel="stylesheet">
 
     <!-- Main Styles -->
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="dojo-container">
-        
-        <!-- HEADER -->
-        <header class="dojo-header">
-            <div class="brand-sign-wrapper">
-                <img src="sdcburnedwood.png" alt="SDC Dojo Sign" class="hanging-sign" />
-            </div>
 
-            <h1 class="main-title">Self Defense Cooking</h1>
+<div class="dojo-container">
+    <div class="dojo-overlay"></div>
 
-            <nav class="top-nav">
-                <a href="#recipes" class="nav-link">Recipes</a>
-                <a href="#apps" class="nav-link">Apps</a>
-            </nav>
-        </header>
+    <!-- ======================
+         NAVIGATION
+    ======================= -->
+    <nav>
+        <h1>SELF-DEFENSE COOKING</h1>
 
+        <div class="nav-group">
 
-        <!-- MAIN STAGE -->
-        <main class="main-stage">
-
-            <!-- Lantern -->
-            <div class="lantern-container">
-                <div class="string"></div>
-                <div class="lantern">
-                    <div class="kanji">火</div>
-                </div>
-                <div class="lantern-glow"></div>
-            </div>
-
-            <!-- Chef Composition -->
-            <div class="chef-composition">
-                <div class="floor-shadow"></div>
-
-                <img src="chef-chilla.png" alt="Chef Chilla" class="chef-avatar breathing" />
-
-                <div class="chef-reflection-wrapper">
-                    <img src="chef-chilla.png" class="chef-reflection" alt="" />
+            <!-- BOOK -->
+            <div class="nav-item">
+                Book
+                <div class="dropdown">
+                    <a href="#">Self-Defense Cooking (coming soon)</a>
                 </div>
             </div>
 
-            <!-- Tea Cup Prop -->
-            <div class="prop-tea">
-                <div class="tea-steam-particles"></div>
-                <div class="tea-cup"></div>
-                <div class="tea-shadow"></div>
-            </div>
-
-            <!-- Incense Prop -->
-            <div class="prop-incense">
-                <div class="incense-stick"></div>
-                <div class="incense-glow"></div>
-                <div class="smoke-stream"></div>
-            </div>
-
-        </main>
-
-
-        <!-- OVERLAYS -->
-        <div class="vignette-overlay"></div>
-        <div class="dust-particles"></div>
-
-
-        <!-- FOOTER -->
-        <footer class="dojo-footer">
-            <div class="email-drawer" id="email-drawer">
-                <div class="drawer-handle">
-                    <span>Inquire</span>
+            <!-- APPS -->
+            <div class="nav-item">
+                Apps
+                <div class="dropdown">
+                    <a href="#">Inventory Voice Command (coming soon)</a>
+                    <a href="#">Conversion Calculator (coming soon)</a>
                 </div>
-                <form
-                    class="drawer-content"
-                    action="mailto:eric@selfdefensecooking.com"
-                >
-                    <input
-                        type="text"
-                        class="dojo-input"
-                        placeholder="Request a technique..."
-                    />
-                    <button type="submit" class="dojo-btn">Send</button>
-                </form>
             </div>
-        </footer>
 
-    </div>
+        </div>
+    </nav>
 
-    <script src="script.js"></script>
+    <!-- ======================
+         HERO TEXT
+    ======================= -->
+    <section class="hero-text">
+        <h2>ENTER THE DOJO</h2>
+        <p>Your training begins now.</p>
+    </section>
+
+    <!-- ======================
+         CHEF CHILLA
+    ======================= -->
+    <img src="chef-chilla.png" alt="Chef Chilla" class="chef-chilla">
+
+    <!-- ======================
+         FOOTER
+    ======================= -->
+    <footer>
+        © 2025 Self-Defense Cooking Dojo — Train Hard • Cook Harder
+    </footer>
+
+</div>
+
 </body>
 </html>
