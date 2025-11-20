@@ -4,26 +4,4 @@
     "title": "The Way of the Wok",
     "category": "Main Dish",
     "description": "A foundational technique for achieving 'wok hei' - the breath of the wok. This is less a recipe and more a philosophy of heat, speed, and flavor.",
-    "prep_time": "15 mins",
-    "cook_time": "5 mins",
-    "ingredients": [
-      { "name": "Thinly Sliced Beef", "amount": "200g" },
-      { "name": "Broccoli Florets", "amount": "1 cup" },
-      { "name": "Soy Sauce", "amount": "2 tbsp" },
-      { "name": "Sesame Oil", "amount": "1 tsp" },
-      { "name": "Garlic, minced", "amount": "2 cloves" }
-    ],
-    "instructions": [
-      "Ensure your wok is screaming hot before adding oil.",
-      "Sear the beef quickly, removing it before it is fully cooked.",
-      "Stir-fry the broccoli and garlic until vibrant.",
-      "Return the beef to the wok, add sauces, and toss to combine.",
-      "Serve immediately. The wok does not wait."
-    ]
-  },
-  {
-    "id": "002",
-    "title": "The Patient Pan-Seared Salmon",
-    "category": "Main Dish",
-    "description": "Patience is the key to perfectly crispy skin. This technique teaches control and observation, resulting in a flawless piece of fish.",
-    "prep
+    "prep_time": "15
