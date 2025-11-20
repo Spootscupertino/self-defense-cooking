@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self Defense Cooking Dojo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Self Defense Cooking Dojo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,14 +13,20 @@
     <div class="header-inner">
         <div class="brand-title">Self Defense Cooking</div>
 
-        <nav>
+        <!-- HAMBURGER ICON FOR MOBILE -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="main-nav">
             <ul class="nav-menu">
                 <li class="menu">Book
                     <ul class="dropdown">
                         <li><a href="#">Self Defense Cooking</a></li>
                     </ul>
                 </li>
-
                 <li class="menu">Apps
                     <ul class="dropdown">
                         <li><a href="#">Inventory Voice Command</a></li>
@@ -33,47 +38,41 @@
     </div>
 </header>
 
-<!-- ===================== DOJO BACKGROUND ===================== -->
+<!-- ===================== The rest of your HTML remains the same... ===================== -->
+<!-- (Dojo Background, Burned Logo, Chef Chilla, Contact Sign) -->
+
 <div class="dojo-bg-wrapper">
     <img src="dojo image.png" class="dojo-bg" alt="Dojo Background">
     <div class="bg-dim-overlay"></div>
 </div>
-
-<!-- ===================== BURNED LOGO ===================== -->
 <div class="sdc-logo">
     <img src="sdcburnedwood.png" alt="SDC Logo">
 </div>
-
-<!-- ===================== CHEF CHILLA SECTION ===================== -->
 <div class="chilla-wrapper">
-
-    <!-- PURE CSS SMOKE (no images needed) -->
     <div class="css-smoke smoke-1"></div>
     <div class="css-smoke smoke-2"></div>
-
     <div class="tatami-mat"></div>
     <img src="chef-chilla.png" class="chef-chilla" alt="Chef Chilla">
 </div>
-
-<!-- ===================== CONTACT SIGN ===================== -->
 <section class="contact-section">
     <div class="hanging-sign">
         <div class="rope left-rope"></div>
         <div class="rope right-rope"></div>
-
         <div class="sign-board">
             <h2>Message Chef Chilla</h2>
-
             <form action="mailto:eric@selfdefensecooking.com" method="POST" enctype="text/plain">
                 <input type="text" name="name" placeholder="Your Name">
                 <input type="email" name="email" placeholder="Your Email">
                 <textarea name="message" placeholder="Your message for Chef Chilla..."></textarea>
                 <button type="submit">Send Message</button>
             </form>
-
         </div>
     </div>
 </section>
+
+
+<!-- LINK TO YOUR JAVASCRIPT FILE -->
+<script src="script.js"></script>
 
 </body>
 </html>
