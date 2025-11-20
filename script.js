@@ -1,33 +1,44 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            // Toggle active classes on both hamburger and menu
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+// THE DATA: Our 3 Self-Defense Recipes
+const recipes = [
+    {
+        title: "Carbonara Rescue",
+        time: "12 Mins",
+        difficulty: "Medium",
+        desc: "The Guanciale Protocol. No cream. Just eggs, cheese, and survival."
+    },
+    {
+        title: "Iron-Clad Steak",
+        time: "25 Mins",
+        difficulty: "Hard",
+        desc: "Heavy sear, butter baste. Do not set off the smoke alarm."
+    },
+    {
+        title: "Honey Sriracha Wings",
+        time: "45 Mins",
+        difficulty: "Easy",
+        desc: "Game day defense. Sweet heat that hits back."
     }
+];
+
+// THE LOGIC: Inject them into the HTML
+const grid = document.getElementById('recipe-grid');
+
+recipes.forEach(recipe => {
+    // Create the card HTML
+    const card = document.createElement('div');
+    card.classList.add('card');
+    
+    card.innerHTML = `
+        <h2>${recipe.title}</h2>
+        <div class="tags">
+            <span class="tag">⏱ ${recipe.time}</span>
+            <span class="tag">⚔️ ${recipe.difficulty}</span>
+        </div>
+        <p>${recipe.desc}</p>
+    `;
+    
+    // Add to the grid
+    grid.appendChild(card);
 });
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.recipe-card');
 
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            // Adjust the multiplier for more/less tilt
-            const rotateY = (x / rect.width) * -20; // Tilt left/right
-            const rotateX = (y / rect.height) * 20;  // Tilt up/down
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    });
-});
+console.log("Dojo Loaded. Sensei Chilla is watching.");
