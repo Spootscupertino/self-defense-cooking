@@ -1,87 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Self Defense Cooking</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;500&family=Yuji+Syuku&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animations.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;500&family=Yuji+Syuku&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animations.css" />
 </head>
+
 <body>
     <div class="dojo-container">
         
-        <!-- 1. The Swinging Lantern (Background Depth) -->
-        <div class="lantern-container">
-            <div class="string"></div>
-            <div class="lantern">
-                <div class="kanji">火</div>
-            </div>
-            <div class="lantern-glow"></div>
-        </div>
-
-        <!-- 2. The Header (Hanging Sign) -->
+        <!-- HEADER -->
         <header class="dojo-header">
             <div class="brand-sign-wrapper">
-                <img src="sdcburnedwood.png" alt="SDC Dojo" class="hanging-sign">
+                <img src="sdcburnedwood.png" alt="SDC Dojo Sign" class="hanging-sign" />
             </div>
+
             <h1 class="main-title">Self Defense Cooking</h1>
+
             <nav class="top-nav">
                 <a href="#recipes" class="nav-link">Recipes</a>
                 <a href="#apps" class="nav-link">Apps</a>
             </nav>
         </header>
 
-        <!-- 3. The Main Stage (Building the Room) -->
+
+        <!-- MAIN STAGE -->
         <main class="main-stage">
-            
+
+            <!-- Lantern -->
+            <div class="lantern-container">
+                <div class="string"></div>
+                <div class="lantern">
+                    <div class="kanji">火</div>
+                </div>
+                <div class="lantern-glow"></div>
+            </div>
+
+            <!-- Chef Composition -->
             <div class="chef-composition">
-                <!-- Floor Shadow to Ground Him -->
                 <div class="floor-shadow"></div>
-                
-                <!-- The Chef -->
-                <img src="chef-chilla.png" alt="Chef Chilla" class="chef-avatar breathing">
-                
-                <!-- The Reflection (Crucial for 'Polished Wood' look) -->
+
+                <img src="chef-chilla.png" alt="Chef Chilla" class="chef-avatar breathing" />
+
                 <div class="chef-reflection-wrapper">
-                    <img src="chef-chilla.png" alt="" class="chef-reflection breathing">
+                    <img src="chef-chilla.png" class="chef-reflection" alt="" />
                 </div>
             </div>
 
-            <!-- Props: Tea Cup (Foreground Depth) -->
+            <!-- Tea Cup Prop -->
             <div class="prop-tea">
                 <div class="tea-steam-particles"></div>
                 <div class="tea-cup"></div>
                 <div class="tea-shadow"></div>
             </div>
 
-            <!-- Props: Incense (Side Detail) -->
+            <!-- Incense Prop -->
             <div class="prop-incense">
-                <div class="smoke-stream"></div>
                 <div class="incense-stick"></div>
                 <div class="incense-glow"></div>
+                <div class="smoke-stream"></div>
             </div>
 
         </main>
 
-        <!-- 4. Atmosphere Overlays -->
+
+        <!-- OVERLAYS -->
         <div class="vignette-overlay"></div>
         <div class="dust-particles"></div>
 
-        <!-- 5. Footer -->
+
+        <!-- FOOTER -->
         <footer class="dojo-footer">
             <div class="email-drawer" id="email-drawer">
                 <div class="drawer-handle">
                     <span>Inquire</span>
                 </div>
-                <form class="drawer-content" action="mailto:eric@selfdefensecooking.com">
-                    <input type="text" class="dojo-input" placeholder="Request a technique...">
+                <form
+                    class="drawer-content"
+                    action="mailto:eric@selfdefensecooking.com"
+                >
+                    <input
+                        type="text"
+                        class="dojo-input"
+                        placeholder="Request a technique..."
+                    />
                     <button type="submit" class="dojo-btn">Send</button>
                 </form>
             </div>
         </footer>
+
     </div>
 
     <script src="script.js"></script>
