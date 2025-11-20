@@ -1,129 +1,106 @@
-/* RESET & GLOBAL STYLES */
-* {
+/* --- TACTICAL DOJO THEME --- */
+
+/* 1. The Room (Background) */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace; /* Tactical Typewriter Font */
+    background-image: url('bg-dojo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax feel */
+    color: #ecf0f1; /* Off-white text */
+    min-height: 100vh;
 }
 
-body {
-    font-family: 'Noto Serif JP', serif;
-    background: #0a0a0a;
-    color: #e0e0e0;
-    overflow-x: hidden;
-}
-
-/* ===================== HEADER ===================== */
-.dojo-header {
-    width: 100%;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(5px);
-    padding: 15px 0;
+/* 2. The Darkness (Overlay) */
+.overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    border-bottom: 1px solid #444;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.65); /* Darkens the room by 65% */
+    z-index: -1;
 }
 
-.header-inner {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.dojo-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.brand-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #e5dcca;
-    z-index: 10;
+/* 3. The Sensei (Chef Chilla) */
+.sensei-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid #E74C3C; /* Alert Orange */
+    box-shadow: 0 0 25px rgba(231, 76, 60, 0.6); /* Glowing Aura */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ===================== DESKTOP NAVIGATION ===================== */
-.main-nav { display: block; }
-
-.nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 35px;
+.sensei-avatar:hover {
+    transform: scale(1.1) rotate(-5deg); /* Playful tilt */
 }
 
-.nav-menu li {
+h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-shadow: 3px 3px 0px #000;
+    border-bottom: 2px solid #E74C3C;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.motto {
+    font-style: italic;
+    color: #bdc3c7;
+    margin-bottom: 50px;
+}
+
+/* 4. The Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* 5. The Cards (Wood Texture) */
+.card {
+    background-color: #2c3e50; /* Fallback if image fails */
+    background-image: url('card-texture.jpg');
+    background-size: cover;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    font-size: 1.1rem;
+    overflow: hidden;
 }
 
-.nav-menu a {
-    color: #c9c1b3;
-    text-decoration: none;
-    padding: 8px 0;
-    transition: color 0.3s ease;
+.card:hover {
+    transform: translateY(-10px) scale(1.02); /* 3D Lift */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    border-color: #E74C3C; /* Glows orange on hover */
 }
 
-.nav-menu li:hover > a { color: #fff; }
-
-.disabled-link {
-    color: #777 !important;
-    cursor: not-allowed;
+/* Card Content */
+.card h2 {
+    margin-top: 0;
+    color: #E74C3C; /* Orange Title */
+    text-shadow: 1px 1px 0 #000;
 }
 
-.dropdown {
-    display: none;
-    position: absolute;
-    background: rgba(20, 20, 20, 0.9);
-    padding: 10px;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 200px;
-    border-radius: 5px;
-    border-top: 2px solid #e5dcca;
+.tag {
+    display: inline-block;
+    background: rgba(0,0,0,0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    border: 1px solid #777;
 }
-
-.menu:hover .dropdown { display: block; }
-.dropdown li { padding: 10px; }
-.dropdown li a:hover { color: #fff; }
-
-/* ===================== HAMBURGER & MOBILE NAV ===================== */
-.hamburger-menu { display: none; }
-
-/* ===================== MAIN DOJO SCENE ===================== */
-.dojo-scene {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dojo-bg-wrapper {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-}
-
-.dojo-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.5);
-}
-
-.bg-dim-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, transparent 50%, rgba(10,10,10,0.8) 100%);
-}
-
-.chilla-wrapper {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translateY(10%); /* Adjust to center him
