@@ -1,130 +1,40 @@
-/* ============ GLOBAL THEME ============ */
-
-:root {
-    --ink-black: #0a0a0a;
-    --warm-wood: #4a3427;
-    --crisp-white: #f5f3ee;
-    --gold-accent: #c5a059;
-
-    --font-title: 'Yuji Syuku', serif;
-    --font-body: 'Kiwi Maru', serif;
-}
-
-/* Reset */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    overflow: hidden;
+    background: #000;
+    font-family: serif;
 }
 
-body {
-    font-family: var(--font-body);
-    color: var(--crisp-white);
-    background: var(--ink-black);
-    overflow-x: hidden;
-}
-
-/* ============ BACKGROUND ============ */
-
-.page-background {
-    position: fixed;
-    inset: 0;
-    background-image: url("sdcburnedwood.png");
-    background-size: cover;
-    background-position: center;
-    opacity: 0.85;
-    z-index: -2;
-}
-
-/* ============ NAV BAR ============ */
-
-.top-nav {
-    width: 100%;
-    padding: 1.2rem 2rem;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-
-.top-nav h1 {
-    font-family: var(--font-title);
-    font-size: 2rem;
-    letter-spacing: 2px;
-    color: var(--gold-accent);
-}
-
-/* nav items */
-.nav-group {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-item {
+#dojo-container {
     position: relative;
-    font-family: var(--font-title);
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: 0.2s;
+    width: 100vw;
+    height: 100vh;
 }
 
-.nav-item:hover {
-    color: var(--gold-accent);
-}
-
-/* dropdown */
-.dropdown {
-    display: none;
-    flex-direction: column;
+#dojo-bg {
     position: absolute;
-    top: 120%;
-    left: 0;
-    min-width: 200px;
-    background: rgba(0,0,0,0.85);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.dropdown a {
-    padding: 0.6rem 1rem;
-    text-decoration: none;
-    color: var(--crisp-white);
-}
-
-.dropdown a:hover {
-    background: rgba(255,255,255,0.1);
-    color: var(--gold-accent);
-}
-
-.nav-item:hover .dropdown {
-    display: flex;
-}
-
-/* ============ HERO SECTION ============ */
-
-.hero {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
+    height: 100%;
+    object-fit: cover;
+    animation: slowFade 12s infinite;
 }
 
-.hero-image {
-    width: 100%;
-    max-width: 900px;
-    border-radius: 6px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+@keyframes slowFade {
+    0%   { opacity: 1; }
+    20%  { opacity: 1; }
+    30%  { opacity: 0; }
+    50%  { opacity: 1; }
+    100% { opacity: 1; }
 }
 
-/* ============ FOOTER ============ */
-
-.inquiry-footer {
-    font-family: var(--font-title);
-    font-size: 1.4rem;
-    text-align: center;
-    padding: 2rem 0;
-    color: var(--gold-accent);
-    margin-top: 2rem;
-    letter-spacing: 1px;
+/* Chef Chilla Canvas */
+#chilla-canvas {
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+    pointer-events: none;
 }
