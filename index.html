@@ -3,43 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self-Defense Cooking | The Culinary Dojo</title>
+    <title>Self-Defense Cooking Dojo</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Teko:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ===================== DOJO BACKGROUND ===================== -->
-    <div class="parallax-bg-wrapper">
-        <div class="bg-dojo" style="background-image: url('bg-dojo.jpg');"></div>
-        <div class="bg-overlay"></div>
+    <div class="overlay"></div>
+
+    <div class="dojo-container">
+        <header>
+            <div class="sensei-wrapper">
+                <img src="sensei-chilla.jpg" alt="Chef Chilla" class="sensei-avatar">
+            </div>
+            <h1>Self-Defense Cooking</h1>
+            <p class="motto">"Panic is the Enemy. The Fridge is the Battleground."</p>
+        </header>
+
+        <div id="recipe-grid" class="grid">
+            </div>
+
+        <footer>
+            <p>&copy; 2025 The Dojo. All Rights Reserved.</p>
+        </footer>
     </div>
 
-    <!-- ===================== HEADER ===================== -->
-    <header class="dojo-header">
-        <div class="header-inner">
-            <div class="sensei-brand">
-                <img src="sensei-chilla.jpg" alt="Sensei Chilla" class="sensei-avatar">
-                <h1>Self-Defense Cooking</h1>
-            </div>
-            <!-- Navigation can be added back here later if needed -->
-        </div>
-    </header>
-
-    <!-- ===================== CONTENT ===================== -->
-    <main class="content-wrapper">
-        <div class="recipe-grid">
-
-            <!-- Recipe Card 1 -->
-            <article class="recipe-card">
-                <div class="card-content">
-                    <h2>The Way of the Wok</h2>
-                    <p>A foundational technique for achieving 'wok hei' - the breath of the wok. This is less a recipe and more a philosophy of heat, speed, and flavor.</p>
-                </div>
-            </article>
-
-            <!-- Recipe Card 2 -->
-            <article class="recipe-card">
-                <
+    <script src="script.js"></script>
+</body>
+</html>
