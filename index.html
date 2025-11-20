@@ -3,90 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self Defense Cooking Dojo</title>
+    <title>Self-Defense Cooking | The Culinary Dojo</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Teko:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-<body style="background-image: url('bg-dojo.jpg'); background-size: cover; background-attachment: fixed;">
-<!-- ===================== HEADER ===================== -->
-<header class="dojo-header"><img src="sensei-chilla.jpg" 
-     alt="Sensei Chilla" 
-     style="width:120px; border-radius:50%; display:block; margin:20px auto;">
 
-    <div class="header-inner">
-        <div class="brand-title">Self Defense Cooking</div>
-        <div class="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- ===================== DOJO BACKGROUND ===================== -->
+    <div class="parallax-bg-wrapper">
+        <div class="bg-dojo" style="background-image: url('bg-dojo.jpg');"></div>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="dojo-header">
+        <div class="header-inner">
+            <div class="sensei-brand">
+                <img src="sensei-chilla.jpg" alt="Sensei Chilla" class="sensei-avatar">
+                <h1>Self-Defense Cooking</h1>
+            </div>
+            <!-- Navigation can be added back here later if needed -->
         </div>
-        <nav class="main-nav">
-            <ul class="nav-menu">
-                <li><a href="#recipes">Recipes</a></li>
-                <li class="menu">Apps
-                    <ul class="dropdown">
-                        <li><a href="#" class="disabled-link">Inventory Counter</a></li>
-                        <li><a href="#" class="disabled-link">Conversion Calculator</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+    </header>
 
-<!-- ===================== MAIN DOJO SCENE ===================== -->
-<main class="dojo-scene">
-    <div class="dojo-bg-wrapper">
-        <img src="sdc-dojo-wall.png" class="dojo-bg" alt="SDC Dojo Calligraphy Wall">
-        <div class="bg-dim-overlay"></div>
-    </div>
+    <!-- ===================== CONTENT ===================== -->
+    <main class="content-wrapper">
+        <div class="recipe-grid">
 
-    <div class="chilla-wrapper">
-        <div class="css-smoke smoke-1"></div>
-        <div class="css-smoke smoke-2"></div>
-        <div class="tatami-mat"></div>
-        <img src="chef-chilla.png" class="chef-chilla" alt="Chef Chilla meditating">
-    </div>
-</main>
-
-<!-- ===================== CONTENT SECTIONS ===================== -->
-<div class="content-wrapper">
-
-    <!-- ===================== RECIPES SECTION ===================== -->
-    <section id="recipes" class="content-section">
-        <h2>The Recipes</h2>
-        <p>A database of culinary techniques for a balanced life. Coming soon.</p>
-        <!-- Recipe cards will go here -->
-    </section>
-
-    <!-- ===================== DONATE SECTION ===================== -->
-    <section class="donate-section">
-        <h2>Support the Dojo</h2>
-        <p>Your generosity keeps this dojo ad-free and open to all. Every contribution fuels our mission.</p>
-        <a href="mailto:eric@selfdefensecooking.com?subject=Donation Inquiry" class="donate-button">Contribute</a>
-    </section>
-
-    <!-- ===================== CONTACT SECTION ===================== -->
-    <section class="contact-section-new">
-        <div class="contact-inner">
-            <h3>Message Chef Chilla</h3>
-            <p>Share your questions, your progress, or your favorite recipe.</p>
-            <form action="mailto:eric@selfdefensecooking.com" method="POST" enctype="text/plain">
-                <div class="form-row">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
+            <!-- Recipe Card 1 -->
+            <article class="recipe-card">
+                <div class="card-content">
+                    <h2>The Way of the Wok</h2>
+                    <p>A foundational technique for achieving 'wok hei' - the breath of the wok. This is less a recipe and more a philosophy of heat, speed, and flavor.</p>
                 </div>
-                <textarea name="message" placeholder="Your message for the Chef..." required></textarea>
-                <button type="submit">Send Your Message</button>
-            </form>
-        </div>
-    </section>
+            </article>
 
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+            <!-- Recipe Card 2 -->
+            <article class="recipe-card">
+                <
