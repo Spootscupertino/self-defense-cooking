@@ -1,13 +1,22 @@
+/* ----------------------------------------------------------
+   SELF DEFENSE COOKING — DOJO MASTER STYLESHEET
+   Rebuilt from scratch, clean, cinematic, and Chilla-ready.
+-----------------------------------------------------------*/
+
 :root {
     --ink-black: #0d0d0d;
     --wood-tone: #5D4037;
-    --lantern-red: #b71c1c;--tea-green: #558b2f;
     --gold-accent: #C5A059;
+    --lantern-red: #b71c1c;
     --font-title: 'Yuji Syuku', serif;
     --font-body: 'Kiwi Maru', serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     background-color: var(--ink-black);
@@ -17,221 +26,23 @@ body {
     height: 100vh;
 }
 
+/* ----------------------------------------------------------
+   DOJO BACKGROUND
+-----------------------------------------------------------*/
+
 .dojo-container {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url('dojo image.png');
+    background-image: url("dojo%20image.png");
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Add a warm overlay to the whole scene to unify colors */
-    box-shadow: inset 0 0 150px rgba(0,0,0,0.8);
-}
 
-/* --- Header --- */
-.dojo-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 0 2rem;
-    z-index: 20;
-}
+    /* Warm unified lighting */
+    filter: brightness(1.12) sepia(0.12);
 
-.brand-sign-wrapper {
-    width: 70px;
-    margin-top: -10px; /* Hang from top */
-}
-
-.hanging-sign {
-    width: 100%;
-    filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.8));
-    transform-origin: top center;
-    animation: gentleSway 8s ease-in-out infinite;
-}
-
-.main-title {
-    font-family: var(--font-title);
-    font-size: 2.5rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,1);
-    margin-top: 2rem;
-    flex-grow: 1;
-    text-align: center;
-}
-
-.top-nav { margin-top: 2.5rem; display: flex; gap: 2rem; }
-.nav-link { color: #ccc; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; transition: color 0.3s; }
-.nav-link:hover { color: var(--gold-accent); }
-
-/* --- THE STAGE (Composition) --- */
-.main-stage {
-    flex-grow: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Align to floor */
-    padding-bottom: 5vh; /* Floor level */
-    z-index: 10;
-    perspective: 1000px;
-}
-
-.chef-composition {
-    position: relative;
-    width: 350px; /* Adjust container to chef size */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 1. The Chef */
-.chef-avatar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    z-index: 2;
-    /* COLOR GRADING: This blends him into the scene */
-    filter: sepia(0.2) contrast(1.1) drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-}
-
-/* 2. The Reflection (Grounding him) */
-.chef-reflection-wrapper {
-    height: 150px;
-    overflow: hidden;
-    margin-top: -10px;
-    opacity: 0.3;
-    transform: scaleY(-1) skewX(-5deg); /* Mirror & Skew for perspective */
-    filter: blur(2px);
-    /* Fade out the reflection */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), transparent);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), transparent);
-    z-index: 1;
-}
-
-.chef-reflection {
-    width: 100%;
-}
-
-/* 3. The Shadow (Contact point) */
-.floor-shadow {
-    position: absolute;
-    bottom: 10px; /* Right at feet */
-    width: 70%;
-    height: 20px;
-    background: rgba(0,0,0,0.6);
-    border-radius: 50%;
-    filter: blur(8px);
-    z-index: 1;
-}
-
-/* --- PROPS: CSS Drawn Lantern --- */
-.lantern-container {
-    position: absolute;
-    top: -20px;
-    left: 10%;
-    z-index: 5;
-    transform-origin: top center;
-    animation: lanternSwing 6s ease-in-out infinite;
-}
-
-.string { width: 2px; height: 60px; background: #333; margin: 0 auto; }
-.lantern {
-    width: 60px; height: 80px;
-    background: var(--lantern-red);
-    border-radius: 10px;
-    display: flex; justify-content: center; align-items: center;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 20px rgba(255, 100, 0, 0.3);
-    position: relative;
-}
-.lantern::before, .lantern::after {
-    content: ''; position: absolute; width: 100%; height: 6px; background: #222;
-}
-.lantern::before { top: 0; } .lantern::after { bottom: 0; }
-.kanji { color: rgba(0,0,0,0.6); font-weight: bold; font-size: 1.5rem; }
-.lantern-glow {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(255, 160, 0, 0.15), transparent 70%);
-    pointer-events: none;
-    animation: flicker 4s infinite;
-}
-
-/* --- PROPS: CSS Drawn Tea Cup --- */
-.prop-tea {
-    position: absolute;
-    bottom: 5vh;
-    right: 20%;
-    z-index: 15; /* In front of Chef */
-}
-.tea-cup {
-    width: 30px; height: 25px;
-    background: #ddd;
-    border-radius: 0 0 15px 15px;
-    box-shadow: inset -5px 0 5px rgba(0,0,0,0.1);
-    position: relative;
-}
-.tea-cup::after { /* Handle */
-    content: ''; position: absolute; right: -8px; top: 5px;
-    width: 8px; height: 12px; border: 3px solid #ddd; border-radius: 50%;
-}
-.tea-shadow {
-    position: absolute; bottom: -5px; left: 5px;
-    width: 20px; height: 5px; background: rgba(0,0,0,0.5);
-    border-radius: 50%; filter: blur(2px); z-index: -1;
-}
-.tea-steam-particles {
-    position: absolute; bottom: 20px; left: 5px;
-    width: 20px; height: 40px;
-    background: radial-gradient(rgba(255,255,255,0.4), transparent);
-    filter: blur(8px);
-    animation: riseSteam 3s infinite;
-}
-
-/* --- PROPS: Incense --- */
-.prop-incense {
-    position: absolute;
-    bottom: 8vh;
-    left: 15%;
-    z-index: 12;
-}
-.incense-stick {
-    width: 2px; height: 40px; background: #8d6e63;
-    transform: rotate(10deg);
-}
-.incense-glow {
-    position: absolute; top: 0; right: -1px;
-    width: 4px; height: 4px; background: #ff5722;
-    border-radius: 50%; box-shadow: 0 0 10px #ff5722;
-    animation: burn 0.2s infinite alternate;
-}
-.smoke-stream {
-    position: absolute; bottom: 40px; left: 0;
-    width: 2px; height: 100px;
-    background: linear-gradient(to top, rgba(255,255,255,0.3), transparent);
-    filter: blur(4px);
-    animation: snakeSmoke 5s infinite linear;
-}
-
-/* --- Atmosphere --- */
-.vignette-overlay { position: absolute; inset: 0; background: radial-gradient(transparent 50%, black 100%); pointer-events: none; z-index: 18; }
-.dust-particles {
-    position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(255,255,200,0.3) 1px, transparent 1px);
-    background-size: 100px 100px;
-    animation: floatDust 40s linear infinite;
-    z-index: 19; pointer-events: none;
-}
-
-/* --- Footer --- */
-.dojo-footer { position: absolute; bottom: 0; width: 100%; display: flex; justify-content: center; z-index: 30; }
-.email-drawer {
-    background: rgba(15, 14, 12, 0.95); border: 1px solid var(--wood-tone);
-    width: 300px; transform: translateY(85%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.email-drawer:hover, .email-drawer.open { transform: translateY(0); }
-.drawer-handle { text-align: center; padding: 10px; color: var(--gold-accent); cursor: pointer; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
-.drawer-content { padding: 20px; display: flex; gap: 10px; }
-.dojo-input { background: #222; border: 1px solid #444; color: white; padding: 8px; flex-grow: 1; font-family: var(--font-body); }
-.dojo-btn { background: var(--wood-tone); color: white; border: none; padding: 8px 15px; cursor: pointer; }
+    /* Cinematic vignette */
+    box-shadow: inset 0 0 200px
