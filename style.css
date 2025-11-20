@@ -1,4 +1,4 @@
-/* RESET ---------------------------- */
+/* RESET & GLOBAL STYLES */
 * {
     margin: 0;
     padding: 0;
@@ -6,27 +6,28 @@
 }
 
 body {
-    font-family: "Kemji", sans-serif;
-    background: #111;
-    color: white;
+    font-family: 'Noto Serif JP', serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
     overflow-x: hidden;
 }
 
 /* ===================== HEADER ===================== */
 .dojo-header {
     width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
-    padding: 12px 0;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(5px);
+    padding: 15px 0;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 50;
-    border-bottom: 2px solid #553c27;
+    z-index: 100;
+    border-bottom: 1px solid #444;
 }
 
 .header-inner {
     width: 90%;
+    max-width: 1200px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -34,113 +35,95 @@ body {
 }
 
 .brand-title {
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    color: #f2e5c4;
-    z-index: 10; /* Ensure it's above the nav on mobile */
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #e5dcca;
+    z-index: 10;
 }
 
 /* ===================== DESKTOP NAVIGATION ===================== */
-.main-nav {
-    display: block;
-}
+.main-nav { display: block; }
 
 .nav-menu {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 35px;
 }
 
 .nav-menu li {
     position: relative;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 5px 10px;
-    color: #f2e5c4;
+    font-size: 1.1rem;
 }
 
-.nav-menu li:hover {
-    color: #ffe0a3;
+.nav-menu a {
+    color: #c9c1b3;
+    text-decoration: none;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li:hover > a { color: #fff; }
+
+.disabled-link {
+    color: #777 !important;
+    cursor: not-allowed;
 }
 
 .dropdown {
     display: none;
     position: absolute;
-    background: rgba(40, 30, 20, 0.95);
-    padding: 10px 0;
-    top: 32px;
-    min-width: 180px;
-    border: 2px solid #3a2b1b;
+    background: rgba(20, 20, 20, 0.9);
+    padding: 10px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    border-radius: 5px;
+    border-top: 2px solid #e5dcca;
 }
 
-.menu:hover .dropdown {
-    display: block;
-}
-
-.dropdown li {
-    padding: 8px 20px;
-}
-
-.dropdown li a {
-    color: #f2e5c4;
-    text-decoration: none;
-}
-
-.dropdown li:hover {
-    background: rgba(255, 235, 200, 0.1);
-}
+.menu:hover .dropdown { display: block; }
+.dropdown li { padding: 10px; }
+.dropdown li a:hover { color: #fff; }
 
 /* ===================== HAMBURGER & MOBILE NAV ===================== */
-.hamburger-menu {
-    display: none; /* Hidden on desktop */
-    cursor: pointer;
-    z-index: 10;
+.hamburger-menu { display: none; }
+
+/* ===================== MAIN DOJO SCENE ===================== */
+.dojo-scene {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hamburger-menu span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px 0;
-    background-color: #f2e5c4;
-    transition: all 0.3s ease-in-out;
+.dojo-bg-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
 }
 
+.dojo-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
 
-/* ===================== MEDIA QUERY FOR MOBILE ===================== */
-@media (max-width: 768px) {
-    .brand-title {
-        font-size: 1.5rem;
-    }
+.bg-dim-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 50%, rgba(10,10,10,0.8) 100%);
+}
 
-    .hamburger-menu {
-        display: block; /* Show hamburger on mobile */
-    }
-
-    /* Transform hamburger to 'X' when active */
-    .hamburger-menu.active span:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger-menu.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger-menu.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .main-nav {
-        display: block;
-    }
-    
-    .nav-menu {
-        position: absolute;
-        top: 0;
-        left: -100%; /* Start off-screen */
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        transition: left 0.3s ease-in
+.chilla-wrapper {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(10%); /* Adjust to center him
