@@ -1,1 +1,69 @@
+/* Fade In Down */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -50px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
 
+/* Fade In Up */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 50px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Breeze Animation for Overlay */
+@keyframes breezePass {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* Levitation with a slight rotation */
+@keyframes levitate {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(1deg); }
+    75% { transform: translateY(5px) rotate(-1deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+.hover-levitate {
+    animation: levitate 8s ease-in-out infinite;
+}
+
+.fade-in-down {
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.4s; opacity: 0; animation-fill-mode: forwards; }
+.delay-2 { animation-delay: 0.8s; opacity: 0; animation-fill-mode: forwards; }
+
+/* Ink Splash Effect on Button Click (optional purely css visual) */
+@keyframes splash {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.stamp-btn:active .ink-splash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: splash 0.6s linear;
+}
