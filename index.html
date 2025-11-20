@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Self Defense Cooking Dojo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Defense Cooking Dojo</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -12,25 +14,18 @@
 <header class="dojo-header">
     <div class="header-inner">
         <div class="brand-title">Self Defense Cooking</div>
-
-        <!-- HAMBURGER ICON FOR MOBILE -->
         <div class="hamburger-menu">
             <span></span>
             <span></span>
             <span></span>
         </div>
-
         <nav class="main-nav">
             <ul class="nav-menu">
-                <li class="menu">Book
-                    <ul class="dropdown">
-                        <li><a href="#">Self Defense Cooking</a></li>
-                    </ul>
-                </li>
+                <li><a href="#recipes">Recipes</a></li>
                 <li class="menu">Apps
                     <ul class="dropdown">
-                        <li><a href="#">Inventory Voice Command</a></li>
-                        <li><a href="#">Conversions Calculator</a></li>
+                        <li><a href="#" class="disabled-link">Inventory Counter</a></li>
+                        <li><a href="#" class="disabled-link">Conversion Calculator</a></li>
                     </ul>
                 </li>
             </ul>
@@ -38,40 +33,56 @@
     </div>
 </header>
 
-<!-- ===================== The rest of your HTML remains the same... ===================== -->
-<!-- (Dojo Background, Burned Logo, Chef Chilla, Contact Sign) -->
+<!-- ===================== MAIN DOJO SCENE ===================== -->
+<main class="dojo-scene">
+    <div class="dojo-bg-wrapper">
+        <img src="sdc-dojo-wall.png" class="dojo-bg" alt="SDC Dojo Calligraphy Wall">
+        <div class="bg-dim-overlay"></div>
+    </div>
 
-<div class="dojo-bg-wrapper">
-    <img src="dojo image.png" class="dojo-bg" alt="Dojo Background">
-    <div class="bg-dim-overlay"></div>
-</div>
-<div class="sdc-logo">
-    <img src="sdcburnedwood.png" alt="SDC Logo">
-</div>
-<div class="chilla-wrapper">
-    <div class="css-smoke smoke-1"></div>
-    <div class="css-smoke smoke-2"></div>
-    <div class="tatami-mat"></div>
-    <img src="chef-chilla.png" class="chef-chilla" alt="Chef Chilla">
-</div>
-<section class="contact-section">
-    <div class="hanging-sign">
-        <div class="rope left-rope"></div>
-        <div class="rope right-rope"></div>
-        <div class="sign-board">
-            <h2>Message Chef Chilla</h2>
+    <div class="chilla-wrapper">
+        <div class="css-smoke smoke-1"></div>
+        <div class="css-smoke smoke-2"></div>
+        <div class="tatami-mat"></div>
+        <img src="chef-chilla.png" class="chef-chilla" alt="Chef Chilla meditating">
+    </div>
+</main>
+
+<!-- ===================== CONTENT SECTIONS ===================== -->
+<div class="content-wrapper">
+
+    <!-- ===================== RECIPES SECTION ===================== -->
+    <section id="recipes" class="content-section">
+        <h2>The Recipes</h2>
+        <p>A database of culinary techniques for a balanced life. Coming soon.</p>
+        <!-- Recipe cards will go here -->
+    </section>
+
+    <!-- ===================== DONATE SECTION ===================== -->
+    <section class="donate-section">
+        <h2>Support the Dojo</h2>
+        <p>Your generosity keeps this dojo ad-free and open to all. Every contribution fuels our mission.</p>
+        <a href="mailto:eric@selfdefensecooking.com?subject=Donation Inquiry" class="donate-button">Contribute</a>
+    </section>
+
+    <!-- ===================== CONTACT SECTION ===================== -->
+    <section class="contact-section-new">
+        <div class="contact-inner">
+            <h3>Message Chef Chilla</h3>
+            <p>Share your questions, your progress, or your favorite recipe.</p>
             <form action="mailto:eric@selfdefensecooking.com" method="POST" enctype="text/plain">
-                <input type="text" name="name" placeholder="Your Name">
-                <input type="email" name="email" placeholder="Your Email">
-                <textarea name="message" placeholder="Your message for Chef Chilla..."></textarea>
-                <button type="submit">Send Message</button>
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <textarea name="message" placeholder="Your message for the Chef..." required></textarea>
+                <button type="submit">Send Your Message</button>
             </form>
         </div>
-    </div>
-</section>
+    </section>
 
+</div>
 
-<!-- LINK TO YOUR JAVASCRIPT FILE -->
 <script src="script.js"></script>
 
 </body>
