@@ -1,67 +1,40 @@
-/* Global */
-body {
+/* Full reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     overflow: hidden;
-    background: linear-gradient(180deg, #2b1f14, #1a130d);
+    background: #0d0a07;
     font-family: serif;
 }
 
 /* Dojo Container */
 #dojo-container {
-    position: relative;
+    position: fixed;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 }
 
-/* Dojo Background Cycling */
+/* Static dojo background */
 #dojo-bg {
     position: absolute;
-    width: 105%;      /* slight zoom creates cinematic depth */
-    height: 105%;
-    top: -2%;
-    left: -2%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    opacity: 0;
-    animation: dojoFade 36s infinite ease-in-out;
+    object-position: center center;
 }
 
-/* Wood Burn Overlay */
+/* Wood burn overlay for warmth */
 #wood-overlay {
     position: absolute;
     inset: 0;
-    background: url("assets/wood_texture.png");
-    opacity: 0.12;
+    background: url("assets/dojo/wood_texture.png");
+    opacity: 0.14;
     mix-blend-mode: multiply;
     pointer-events: none;
-}
-
-/* Soft fade rotation */
-@keyframes dojoFade {
-    0%   { opacity: 1; }
-    25%  { opacity: 1; transform: scale(1); }
-    40%  { opacity: 0; transform: scale(1.015); }
-    60%  { opacity: 1; transform: scale(1); }
-    100% { opacity: 1; }
-}
-
-/* Chef Chilla */
-#chilla-canvas {
-    position: absolute;
-    bottom: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 230px;
-    height: 230px;
-    pointer-events: none;
-    opacity: 0.85;
-    animation: chillaBreath 5s ease-in-out infinite;
-}
-
-/* Subtle breathing motion */
-@keyframes chillaBreath {
-    0%   { transform: translateX(-50%) scale(1); }
-    50%  { transform: translateX(-50%) scale(1.025); }
-    100% { transform: translateX(-50%) scale(1); }
 }
