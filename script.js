@@ -5,16 +5,16 @@
 document.addEventListener('DOMContentLoaded', function () {
 	const form = document.getElementById('contact-form');
 	const textarea = document.getElementById('contact-message');
-	if (!form || !textarea) return;
-
-	form.addEventListener('submit', function (e) {
-		e.preventDefault();
-		const email = 'eric@selfdefensecooking.com';
-		const subject = encodeURIComponent('Inquiry from Self Defense Cooking');
-		const body = encodeURIComponent(textarea.value || '');
-		// Open the default mail client via mailto
-		window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-	});
+	if (form && textarea) {
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+			const email = 'eric@selfdefensecooking.com';
+			const subject = encodeURIComponent('Inquiry from Self Defense Cooking');
+			const body = encodeURIComponent(textarea.value || '');
+			// Open the default mail client via mailto
+			window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+		});
+	}
     
 	// No more spinning or flipping for Chef Chilla; he sits still and breathes gently.
 
@@ -163,33 +163,66 @@ document.addEventListener('DOMContentLoaded', function () {
 	styleSheet.textContent = `@keyframes idle-breath { 0%{transform: translateY(0) scale(1);} 50%{transform: translateY(-2px) scale(1.01);} 100%{transform: translateY(0) scale(1);} }`;
 	document.head.appendChild(styleSheet);
 
-	// --- Tweak panel wiring: allow live adjustments of Chef Chilla using CSS variables ---
+	// --- Tweak panel wiring: allow live adjustments of title using CSS variables ---
 	const root = document.documentElement;
+	const elTitleTop = document.getElementById('title-top');
+	const elTitleSize = document.getElementById('title-size');
+	const elBreathDuration = document.getElementById('breath-duration');
+	const elInhaleIntensity = document.getElementById('inhale-intensity');
+	const elExhaleHold = document.getElementById('exhale-hold');
 	const elTranslate = document.getElementById('chef-translateY');
 	const elScale = document.getElementById('chef-scale');
 	const elOffset = document.getElementById('chef-offsetX');
+	const valTitleTop = document.getElementById('val-titleTop');
+	const valTitleSize = document.getElementById('val-titleSize');
+	const valBreathDuration = document.getElementById('val-breathDuration');
+	const valInhaleIntensity = document.getElementById('val-inhaleIntensity');
+	const valExhaleHold = document.getElementById('val-exhaleHold');
 	const valTranslate = document.getElementById('val-translateY');
 	const valScale = document.getElementById('val-scale');
 	const valOffset = document.getElementById('val-offsetX');
-	const btnReset = document.getElementById('chef-reset');
-	const btnHide = document.getElementById('chef-hide');
+	const btnReset = document.getElementById('title-reset');
+	const btnHide = document.getElementById('title-hide');
+
+	const dojoContainer = document.getElementById('dojo-container');
+	const heroStage = document.querySelector('.hero-stage');
 
 	function updateVars() {
+		if (elTitleTop) root.style.setProperty('--title-top', elTitleTop.value + 'px');
+		if (elTitleSize) root.style.setProperty('--title-size', elTitleSize.value + 'rem');
+		if (elBreathDuration) root.style.setProperty('--breath-duration', elBreathDuration.value + 's');
+		if (elInhaleIntensity) root.style.setProperty('--inhale-opacity', elInhaleIntensity.value);
 		if (elTranslate) root.style.setProperty('--chef-translate-y', elTranslate.value + 'px');
 		if (elScale) root.style.setProperty('--chef-scale', elScale.value);
 		if (elOffset) root.style.setProperty('--chef-offset-x', elOffset.value + 'px');
-		if (valTranslate) valTranslate.textContent = (elTranslate ? elTranslate.value : getComputedStyle(root).getPropertyValue('--chef-translate-y')) + 'px';
-		if (valScale) valScale.textContent = (elScale ? elScale.value : getComputedStyle(root).getPropertyValue('--chef-scale')) + '×';
-		if (valOffset) valOffset.textContent = (elOffset ? elOffset.value : getComputedStyle(root).getPropertyValue('--chef-offset-x')) + 'px';
+		
+		if (valTitleTop) valTitleTop.textContent = (elTitleTop ? elTitleTop.value : '157') + 'px';
+		if (valTitleSize) valTitleSize.textContent = (elTitleSize ? elTitleSize.value : '1.1') + 'rem';
+		if (valBreathDuration) valBreathDuration.textContent = (elBreathDuration ? elBreathDuration.value : '4.5') + 's';
+		if (valInhaleIntensity) valInhaleIntensity.textContent = (elInhaleIntensity ? parseFloat(elInhaleIntensity.value).toFixed(1) : '2.0');
+		if (valExhaleHold) valExhaleHold.textContent = (elExhaleHold ? elExhaleHold.value : '1.4') + 's';
+		if (valTranslate) valTranslate.textContent = (elTranslate ? elTranslate.value : '100') + 'px';
+		if (valScale) valScale.textContent = (elScale ? elScale.value : '1.36') + '×';
+		if (valOffset) valOffset.textContent = (elOffset ? elOffset.value : '0') + 'px';
 	}
 
+	if (elTitleTop) elTitleTop.addEventListener('input', updateVars);
+	if (elTitleSize) elTitleSize.addEventListener('input', updateVars);
+	if (elBreathDuration) elBreathDuration.addEventListener('input', updateVars);
+	if (elInhaleIntensity) elInhaleIntensity.addEventListener('input', updateVars);
+	if (elExhaleHold) elExhaleHold.addEventListener('input', updateVars);
 	if (elTranslate) elTranslate.addEventListener('input', updateVars);
 	if (elScale) elScale.addEventListener('input', updateVars);
 	if (elOffset) elOffset.addEventListener('input', updateVars);
 
 	if (btnReset) btnReset.addEventListener('click', function () {
-		if (elTranslate) elTranslate.value = -52;
-		if (elScale) elScale.value = 1.32;
+		if (elTitleTop) elTitleTop.value = 157;
+		if (elTitleSize) elTitleSize.value = 1.1;
+		if (elBreathDuration) elBreathDuration.value = 4.5;
+		if (elInhaleIntensity) elInhaleIntensity.value = 2.0;
+		if (elExhaleHold) elExhaleHold.value = 1.4;
+		if (elTranslate) elTranslate.value = 100;
+		if (elScale) elScale.value = 2.3;
 		if (elOffset) elOffset.value = 0;
 		updateVars();
 	});
@@ -200,8 +233,47 @@ document.addEventListener('DOMContentLoaded', function () {
 		const hidden = panel.getAttribute('aria-hidden') === 'true';
 		panel.setAttribute('aria-hidden', hidden ? 'false' : 'true');
 		panel.style.display = hidden ? 'block' : 'none';
+		btnHide.textContent = hidden ? 'Hide' : 'Show';
 	});
 
 	// initialize
 	updateVars();
+
+	// --- Slow auto-rotation camera movement ---
+	let autoRotateAngle = 0;
+	const autoRotateSpeed = 0.015; // degrees per frame - slower
+	const autoRotateMax = 6; // max percentage in either direction
+	let autoRotateDirection = 1;
+
+	function autoRotate() {
+		autoRotateAngle += autoRotateSpeed * autoRotateDirection;
+		
+		// Reverse direction at limits
+		if (autoRotateAngle >= autoRotateMax) {
+			autoRotateDirection = -1;
+		} else if (autoRotateAngle <= -autoRotateMax) {
+			autoRotateDirection = 1;
+		}
+		
+		// Apply rotation
+		const rotateY = autoRotateAngle * 0.8;
+		const translateX = autoRotateAngle * 0.3;
+		
+		// Fixed zoom at 1.0
+		const currentZoom = 1.0;
+		const currentY = 0;
+		
+		if (dojoContainer) {
+			dojoContainer.style.transition = 'none';
+			dojoContainer.style.transform = `translateZ(0) scale(${currentZoom}) rotateY(${rotateY}deg) translate(${translateX}%, ${currentY}%)`;
+		}
+		if (heroStage) {
+			heroStage.style.transition = 'none';
+			heroStage.style.transform = `translateZ(0) scale(${currentZoom}) rotateY(${rotateY}deg) translate(${translateX}%, ${currentY}%)`;
+		}
+		
+		requestAnimationFrame(autoRotate);
+	}
+	
+	autoRotate();
 });

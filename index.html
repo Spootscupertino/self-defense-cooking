@@ -17,17 +17,15 @@
 <div id="dojo-container">
     <img id="dojo-bg" src="assets/dojo/dojo_front.png" alt="Dojo Background">
     <div id="wood-overlay"></div>
+    <!-- Site chrome + content overlay -->
+    <header class="top-bar" role="banner">
+        <!-- Removed spinning sprite from header -->
+
+        <!-- Ambient audio toggle (requires asset at assets/water_trickle.mp3) -->
+
+        <div class="top-bar-inner">Self Defense Cooking</div>
+    </header>
 </div>
-
-<!-- Site chrome + content overlay -->
-<header class="top-bar" role="banner">
-    <!-- Removed spinning sprite from header -->
-
-    <!-- Ambient audio toggle (requires asset at assets/water_trickle.mp3) -->
-    <button id="audio-toggle" class="audio-toggle" aria-pressed="false" aria-label="Toggle ambient water sound">💧</button>
-
-    <div class="top-bar-inner">Self Defense Cooking</div>
-</header>
 
 <div class="hero-stage">
     <div class="chef-spinner">
@@ -45,37 +43,36 @@
 
 <div id="particles" aria-hidden="true"></div>
 
-<!-- Contact box: opens user's mail client with message -->
-<form id="contact-form" class="contact-box" aria-label="Email enquiries to Self Defense Cooking">
-    <label for="contact-message" class="visually-hidden">Message</label>
-    <textarea id="contact-message" placeholder="Message (optional)" rows="2"></textarea>
-    <button type="submit" class="email-button">Email us</button>
-</form>
-            </div>
-        </div>
-    </section>
-</main>
-
-<!-- Contact box: opens user's mail client with message -->
-<form id="contact-form" class="contact-box" aria-label="Email enquiries to Self Defense Cooking">
-    <label for="contact-message" class="visually-hidden">Message</label>
-    <textarea id="contact-message" placeholder="Message (optional)" rows="2"></textarea>
-    <button type="submit" class="email-button">Email us</button>
-</form>
-
-<!-- Tweak panel: visible in dev to dial Chef Chilla's position -->
-<div class="tweak-panel" id="tweak-panel" aria-hidden="false">
-    <div style="font-weight:600;color:#ffe8b8;">Tune Chef Chilla</div>
+<!-- Tweak panel: visible in dev to dial settings -->
+<div class="tweak-panel" id="tweak-panel" aria-hidden="false" style="display:block;">
+    <div style="font-weight:600;color:#ffe8b8;">Chef Chilla Position</div>
     <label>Forward (translateY)
-        <div class="row"><input id="chef-translateY" type="range" min="-220" max="40" value="-52"><div class="value" id="val-translateY">-52px</div></div>
+        <div class="row"><input id="chef-translateY" type="range" min="-220" max="120" value="100"><div class="value" id="val-translateY">100px</div></div>
     </label>
     <label>Scale
-        <div class="row"><input id="chef-scale" type="range" min="0.4" max="2.4" step="0.02" value="1.32"><div class="value" id="val-scale">1.32×</div></div>
+        <div class="row"><input id="chef-scale" type="range" min="0.4" max="2.4" step="0.02" value="2.3"><div class="value" id="val-scale">2.3×</div></div>
     </label>
     <label>Left/Right
         <div class="row"><input id="chef-offsetX" type="range" min="-200" max="200" value="0"><div class="value" id="val-offsetX">0px</div></div>
     </label>
-    <div style="display:flex;gap:8px;margin-top:8px;"><button id="chef-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="chef-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Hide</button></div>
+    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Chef Chilla Breathing</div>
+    <label>Breath Duration
+        <div class="row"><input id="breath-duration" type="range" min="2" max="8" step="0.5" value="4.5"><div class="value" id="val-breathDuration">4.5s</div></div>
+    </label>
+    <label>Inhale Intensity
+        <div class="row"><input id="inhale-intensity" type="range" min="0" max="2" step="0.1" value="2.0"><div class="value" id="val-inhaleIntensity">2.0</div></div>
+    </label>
+    <label>Exhale Hold
+        <div class="row"><input id="exhale-hold" type="range" min="0" max="2" step="0.1" value="1.4"><div class="value" id="val-exhaleHold">1.4s</div></div>
+    </label>
+    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Title Controls</div>
+    <label>Top Position
+        <div class="row"><input id="title-top" type="range" min="20" max="200" value="157"><div class="value" id="val-titleTop">157px</div></div>
+    </label>
+    <label>Font Size
+        <div class="row"><input id="title-size" type="range" min="1" max="5" step="0.1" value="1.1"><div class="value" id="val-titleSize">1.1rem</div></div>
+    </label>
+    <div style="display:flex;gap:8px;margin-top:8px;"><button id="title-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="title-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Show</button></div>
 </div>
 
 <script src="script.js"></script>

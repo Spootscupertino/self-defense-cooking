@@ -6,7 +6,7 @@
 }
 
 body {
-    overflow: auto;
+    overflow: hidden;
     background: #0d0a07;
     font-family: serif;
 }
@@ -18,6 +18,8 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 /* Static dojo background */
@@ -42,26 +44,40 @@ body {
 /* Top bar */
 .top-bar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
+    top: var(--title-top);
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    background: rgba(10,8,6,0.45);
-    backdrop-filter: blur(4px);
-    z-index: 40;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    z-index: 5;
 }
 .top-bar-inner {
     font-family: 'Rock Salt', cursive;
-    font-size: 2.2rem;
-    letter-spacing: 0.04em;
-    color: #fff;
+    font-size: var(--title-size);
+    letter-spacing: 0.08em;
+    color: #4a3a2a;
     font-weight: 400;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 1px 0 #bfa76a;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    text-shadow: 
+        1px 1px 1px rgba(255,250,240,0.5),
+        -0.5px -0.5px 1px rgba(60,40,20,0.3),
+        0 0 3px rgba(0,0,0,0.1);
+    padding: 12px 24px;
+    white-space: nowrap;
+    filter: blur(0.4px) contrast(0.92) brightness(0.95);
+    opacity: 0.85;
+    mix-blend-mode: multiply;
+    background: url("assets/dojo/wood_texture.png");
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200px 200px;
+    background-position: center;
 }
 
 /* Audio toggle button in header */
@@ -377,8 +393,12 @@ body::after {
 /* CSS variables to make Chef Chilla easy to tweak */
 :root {
     --chef-offset-x: 0px;     /* horizontal tweak, added to translateX center */
-    --chef-translate-y: -52px; /* negative moves forward (up the screen) */
-    --chef-scale: 1.32;       /* scale to simulate closeness */
+    --chef-translate-y: 100px; /* negative moves forward (up the screen) */
+    --chef-scale: 2.3;       /* scale to simulate closeness */
+    --title-top: 157px;        /* distance from top */
+    --title-size: 1.1rem;     /* font size */
+    --breath-duration: 4.5s;    /* breathing animation duration */
+    --inhale-opacity: 2;      /* intensity of inhale (opacity of top layer) */
 }
 
 .tweak-panel {
@@ -408,6 +428,7 @@ body::after {
     background-size: cover;
     overflow: hidden;
     z-index: 10;
+    transform-style: preserve-3d;
 }
 
 .hero-stage::before {
@@ -528,32 +549,17 @@ body::after {
 
 .chef-top-layer {
     opacity: 0;
-    animation: breathe-deep 4s ease-in-out infinite alternate;
+    animation: breathe-deep var(--breath-duration) ease-in-out infinite alternate;
 }
 
 @keyframes breathe-deep {
     0%   { opacity: 0; }
-    100% { opacity: 1; }
+    100% { opacity: var(--inhale-opacity); }
 }
 
 /* Soft water drip branding in top left */
 .water-drip-brand {
-    position: fixed;
-    top: 12px;
-    left: 18px;
-    width: 44px;
-    height: 44px;
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0.88;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.18)) blur(0.5px);
-    animation: drip-bounce 2.8s cubic-bezier(.4,.8,.4,1) infinite alternate;
-}
-
-@keyframes drip-bounce {
-    0%   { transform: translateY(0) scale(1); }
-    60%  { transform: translateY(-6px) scale(1.04); }
-    100% { transform: translateY(0) scale(1); }
+    display: none;
 }
 
 .stage-orchid {
