@@ -162,4 +162,46 @@ document.addEventListener('DOMContentLoaded', function () {
 	const styleSheet = document.createElement('style');
 	styleSheet.textContent = `@keyframes idle-breath { 0%{transform: translateY(0) scale(1);} 50%{transform: translateY(-2px) scale(1.01);} 100%{transform: translateY(0) scale(1);} }`;
 	document.head.appendChild(styleSheet);
+
+	// --- Tweak panel wiring: allow live adjustments of Chef Chilla using CSS variables ---
+	const root = document.documentElement;
+	const elTranslate = document.getElementById('chef-translateY');
+	const elScale = document.getElementById('chef-scale');
+	const elOffset = document.getElementById('chef-offsetX');
+	const valTranslate = document.getElementById('val-translateY');
+	const valScale = document.getElementById('val-scale');
+	const valOffset = document.getElementById('val-offsetX');
+	const btnReset = document.getElementById('chef-reset');
+	const btnHide = document.getElementById('chef-hide');
+
+	function updateVars() {
+		if (elTranslate) root.style.setProperty('--chef-translate-y', elTranslate.value + 'px');
+		if (elScale) root.style.setProperty('--chef-scale', elScale.value);
+		if (elOffset) root.style.setProperty('--chef-offset-x', elOffset.value + 'px');
+		if (valTranslate) valTranslate.textContent = (elTranslate ? elTranslate.value : getComputedStyle(root).getPropertyValue('--chef-translate-y')) + 'px';
+		if (valScale) valScale.textContent = (elScale ? elScale.value : getComputedStyle(root).getPropertyValue('--chef-scale')) + '×';
+		if (valOffset) valOffset.textContent = (elOffset ? elOffset.value : getComputedStyle(root).getPropertyValue('--chef-offset-x')) + 'px';
+	}
+
+	if (elTranslate) elTranslate.addEventListener('input', updateVars);
+	if (elScale) elScale.addEventListener('input', updateVars);
+	if (elOffset) elOffset.addEventListener('input', updateVars);
+
+	if (btnReset) btnReset.addEventListener('click', function () {
+		if (elTranslate) elTranslate.value = -52;
+		if (elScale) elScale.value = 1.32;
+		if (elOffset) elOffset.value = 0;
+		updateVars();
+	});
+
+	if (btnHide) btnHide.addEventListener('click', function () {
+		const panel = document.getElementById('tweak-panel');
+		if (!panel) return;
+		const hidden = panel.getAttribute('aria-hidden') === 'true';
+		panel.setAttribute('aria-hidden', hidden ? 'false' : 'true');
+		panel.style.display = hidden ? 'block' : 'none';
+	});
+
+	// initialize
+	updateVars();
 });

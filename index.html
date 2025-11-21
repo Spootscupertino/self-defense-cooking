@@ -63,6 +63,21 @@
     <button type="submit" class="email-button">Email us</button>
 </form>
 
+<!-- Tweak panel: visible in dev to dial Chef Chilla's position -->
+<div class="tweak-panel" id="tweak-panel" aria-hidden="false">
+    <div style="font-weight:600;color:#ffe8b8;">Tune Chef Chilla</div>
+    <label>Forward (translateY)
+        <div class="row"><input id="chef-translateY" type="range" min="-220" max="40" value="-52"><div class="value" id="val-translateY">-52px</div></div>
+    </label>
+    <label>Scale
+        <div class="row"><input id="chef-scale" type="range" min="0.4" max="2.4" step="0.02" value="1.32"><div class="value" id="val-scale">1.32×</div></div>
+    </label>
+    <label>Left/Right
+        <div class="row"><input id="chef-offsetX" type="range" min="-200" max="200" value="0"><div class="value" id="val-offsetX">0px</div></div>
+    </label>
+    <div style="display:flex;gap:8px;margin-top:8px;"><button id="chef-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="chef-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Hide</button></div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
