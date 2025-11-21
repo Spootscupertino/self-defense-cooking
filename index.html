@@ -5,13 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Self Defense Cooking</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <div class="hero-stage">
+        <div class="chef-breathing-stack">
+            <img src="assets/chef-exhale.png" class="chef-base-layer" alt="Chef Chilla exhale" />
+            <img src="assets/chef-inhale.png" class="chef-top-layer" alt="Chef Chilla inhale" />
+        </div>
+    </div>
 <div id="dojo-container">
     <img id="dojo-bg" src="assets/dojo/dojo_front.png" alt="Dojo Background">
     <div id="wood-overlay"></div>
 </div>
+
+<!-- Site chrome + content overlay -->
+<header class="top-bar" role="banner">
+    <!-- Removed spinning sprite from header -->
+
+    <!-- Ambient audio toggle (requires asset at assets/water_trickle.mp3) -->
+    <button id="audio-toggle" class="audio-toggle" aria-pressed="false" aria-label="Toggle ambient water sound">💧</button>
+
+    <div class="top-bar-inner">Self Defense Cooking</div>
+</header>
+
+<div class="hero-stage">
+    <div class="chef-spinner">
+        <img src="chef chilla no background.png" alt="Chef Chilla" />
+        <div class="mat" aria-hidden="true"></div>
+        <div class="floor-shadow" aria-hidden="true"></div>
+    </div>
+</div>
+
+<!-- Lighting overlays and ambient particles for immersion -->
+<div class="lighting-overlays" aria-hidden="true">
+    <div class="spotlight"></div>
+    <div class="vignette"></div>
+</div>
+
+<div id="particles" aria-hidden="true"></div>
+
+<!-- Contact box: opens user's mail client with message -->
+<form id="contact-form" class="contact-box" aria-label="Email enquiries to Self Defense Cooking">
+    <label for="contact-message" class="visually-hidden">Message</label>
+    <textarea id="contact-message" placeholder="Message (optional)" rows="2"></textarea>
+    <button type="submit" class="email-button">Email us</button>
+</form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Contact box: opens user's mail client with message -->
+<form id="contact-form" class="contact-box" aria-label="Email enquiries to Self Defense Cooking">
+    <label for="contact-message" class="visually-hidden">Message</label>
+    <textarea id="contact-message" placeholder="Message (optional)" rows="2"></textarea>
+    <button type="submit" class="email-button">Email us</button>
+</form>
 
 <script src="script.js"></script>
 </body>
