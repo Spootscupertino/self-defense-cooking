@@ -8,7 +8,24 @@ let resizeHandler = null;
 let rafId = null;
 let sliderElement = null;
 let sliderHandler = null;
-let currentYawDeg = 0;
+let yawDeg = 0;
+let pitchDeg = 0;
+
+const PITCH_MAX = 80;
+const PITCH_MIN = -80;
+const YAW_SENSITIVITY = 0.18;
+const PITCH_SENSITIVITY = 0.14;
+
+let pointerDownHandler = null;
+let pointerMoveHandler = null;
+let pointerUpHandler = null;
+let pointerCancelHandler = null;
+let canvasElement = null;
+let activePointerId = null;
+let pointerStartX = 0;
+let pointerStartY = 0;
+let pointerStartYaw = 0;
+let pointerStartPitch = 0;
 
 function normalizeDegrees(value) {
     const degree = Number.isFinite(value) ? value : Number(value);
@@ -36,19 +53,31 @@ function describeHeading(deg) {
 
 function updateSliderAccessibility() {
     if (!sliderElement) return;
-    sliderElement.setAttribute('aria-valuenow', String(Math.round(currentYawDeg)));
-    sliderElement.setAttribute('aria-valuetext', describeHeading(currentYawDeg));
+    sliderElement.setAttribute('aria-valuenow', String(Math.round(yawDeg)));
+    sliderElement.setAttribute('aria-valuetext', describeHeading(yawDeg));
 }
 
-function setSkyboxYaw(degrees) {
-    currentYawDeg = normalizeDegrees(degrees);
-    const radians = THREE.MathUtils.degToRad(currentYawDeg);
-    if (skyboxMesh) {
-        skyboxMesh.rotation.y = -radians;
+function setOrientation(nextYaw, nextPitch, options = {}) {
+    const { syncSlider = true } = options;
+    if (typeof nextYaw === 'number') {
+        yawDeg = normalizeDegrees(nextYaw);
     }
-    if (sliderElement && document.activeElement !== sliderElement) {
-        sliderElement.value = currentYawDeg.toString();
+    if (typeof nextPitch === 'number') {
+        const clamped = Math.min(Math.max(nextPitch, PITCH_MIN), PITCH_MAX);
+        pitchDeg = clamped;
     }
+
+    const yawRad = THREE.MathUtils.degToRad(yawDeg);
+    const pitchRad = THREE.MathUtils.degToRad(pitchDeg);
+
+    if (camera) {
+        camera.rotation.set(pitchRad, yawRad, 0, 'YXZ');
+    }
+
+    if (syncSlider && sliderElement && document.activeElement !== sliderElement) {
+        sliderElement.value = yawDeg.toString();
+    }
+
     updateSliderAccessibility();
 }
 
@@ -67,6 +96,24 @@ function teardownViewer() {
     }
     sliderElement = null;
     sliderHandler = null;
+    if (canvasElement && pointerDownHandler) {
+        canvasElement.removeEventListener('pointerdown', pointerDownHandler);
+    }
+    if (pointerMoveHandler) {
+        window.removeEventListener('pointermove', pointerMoveHandler);
+    }
+    if (pointerUpHandler) {
+        window.removeEventListener('pointerup', pointerUpHandler);
+    }
+    if (pointerCancelHandler) {
+        window.removeEventListener('pointercancel', pointerCancelHandler);
+    }
+    pointerDownHandler = null;
+    pointerMoveHandler = null;
+    pointerUpHandler = null;
+    pointerCancelHandler = null;
+    canvasElement = null;
+    activePointerId = null;
     if (renderer) {
         renderer.dispose();
         renderer = null;
@@ -103,6 +150,71 @@ function createSkybox() {
     const geometry = new THREE.BoxGeometry(1200, 1200, 1200);
     skyboxMesh = new THREE.Mesh(geometry, materials);
     scene.add(skyboxMesh);
+}
+
+function registerPointerControls(canvas) {
+    if (!canvas) return;
+
+    canvas.style.cursor = 'grab';
+
+    pointerDownHandler = (event) => {
+        if (typeof event.button === 'number' && event.button !== 0) {
+            return;
+        }
+        activePointerId = event.pointerId;
+        pointerStartX = event.clientX;
+        pointerStartY = event.clientY;
+        pointerStartYaw = yawDeg;
+        pointerStartPitch = pitchDeg;
+        if (canvas.setPointerCapture) {
+            try {
+                canvas.setPointerCapture(activePointerId);
+            } catch (err) {
+                console.warn('Pointer capture failed', err);
+            }
+        }
+        canvas.style.cursor = 'grabbing';
+        event.preventDefault();
+    };
+
+    pointerMoveHandler = (event) => {
+        if (activePointerId === null || event.pointerId !== activePointerId) {
+            return;
+        }
+        const dx = event.clientX - pointerStartX;
+        const dy = event.clientY - pointerStartY;
+        const nextYaw = pointerStartYaw - dx * YAW_SENSITIVITY;
+        const nextPitch = pointerStartPitch - dy * PITCH_SENSITIVITY;
+        setOrientation(nextYaw, nextPitch);
+        event.preventDefault();
+    };
+
+    const releasePointer = () => {
+        if (canvas && activePointerId !== null && canvas.releasePointerCapture) {
+            try {
+                canvas.releasePointerCapture(activePointerId);
+            } catch (err) {
+                // no-op if pointer capture already released
+            }
+        }
+        activePointerId = null;
+        canvas.style.cursor = 'grab';
+    };
+
+    pointerUpHandler = (event) => {
+        if (event.pointerId !== activePointerId) return;
+        releasePointer();
+    };
+
+    pointerCancelHandler = (event) => {
+        if (event.pointerId !== activePointerId) return;
+        releasePointer();
+    };
+
+    canvas.addEventListener('pointerdown', pointerDownHandler);
+    window.addEventListener('pointermove', pointerMoveHandler);
+    window.addEventListener('pointerup', pointerUpHandler);
+    window.addEventListener('pointercancel', pointerCancelHandler);
 }
 
 export function initDojoViewer() {
@@ -146,15 +258,18 @@ export function initDojoViewer() {
         sliderHandler = (event) => {
             const raw = Number(event.target.value);
             if (!Number.isFinite(raw)) return;
-            setSkyboxYaw(raw);
+            setOrientation(raw, pitchDeg, { syncSlider: false });
         };
         sliderElement.addEventListener('input', sliderHandler);
         sliderElement.addEventListener('change', sliderHandler);
     }
 
-    const initialYawRaw = sliderElement ? Number(sliderElement.value) : currentYawDeg;
+    const initialYawRaw = sliderElement ? Number(sliderElement.value) : yawDeg;
     const initialYaw = Number.isFinite(initialYawRaw) ? initialYawRaw : 0;
-    setSkyboxYaw(initialYaw);
+    setOrientation(initialYaw, pitchDeg);
+
+    canvasElement = canvas;
+    registerPointerControls(canvas);
 
     const renderLoop = () => {
         rafId = requestAnimationFrame(renderLoop);
