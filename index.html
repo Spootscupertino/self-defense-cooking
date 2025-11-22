@@ -3,96 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self Defense Cooking</title>
+    <title>Self Defense Cooking - Dojo Viewer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="dojo-container">
-    <img id="dojo-bg" src="assets/dojo-bg.png" alt="Dojo Background">
-    <div id="wood-overlay"></div>
-    <img id="dojo-front" src="assets/dojo-front.png" alt="Dojo front shoji frame" aria-hidden="true">
-    
-    <div id="chef-chilla-container">
-        <img src="assets/chef-chilla-exhale.png" id="chef-breath-exhale" class="chef-breath-frame is-visible" alt="Chef Chilla exhaling calmly">
-        <img src="assets/chef-inhale.png" id="chef-breath-inhale" class="chef-breath-frame" alt="Chef Chilla inhaling deeply">
-        <img src="assets/chef-inhale.png" id="chef-mouth-overlay" alt="Chef Chilla mouth detail" aria-hidden="true">
+    <canvas id="dojo-canvas" aria-label="Interactive dojo skybox"></canvas>
+    <div class="ui-overlay" role="group" aria-labelledby="yaw-slider-label">
+        <label id="yaw-slider-label" for="yaw-slider">Look Around</label>
+        <input type="range" id="yaw-slider" min="0" max="360" value="0" aria-valuetext="Facing north">
     </div>
-    
-    <!-- Site chrome + content overlay -->
-    <header class="top-bar" role="banner">
-        <!-- Removed spinning sprite from header -->
-
-        <!-- Ambient audio toggle (requires asset at assets/water_trickle.mp3) -->
-
-        <div class="top-bar-inner">Self Defense Cooking</div>
-    </header>
-</div>
-
-<!-- Lighting overlays and ambient particles for immersion -->
-<div class="lighting-overlays" aria-hidden="true">
-    <div class="spotlight"></div>
-    <div class="vignette"></div>
-</div>
-
-<div id="particles" aria-hidden="true"></div>
-
-<div id="camera-controls" class="camera-controls" role="group" aria-label="Dojo camera controls">
-    <div class="control">
-        <label for="camera-yaw">Rotate 360°</label>
-        <div class="row">
-            <input id="camera-yaw" type="range" min="0" max="360" value="0" step="1">
-            <div class="value" id="val-cameraYaw">0°</div>
-        </div>
-    </div>
-    <div class="control">
-        <label for="camera-pitch">Pan Up/Down</label>
-        <div class="row">
-            <input id="camera-pitch" type="range" min="-25" max="25" value="0" step="1">
-            <div class="value" id="val-cameraPitch">0°</div>
-        </div>
-    </div>
-    <div class="control">
-        <label for="camera-speed">Orbit Speed</label>
-        <div class="row">
-            <input id="camera-speed" type="range" min="0" max="40" value="8" step="1">
-            <div class="value" id="val-cameraSpeed">8°/s</div>
-        </div>
-    </div>
-</div>
-
-<!-- Tweak panel: visible in dev to dial settings -->
-<div class="tweak-panel" id="tweak-panel" aria-hidden="true" style="display:none;">
-    <div style="font-weight:600;color:#ffe8b8;">Chef Chilla Position</div>
-    <label>Forward (translateY)
-        <div class="row"><input id="chef-translateY" type="range" min="-500" max="300" value="-420"><div class="value" id="val-translateY">-420px</div></div>
-    </label>
-    <label>Scale
-        <div class="row"><input id="chef-scale" type="range" min="0.1" max="3.0" step="0.01" value="0.7"><div class="value" id="val-scale">0.7×</div></div>
-    </label>
-    <label>Left/Right
-        <div class="row"><input id="chef-offsetX" type="range" min="-300" max="300" value="-133"><div class="value" id="val-offsetX">-133px</div></div>
-    </label>
-    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Breath & Body</div>
-    <label>Chest Expansion
-        <div class="row"><input id="chef-chest" type="range" min="0.2" max="1.5" step="0.05" value="0.6"><div class="value" id="val-chest">60%</div></div>
-    </label>
-    <label>Stomach Suction
-        <div class="row"><input id="chef-stomach" type="range" min="50" max="70" step="0.5" value="50"><div class="value" id="val-stomach">50%</div></div>
-    </label>
-    <label>Mouth Movement
-        <div class="row"><input id="chef-mouth" type="range" min="0" max="1" step="0.05" value="0.1"><div class="value" id="val-mouth">10%</div></div>
-    </label>
-    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Title Controls</div>
-    <label>Top Position
-        <div class="row"><input id="title-top" type="range" min="20" max="500" value="400"><div class="value" id="val-titleTop">400px</div></div>
-    </label>
-    <label>Font Size
-        <div class="row"><input id="title-size" type="range" min="1" max="5" step="0.1" value="1.1"><div class="value" id="val-titleSize">1.1rem</div></div>
-    </label>
-    <div style="display:flex;gap:8px;margin-top:8px;"><button id="title-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="pose-save" style="flex:1;padding:6px;border-radius:6px;background:#8dc9a3;border:none;color:#0a3320;">Save Pose</button><button id="pose-clear" style="flex:1;padding:6px;border-radius:6px;background:#784e3c;border:none;color:#ffe8b8;">Clear</button><button id="title-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Show</button></div>
-</div>
-
-<script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
