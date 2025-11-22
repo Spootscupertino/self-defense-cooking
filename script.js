@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Parallax: subtle background and character movement following mouse
 	const dojoBg = document.getElementById('dojo-bg');
 	const particlesRoot = document.getElementById('particles');
+	const pacingWrap = document.querySelector('.pacing-wrap');
 	const maxBg = 10; // px
 	const maxChar = 12; // px
 	function onPointer(e) {
@@ -152,92 +153,262 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Gentle idle breathing: a slow scale on the pacing-inner to make meditation feel alive
-	const pacingInner = document.querySelector('.pacing-inner');
-	if (pacingInner) {
-		pacingInner.style.animation += ', idle-breath 5.6s ease-in-out infinite';
-	}
-
-	// Add idle-breath keyframes dynamically for compatibility
-	const styleSheet = document.createElement('style');
-	styleSheet.textContent = `@keyframes idle-breath { 0%{transform: translateY(0) scale(1);} 50%{transform: translateY(-2px) scale(1.01);} 100%{transform: translateY(0) scale(1);} }`;
-	document.head.appendChild(styleSheet);
-
 	// --- Tweak panel wiring: allow live adjustments of title using CSS variables ---
 	const root = document.documentElement;
 	const elTitleTop = document.getElementById('title-top');
 	const elTitleSize = document.getElementById('title-size');
-	const elBreathDuration = document.getElementById('breath-duration');
-	const elInhaleIntensity = document.getElementById('inhale-intensity');
-	const elExhaleHold = document.getElementById('exhale-hold');
 	const elTranslate = document.getElementById('chef-translateY');
 	const elScale = document.getElementById('chef-scale');
 	const elOffset = document.getElementById('chef-offsetX');
+	const elChest = document.getElementById('chef-chest');
+	const elStomach = document.getElementById('chef-stomach');
+	const elMouth = document.getElementById('chef-mouth');
 	const valTitleTop = document.getElementById('val-titleTop');
 	const valTitleSize = document.getElementById('val-titleSize');
-	const valBreathDuration = document.getElementById('val-breathDuration');
-	const valInhaleIntensity = document.getElementById('val-inhaleIntensity');
-	const valExhaleHold = document.getElementById('val-exhaleHold');
 	const valTranslate = document.getElementById('val-translateY');
 	const valScale = document.getElementById('val-scale');
 	const valOffset = document.getElementById('val-offsetX');
+	const valChest = document.getElementById('val-chest');
+	const valStomach = document.getElementById('val-stomach');
+	const valMouth = document.getElementById('val-mouth');
 	const btnReset = document.getElementById('title-reset');
+	const btnSavePose = document.getElementById('pose-save');
+	const btnClearPose = document.getElementById('pose-clear');
 	const btnHide = document.getElementById('title-hide');
+    const tweakPanel = document.getElementById('tweak-panel');
 
 	const dojoContainer = document.getElementById('dojo-container');
 	const heroStage = document.querySelector('.hero-stage');
 
+	function clamp(val, min, max) {
+		return Math.min(Math.max(val, min), max);
+	}
+
+	function toNumber(value, fallback) {
+		const num = parseFloat(value);
+		return Number.isFinite(num) ? num : fallback;
+	}
+
 	function updateVars() {
-		if (elTitleTop) root.style.setProperty('--title-top', elTitleTop.value + 'px');
-		if (elTitleSize) root.style.setProperty('--title-size', elTitleSize.value + 'rem');
-		if (elBreathDuration) root.style.setProperty('--breath-duration', elBreathDuration.value + 's');
-		if (elInhaleIntensity) root.style.setProperty('--inhale-opacity', elInhaleIntensity.value);
-		if (elTranslate) root.style.setProperty('--chef-translate-y', elTranslate.value + 'px');
-		if (elScale) root.style.setProperty('--chef-scale', elScale.value);
-		if (elOffset) root.style.setProperty('--chef-offset-x', elOffset.value + 'px');
+		const titleTopVal = elTitleTop ? clamp(toNumber(elTitleTop.value, 157), 20, 500) : 157;
+		const titleSizeVal = elTitleSize ? clamp(toNumber(elTitleSize.value, 1.1), 1, 5) : 1.1;
+		const translateVal = elTranslate ? clamp(toNumber(elTranslate.value, -60), -500, 300) : -60;
+		const scaleVal = elScale ? clamp(toNumber(elScale.value, 0.7), 0.1, 3) : 0.7;
+		const offsetVal = elOffset ? clamp(toNumber(elOffset.value, -133), -300, 300) : -133;
+		const chestVal = elChest ? clamp(toNumber(elChest.value, 0.6), 0.2, 1.5) : 0.6;
+		const stomachVal = elStomach ? clamp(toNumber(elStomach.value, 50), 50, 70) : 50;
+		const mouthVal = elMouth ? clamp(toNumber(elMouth.value, 0.1), 0, 1) : 0.1;
+
+		if (elTitleTop) elTitleTop.value = titleTopVal;
+		if (elTitleSize) elTitleSize.value = titleSizeVal;
+		if (elTranslate) elTranslate.value = translateVal;
+		if (elScale) elScale.value = scaleVal;
+		if (elOffset) elOffset.value = offsetVal;
+		if (elChest) elChest.value = chestVal;
+		if (elStomach) elStomach.value = stomachVal;
+		if (elMouth) elMouth.value = mouthVal;
+
+		root.style.setProperty('--title-top', `${titleTopVal}px`);
+		root.style.setProperty('--title-size', `${titleSizeVal}rem`);
+		root.style.setProperty('--chef-translate-y', `${translateVal}px`);
+		root.style.setProperty('--chef-scale', String(scaleVal));
+		root.style.setProperty('--chef-offset-x', `${offsetVal}px`);
+		root.style.setProperty('--chef-inhale-intensity', String(chestVal));
+		root.style.setProperty('--chef-breath-mask-cut', `${stomachVal}%`);
+		root.style.setProperty('--chef-mouth-open', String(mouthVal));
 		
 		if (valTitleTop) valTitleTop.textContent = (elTitleTop ? elTitleTop.value : '157') + 'px';
 		if (valTitleSize) valTitleSize.textContent = (elTitleSize ? elTitleSize.value : '1.1') + 'rem';
-		if (valBreathDuration) valBreathDuration.textContent = (elBreathDuration ? elBreathDuration.value : '4.5') + 's';
-		if (valInhaleIntensity) valInhaleIntensity.textContent = (elInhaleIntensity ? parseFloat(elInhaleIntensity.value).toFixed(1) : '2.0');
-		if (valExhaleHold) valExhaleHold.textContent = (elExhaleHold ? elExhaleHold.value : '1.4') + 's';
-		if (valTranslate) valTranslate.textContent = (elTranslate ? elTranslate.value : '100') + 'px';
-		if (valScale) valScale.textContent = (elScale ? elScale.value : '1.36') + '×';
-		if (valOffset) valOffset.textContent = (elOffset ? elOffset.value : '0') + 'px';
+		if (valTranslate) valTranslate.textContent = `${translateVal}px`;
+		if (valScale) valScale.textContent = `${scaleVal.toFixed(2)}×`;
+		if (valOffset) valOffset.textContent = `${offsetVal}px`;
+		if (valChest) valChest.textContent = `${Math.round(chestVal * 100)}%`;
+		if (valStomach) valStomach.textContent = `${stomachVal}%`;
+		if (valMouth) valMouth.textContent = `${Math.round(mouthVal * 100)}%`;
 	}
 
-	if (elTitleTop) elTitleTop.addEventListener('input', updateVars);
-	if (elTitleSize) elTitleSize.addEventListener('input', updateVars);
-	if (elBreathDuration) elBreathDuration.addEventListener('input', updateVars);
-	if (elInhaleIntensity) elInhaleIntensity.addEventListener('input', updateVars);
-	if (elExhaleHold) elExhaleHold.addEventListener('input', updateVars);
-	if (elTranslate) elTranslate.addEventListener('input', updateVars);
-	if (elScale) elScale.addEventListener('input', updateVars);
-	if (elOffset) elOffset.addEventListener('input', updateVars);
+	const POSE_STORAGE_KEY = 'sdc_chef_pose';
+
+	function persistPose() {
+		if (!window.localStorage) return;
+		const payload = {
+			titleTop: elTitleTop ? elTitleTop.value : undefined,
+			titleSize: elTitleSize ? elTitleSize.value : undefined,
+			translateY: elTranslate ? elTranslate.value : undefined,
+			scale: elScale ? elScale.value : undefined,
+			offsetX: elOffset ? elOffset.value : undefined,
+			chest: elChest ? elChest.value : undefined,
+			stomach: elStomach ? elStomach.value : undefined,
+			mouth: elMouth ? elMouth.value : undefined
+		};
+		try {
+			localStorage.setItem(POSE_STORAGE_KEY, JSON.stringify(payload));
+		} catch (err) {
+			console.warn('Unable to persist Chef pose settings', err);
+		}
+	}
+
+	function loadSavedPose() {
+		if (!window.localStorage) return;
+		const raw = localStorage.getItem(POSE_STORAGE_KEY);
+		if (!raw) return;
+		try {
+			const saved = JSON.parse(raw);
+			if (saved) {
+				if (elTitleTop && saved.titleTop !== undefined) elTitleTop.value = saved.titleTop;
+				if (elTitleSize && saved.titleSize !== undefined) elTitleSize.value = saved.titleSize;
+				if (elTranslate && saved.translateY !== undefined) elTranslate.value = saved.translateY;
+				if (elScale && saved.scale !== undefined) elScale.value = saved.scale;
+				if (elOffset && saved.offsetX !== undefined) elOffset.value = saved.offsetX;
+				if (elChest && saved.chest !== undefined) elChest.value = saved.chest;
+				if (elStomach && saved.stomach !== undefined) elStomach.value = saved.stomach;
+				if (elMouth && saved.mouth !== undefined) elMouth.value = saved.mouth;
+			}
+		} catch (err) {
+			console.warn('Unable to load Chef pose settings', err);
+		}
+	}
+
+	function handleControlInput() {
+		updateVars();
+		persistPose();
+	}
+
+	if (elTitleTop) elTitleTop.addEventListener('input', handleControlInput);
+	if (elTitleSize) elTitleSize.addEventListener('input', handleControlInput);
+	if (elTranslate) elTranslate.addEventListener('input', handleControlInput);
+	if (elScale) elScale.addEventListener('input', handleControlInput);
+	if (elOffset) elOffset.addEventListener('input', handleControlInput);
+	if (elChest) elChest.addEventListener('input', handleControlInput);
+	if (elStomach) elStomach.addEventListener('input', handleControlInput);
+	if (elMouth) elMouth.addEventListener('input', handleControlInput);
 
 	if (btnReset) btnReset.addEventListener('click', function () {
-		if (elTitleTop) elTitleTop.value = 157;
+		if (elTitleTop) elTitleTop.value = 400;
 		if (elTitleSize) elTitleSize.value = 1.1;
-		if (elBreathDuration) elBreathDuration.value = 4.5;
-		if (elInhaleIntensity) elInhaleIntensity.value = 2.0;
-		if (elExhaleHold) elExhaleHold.value = 1.4;
-		if (elTranslate) elTranslate.value = 100;
-		if (elScale) elScale.value = 2.3;
-		if (elOffset) elOffset.value = 0;
+		if (elTranslate) elTranslate.value = -60;
+		if (elScale) elScale.value = 0.7;
+		if (elOffset) elOffset.value = -133;
+		if (elChest) elChest.value = 0.6;
+		if (elStomach) elStomach.value = 50;
+		if (elMouth) elMouth.value = 0.1;
 		updateVars();
+		persistPose();
 	});
 
+	if (btnSavePose) btnSavePose.addEventListener('click', function () {
+		persistPose();
+		const original = btnSavePose.textContent;
+		btnSavePose.textContent = 'Saved!';
+		setTimeout(() => { btnSavePose.textContent = original; }, 1200);
+	});
+
+	if (btnClearPose) btnClearPose.addEventListener('click', function () {
+		if (window.localStorage) {
+			localStorage.removeItem(POSE_STORAGE_KEY);
+		}
+		if (elTitleTop) elTitleTop.value = 400;
+		if (elTitleSize) elTitleSize.value = 1.1;
+		if (elTranslate) elTranslate.value = -60;
+		if (elScale) elScale.value = 0.7;
+		if (elOffset) elOffset.value = -133;
+		if (elChest) elChest.value = 0.6;
+		if (elStomach) elStomach.value = 50;
+		if (elMouth) elMouth.value = 0.1;
+		updateVars();
+		persistPose();
+	});
+
+	function setPanelVisibility(show) {
+		if (!tweakPanel) return;
+		tweakPanel.setAttribute('aria-hidden', show ? 'false' : 'true');
+		tweakPanel.style.display = show ? 'block' : 'none';
+		if (btnHide) btnHide.textContent = show ? 'Hide' : 'Show';
+	}
+
+	setPanelVisibility(false);
+
 	if (btnHide) btnHide.addEventListener('click', function () {
-		const panel = document.getElementById('tweak-panel');
-		if (!panel) return;
-		const hidden = panel.getAttribute('aria-hidden') === 'true';
-		panel.setAttribute('aria-hidden', hidden ? 'false' : 'true');
-		panel.style.display = hidden ? 'block' : 'none';
-		btnHide.textContent = hidden ? 'Hide' : 'Show';
+		if (!tweakPanel) return;
+		const currentlyHidden = tweakPanel.getAttribute('aria-hidden') === 'true';
+		setPanelVisibility(currentlyHidden);
+	});
+
+	document.addEventListener('keydown', function (event) {
+		if (event.key.toLowerCase() === 't') {
+			event.preventDefault();
+			const currentlyHidden = tweakPanel && tweakPanel.getAttribute('aria-hidden') === 'true';
+			setPanelVisibility(currentlyHidden);
+		}
 	});
 
 	// initialize
+	loadSavedPose();
 	updateVars();
+
+	// --- Chef breathing loop: crossfade inhale/exhale frames without keyframes ---
+	const breathInhale = document.getElementById('chef-breath-inhale');
+	const breathExhale = document.getElementById('chef-breath-exhale');
+	const prefersReducedMotion = typeof window.matchMedia === 'function'
+		? window.matchMedia('(prefers-reduced-motion: reduce)')
+		: { matches: false };
+
+	let breathTimer = null;
+	let breathState = 'exhale';
+
+	function applyBreathState(nextState) {
+		if (!breathInhale) return;
+		if (nextState === 'inhale') {
+			breathInhale.classList.add('is-visible');
+		} else {
+			breathInhale.classList.remove('is-visible');
+		}
+		breathState = nextState;
+	}
+
+	function cancelBreathingLoop() {
+		if (breathTimer) {
+			window.clearTimeout(breathTimer);
+			breathTimer = null;
+		}
+		if (breathInhale) breathInhale.classList.remove('is-visible');
+		breathState = 'exhale';
+	}
+
+	function queueNextBreath() {
+		const next = breathState === 'exhale' ? 'inhale' : 'exhale';
+		applyBreathState(next);
+		const delay = next === 'inhale' ? 3600 : 4200;
+		breathTimer = window.setTimeout(queueNextBreath, delay);
+	}
+
+	function startBreathingLoop() {
+		if (!breathInhale || prefersReducedMotion.matches) return;
+		cancelBreathingLoop();
+		applyBreathState('exhale');
+		breathTimer = window.setTimeout(queueNextBreath, 3600);
+	}
+
+	if (breathInhale && breathExhale) {
+		if (!prefersReducedMotion.matches) {
+			startBreathingLoop();
+		}
+
+		const handleMotionPreference = (event) => {
+			const prefersReduce = typeof event.matches === 'boolean' ? event.matches : prefersReducedMotion.matches;
+			if (prefersReduce) {
+				cancelBreathingLoop();
+			} else {
+				startBreathingLoop();
+			}
+		};
+
+		if (typeof prefersReducedMotion.addEventListener === 'function') {
+			prefersReducedMotion.addEventListener('change', handleMotionPreference);
+		} else if (typeof prefersReducedMotion.addListener === 'function') {
+			prefersReducedMotion.addListener(handleMotionPreference);
+		}
+	}
 
 	// --- Slow auto-rotation camera movement ---
 	let autoRotateAngle = 0;

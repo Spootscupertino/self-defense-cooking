@@ -8,15 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="hero-stage">
-        <div class="chef-breathing-stack">
-            <img src="assets/chef-exhale.png" class="chef-base-layer" alt="Chef Chilla exhale" />
-            <img src="assets/chef-inhale.png" class="chef-top-layer" alt="Chef Chilla inhale" />
-        </div>
-    </div>
 <div id="dojo-container">
-    <img id="dojo-bg" src="assets/dojo/dojo_front.png" alt="Dojo Background">
+    <img id="dojo-bg" src="assets/dojo-bg.png" alt="Dojo Background">
     <div id="wood-overlay"></div>
+    
+    <div id="chef-chilla-container">
+        <img src="assets/chef-chilla-exhale.png" id="chef-breath-exhale" class="chef-breath-frame is-visible" alt="Chef Chilla exhaling calmly">
+        <img src="assets/chef-inhale.png" id="chef-breath-inhale" class="chef-breath-frame" alt="Chef Chilla inhaling deeply">
+        <img src="assets/chef-inhale.png" id="chef-mouth-overlay" alt="Chef Chilla mouth detail" aria-hidden="true">
+    </div>
+    
     <!-- Site chrome + content overlay -->
     <header class="top-bar" role="banner">
         <!-- Removed spinning sprite from header -->
@@ -25,14 +26,6 @@
 
         <div class="top-bar-inner">Self Defense Cooking</div>
     </header>
-</div>
-
-<div class="hero-stage">
-    <div class="chef-spinner">
-        <img src="chef chilla no background.png" alt="Chef Chilla" />
-        <div class="mat" aria-hidden="true"></div>
-        <div class="floor-shadow" aria-hidden="true"></div>
-    </div>
 </div>
 
 <!-- Lighting overlays and ambient particles for immersion -->
@@ -47,32 +40,32 @@
 <div class="tweak-panel" id="tweak-panel" aria-hidden="true" style="display:none;">
     <div style="font-weight:600;color:#ffe8b8;">Chef Chilla Position</div>
     <label>Forward (translateY)
-        <div class="row"><input id="chef-translateY" type="range" min="-220" max="120" value="100"><div class="value" id="val-translateY">100px</div></div>
+        <div class="row"><input id="chef-translateY" type="range" min="-500" max="300" value="-420"><div class="value" id="val-translateY">-420px</div></div>
     </label>
     <label>Scale
-        <div class="row"><input id="chef-scale" type="range" min="0.4" max="2.4" step="0.02" value="2.3"><div class="value" id="val-scale">2.3×</div></div>
+        <div class="row"><input id="chef-scale" type="range" min="0.1" max="3.0" step="0.01" value="0.7"><div class="value" id="val-scale">0.7×</div></div>
     </label>
     <label>Left/Right
-        <div class="row"><input id="chef-offsetX" type="range" min="-200" max="200" value="0"><div class="value" id="val-offsetX">0px</div></div>
+        <div class="row"><input id="chef-offsetX" type="range" min="-300" max="300" value="-133"><div class="value" id="val-offsetX">-133px</div></div>
     </label>
-    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Chef Chilla Breathing</div>
-    <label>Breath Duration
-        <div class="row"><input id="breath-duration" type="range" min="2" max="8" step="0.5" value="4.5"><div class="value" id="val-breathDuration">4.5s</div></div>
+    <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Breath & Body</div>
+    <label>Chest Expansion
+        <div class="row"><input id="chef-chest" type="range" min="0.2" max="1.5" step="0.05" value="0.6"><div class="value" id="val-chest">60%</div></div>
     </label>
-    <label>Inhale Intensity
-        <div class="row"><input id="inhale-intensity" type="range" min="0" max="2" step="0.1" value="2.0"><div class="value" id="val-inhaleIntensity">2.0</div></div>
+    <label>Stomach Suction
+        <div class="row"><input id="chef-stomach" type="range" min="50" max="70" step="0.5" value="50"><div class="value" id="val-stomach">50%</div></div>
     </label>
-    <label>Exhale Hold
-        <div class="row"><input id="exhale-hold" type="range" min="0" max="2" step="0.1" value="1.4"><div class="value" id="val-exhaleHold">1.4s</div></div>
+    <label>Mouth Movement
+        <div class="row"><input id="chef-mouth" type="range" min="0" max="1" step="0.05" value="0.1"><div class="value" id="val-mouth">10%</div></div>
     </label>
     <div style="font-weight:600;color:#ffe8b8;margin-top:12px;">Title Controls</div>
     <label>Top Position
-        <div class="row"><input id="title-top" type="range" min="20" max="200" value="157"><div class="value" id="val-titleTop">157px</div></div>
+        <div class="row"><input id="title-top" type="range" min="20" max="500" value="400"><div class="value" id="val-titleTop">400px</div></div>
     </label>
     <label>Font Size
         <div class="row"><input id="title-size" type="range" min="1" max="5" step="0.1" value="1.1"><div class="value" id="val-titleSize">1.1rem</div></div>
     </label>
-    <div style="display:flex;gap:8px;margin-top:8px;"><button id="title-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="title-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Show</button></div>
+    <div style="display:flex;gap:8px;margin-top:8px;"><button id="title-reset" style="flex:1;padding:6px;border-radius:6px;background:#bfa76a;border:none;color:#2b1708;">Reset</button><button id="pose-save" style="flex:1;padding:6px;border-radius:6px;background:#8dc9a3;border:none;color:#0a3320;">Save Pose</button><button id="pose-clear" style="flex:1;padding:6px;border-radius:6px;background:#784e3c;border:none;color:#ffe8b8;">Clear</button><button id="title-hide" style="flex:1;padding:6px;border-radius:6px;background:#222;border:none;color:#fff;">Show</button></div>
 </div>
 
 <script src="script.js"></script>

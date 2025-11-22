@@ -29,13 +29,15 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center center;
+    z-index: 10;
 }
 
 /* Wood burn overlay for warmth */
 #wood-overlay {
     position: absolute;
     inset: 0;
-    background: url("assets/dojo/wood_texture.png");
+    z-index: 30;
+    background: url("assets/wood_texture.png");
     opacity: 0.14;
     mix-blend-mode: multiply;
     pointer-events: none;
@@ -47,37 +49,55 @@ body {
     top: var(--title-top);
     left: 50%;
     transform: translateX(-50%);
-    width: auto;
-    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     background: transparent;
     backdrop-filter: none;
-    z-index: 5;
+    opacity: 1;
+    z-index: 80;
 }
+
 .top-bar-inner {
     font-family: 'Rock Salt', cursive;
     font-size: var(--title-size);
     letter-spacing: 0.08em;
     color: #4a3a2a;
     font-weight: 400;
-    text-shadow: 
-        1px 1px 1px rgba(255,250,240,0.5),
-        -0.5px -0.5px 1px rgba(60,40,20,0.3),
-        0 0 3px rgba(0,0,0,0.1);
     padding: 12px 24px;
     white-space: nowrap;
-    filter: blur(0.4px) contrast(0.92) brightness(0.95);
-    opacity: 0.85;
-    mix-blend-mode: multiply;
-    background: url("assets/dojo/wood_texture.png");
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200px 200px;
-    background-position: center;
+    text-shadow:
+        1px 1px 1px rgba(255,250,240,0.5),
+        0 12px 28px rgba(12,6,2,0.35);
+    filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.35));
+}
+
+#chef-mouth-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    opacity: var(--chef-mouth-open, 0);
+    transition: opacity 200ms ease;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+    z-index: 3;
+    -webkit-mask-image: radial-gradient(circle at 52% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 42%);
+    mask-image: radial-gradient(circle at 52% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 42%);
+}
+
+:root {
+    --chef-offset-x: -133px;
+    --chef-translate-y: -420px;
+    --chef-scale: 0.7;
+    --title-top: 400px;
+    --title-size: 1.1rem;
+    --chef-breath-mask-cut: 50%;
+    --chef-breath-mask-softness: 22%;
+    --chef-inhale-intensity: 0.6;
+    --chef-mouth-open: 0.1;
 }
 
 /* Audio toggle button in header */
@@ -136,8 +156,6 @@ body {
 .pacing-inner {
      will-change: transform;
      transform-origin: center bottom;
-     /* Calm, subtle breathing */
-     animation: idle-breath 8s ease-in-out infinite;
      position: relative; /* needed for the floor shadow */
  }
 /* Pacing animation: left-right pacing and subtle bob */
@@ -151,14 +169,6 @@ body {
     overflow: visible;
     /* No horizontal pacing */
 }
-
-    will-change: transform;
-    transform-origin: center bottom;
-    /* Calm, subtle breathing */
-    animation: idle-breath 8s ease-in-out infinite;
-    position: relative; /* needed for the floor shadow */
-}
-
 .pacing-img {
     display: block;
     max-width: 100%;
@@ -166,12 +176,6 @@ body {
     filter: drop-shadow(0 12px 26px rgba(0,0,0,0.48)) brightness(1.02) saturate(1.06) sepia(0.04) hue-rotate(-3deg);
     -webkit-filter: drop-shadow(0 12px 26px rgba(0,0,0,0.48)) brightness(1.02) saturate(1.06) sepia(0.04) hue-rotate(-3deg);
     transition: transform 180ms ease, filter 180ms ease;
-}
-
-@keyframes idle-breath {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.015); }
-    100% { transform: scale(1); }
 }
 
 .pacing-img.flipped {
@@ -195,15 +199,7 @@ body {
 }
 
 /* Sync shadow with bob: subtle scale + blur variation */
-.floor-shadow {
-    animation: shadow-pulse 1.8s ease-in-out infinite;
-}
 
-@keyframes shadow-pulse {
-    0% { transform: translateX(-50%) scaleX(1.00); filter: blur(10px); opacity: 0.86; }
-    50% { transform: translateX(-50%) scaleX(1.12); filter: blur(12px); opacity: 0.78; }
-    100% { transform: translateX(-50%) scaleX(1.00); filter: blur(10px); opacity: 0.86; }
-}
 
 /* Slightly darker floor under Chilla to suggest contact/occlusion */
 .pacing-wrap::before {
@@ -236,13 +232,6 @@ body {
     background: radial-gradient(ellipse at center, rgba(255,238,200,0.26) 0%, rgba(255,220,160,0.08) 36%, rgba(0,0,0,0) 70%);
     filter: blur(34px) saturate(1.06) contrast(1.02);
     mix-blend-mode: screen; opacity: 0.98;
-    animation: spotlight-breathe 6.5s ease-in-out infinite;
-}
-
-@keyframes spotlight-breathe {
-    0% { transform: translateX(-50%) scale(1); opacity: 0.96; }
-    50% { transform: translateX(-50%) scale(1.03); opacity: 1; }
-    100% { transform: translateX(-50%) scale(1); opacity: 0.96; }
 }
 
 /* Rim light behind Chilla to separate him from the background */
@@ -257,7 +246,7 @@ body {
     pointer-events: none;
     background: radial-gradient(ellipse at center, rgba(255,230,180,0.22) 0%, rgba(255,220,150,0.12) 28%, rgba(255,220,150,0.02) 48%, transparent 60%);
     filter: blur(18px);
-    mix-blend-mode: screen;
+    mix-blend-mode: lighten;
     z-index: 1;
     opacity: 0.95;
 }
@@ -270,13 +259,6 @@ body {
     background: radial-gradient(circle, rgba(255,244,210,0.9) 0%, rgba(255,240,200,0.28) 40%, rgba(255,240,200,0) 70%);
     width: 6px; height: 6px; border-radius: 50%; opacity: 0.06; transform: translateY(0);
     filter: blur(1.2px) saturate(1.06) contrast(0.98);
-    animation: particle-rise linear infinite;
-}
-
-@keyframes particle-rise {
-    0% { transform: translateY(0) scale(0.9); opacity: 0.02; }
-    40% { opacity: 0.08; }
-    100% { transform: translateY(-30vh) scale(1.3); opacity: 0; }
 }
 
 /* Parallax-friendly background */
@@ -288,6 +270,8 @@ body {
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
     .pacing { animation: none; }
+    .chef-breath-frame { transition: none; }
+    #chef-mouth-overlay { transition: none; }
 }
 
 /* Contact box */
@@ -390,16 +374,53 @@ body::after {
     mix-blend-mode: soft-light;
 }
 
-/* CSS variables to make Chef Chilla easy to tweak */
-:root {
-    --chef-offset-x: 0px;     /* horizontal tweak, added to translateX center */
-    --chef-translate-y: 100px; /* negative moves forward (up the screen) */
-    --chef-scale: 2.3;       /* scale to simulate closeness */
-    --title-top: 157px;        /* distance from top */
-    --title-size: 1.1rem;     /* font size */
-    --breath-duration: 4.5s;    /* breathing animation duration */
-    --inhale-opacity: 2;      /* intensity of inhale (opacity of top layer) */
+#chef-chilla-container {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(calc(-50% + var(--chef-offset-x))) translateY(var(--chef-translate-y)) scale(var(--chef-scale));
+    z-index: 80;
+    isolation: isolate;
+    transform-origin: center bottom;
+    pointer-events: none;
+    width: 400px;
+    max-width: 400px;
+    will-change: transform;
+    /* debug outline: comment out once verified */
+    /* outline: 1px solid rgba(255,0,0,0.5); */
 }
+
+.chef-breath-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: opacity 3.2s ease-in-out;
+    mix-blend-mode: normal;
+    filter: none;
+    pointer-events: none;
+    transform-origin: center bottom;
+}
+
+.chef-breath-frame.is-visible {
+    opacity: 1;
+}
+
+#chef-breath-exhale {
+    opacity: 1;
+    transition: none;
+    filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.45));
+}
+
+#chef-breath-inhale {
+    filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.35));
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) var(--chef-breath-mask-cut, 54%), rgba(0,0,0,0) calc(var(--chef-breath-mask-cut, 54%) + 22%), rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) var(--chef-breath-mask-cut, 54%), rgba(0,0,0,0) calc(var(--chef-breath-mask-cut, 54%) + 22%), rgba(0,0,0,0) 100%);
+}
+
+/* CSS variables to make Chef Chilla easy to tweak live via JS sliders */
 
 .tweak-panel {
     position: fixed;
@@ -438,7 +459,7 @@ body::after {
     top: 0;
     width: 40vw;
     height: 100vh;
-    background: url('assets/dojo/dojo_left.png') left bottom no-repeat;
+    background: url('assets/dojo_left.png') left bottom no-repeat;
     background-size: contain;
     z-index: 2;
     pointer-events: none;
@@ -451,7 +472,7 @@ body::after {
     top: 0;
     width: 40vw;
     height: 100vh;
-    background: url('assets/dojo/dojo_right.png') right bottom no-repeat;
+    background: url('assets/dojo_right.png') right bottom no-repeat;
     background-size: contain;
     z-index: 2;
     pointer-events: none;
@@ -512,13 +533,6 @@ body::after {
     height: 80%;
     width: auto;
     z-index: 20;
-    animation: breathe 7s ease-in-out infinite;
-}
-
-@keyframes breathe {
-    0%   { transform: translateX(-50%) scale(1); }
-    50%  { transform: translateX(-50%) scale(1.05); }
-    100% { transform: translateX(-50%) scale(1); }
 }
 
 .chef-breathing-stack {
@@ -532,29 +546,6 @@ body::after {
     min-width: 120px;
     display: block;
     z-index: 20;
-}
-
-.chef-base-layer,
-.chef-top-layer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: auto;
-    height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    display: block;
-    pointer-events: none;
-}
-
-.chef-top-layer {
-    opacity: 0;
-    animation: breathe-deep var(--breath-duration) ease-in-out infinite alternate;
-}
-
-@keyframes breathe-deep {
-    0%   { opacity: 0; }
-    100% { opacity: var(--inhale-opacity); }
 }
 
 /* Soft water drip branding in top left */
