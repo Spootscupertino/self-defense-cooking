@@ -6,8 +6,6 @@ let scene = null;
 let skyboxMesh = null;
 let resizeHandler = null;
 let rafId = null;
-let sliderElement = null;
-let sliderHandler = null;
 let yawDeg = 0;
 let pitchDeg = 0;
 
@@ -33,32 +31,7 @@ function normalizeDegrees(value) {
     return (degree % 360 + 360) % 360;
 }
 
-function describeHeading(deg) {
-    const normalized = normalizeDegrees(deg);
-    const sectors = [
-        { limit: 22.5, label: 'Facing north' },
-        { limit: 67.5, label: 'Facing northeast' },
-        { limit: 112.5, label: 'Facing east' },
-        { limit: 157.5, label: 'Facing southeast' },
-        { limit: 202.5, label: 'Facing south' },
-        { limit: 247.5, label: 'Facing southwest' },
-        { limit: 292.5, label: 'Facing west' },
-        { limit: 337.5, label: 'Facing northwest' },
-    ];
-    for (const sector of sectors) {
-        if (normalized < sector.limit) return sector.label;
-    }
-    return 'Facing north';
-}
-
-function updateSliderAccessibility() {
-    if (!sliderElement) return;
-    sliderElement.setAttribute('aria-valuenow', String(Math.round(yawDeg)));
-    sliderElement.setAttribute('aria-valuetext', describeHeading(yawDeg));
-}
-
-function setOrientation(nextYaw, nextPitch, options = {}) {
-    const { syncSlider = true } = options;
+function setOrientation(nextYaw, nextPitch) {
     if (typeof nextYaw === 'number') {
         yawDeg = normalizeDegrees(nextYaw);
     }
@@ -73,12 +46,6 @@ function setOrientation(nextYaw, nextPitch, options = {}) {
     if (camera) {
         camera.rotation.set(pitchRad, yawRad, 0, 'YXZ');
     }
-
-    if (syncSlider && sliderElement && document.activeElement !== sliderElement) {
-        sliderElement.value = yawDeg.toString();
-    }
-
-    updateSliderAccessibility();
 }
 
 function teardownViewer() {
@@ -90,12 +57,6 @@ function teardownViewer() {
         window.removeEventListener('resize', resizeHandler);
         resizeHandler = null;
     }
-    if (sliderElement && sliderHandler) {
-        sliderElement.removeEventListener('input', sliderHandler);
-        sliderElement.removeEventListener('change', sliderHandler);
-    }
-    sliderElement = null;
-    sliderHandler = null;
     if (canvasElement && pointerDownHandler) {
         canvasElement.removeEventListener('pointerdown', pointerDownHandler);
     }
@@ -253,20 +214,7 @@ export function initDojoViewer() {
     resizeHandler();
     window.addEventListener('resize', resizeHandler);
 
-    sliderElement = document.getElementById('yaw-slider');
-    if (sliderElement) {
-        sliderHandler = (event) => {
-            const raw = Number(event.target.value);
-            if (!Number.isFinite(raw)) return;
-            setOrientation(raw, pitchDeg, { syncSlider: false });
-        };
-        sliderElement.addEventListener('input', sliderHandler);
-        sliderElement.addEventListener('change', sliderHandler);
-    }
-
-    const initialYawRaw = sliderElement ? Number(sliderElement.value) : yawDeg;
-    const initialYaw = Number.isFinite(initialYawRaw) ? initialYawRaw : 0;
-    setOrientation(initialYaw, pitchDeg);
+    setOrientation(yawDeg, pitchDeg);
 
     canvasElement = canvas;
     registerPointerControls(canvas);
