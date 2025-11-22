@@ -37,6 +37,30 @@
 
 <div id="particles" aria-hidden="true"></div>
 
+<div id="camera-controls" class="camera-controls" role="group" aria-label="Dojo camera controls">
+    <div class="control">
+        <label for="camera-yaw">Rotate 360°</label>
+        <div class="row">
+            <input id="camera-yaw" type="range" min="0" max="360" value="0" step="1">
+            <div class="value" id="val-cameraYaw">0°</div>
+        </div>
+    </div>
+    <div class="control">
+        <label for="camera-pitch">Pan Up/Down</label>
+        <div class="row">
+            <input id="camera-pitch" type="range" min="-25" max="25" value="0" step="1">
+            <div class="value" id="val-cameraPitch">0°</div>
+        </div>
+    </div>
+    <div class="control">
+        <label for="camera-speed">Orbit Speed</label>
+        <div class="row">
+            <input id="camera-speed" type="range" min="0" max="40" value="8" step="1">
+            <div class="value" id="val-cameraSpeed">8°/s</div>
+        </div>
+    </div>
+</div>
+
 <!-- Tweak panel: visible in dev to dial settings -->
 <div class="tweak-panel" id="tweak-panel" aria-hidden="true" style="display:none;">
     <div style="font-weight:600;color:#ffe8b8;">Chef Chilla Position</div>

@@ -179,6 +179,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	const dojoContainer = document.getElementById('dojo-container');
 	const heroStage = document.querySelector('.hero-stage');
+	const cameraYawInput = document.getElementById('camera-yaw');
+	const cameraPitchInput = document.getElementById('camera-pitch');
+	const cameraSpeedInput = document.getElementById('camera-speed');
+	const valCameraYaw = document.getElementById('val-cameraYaw');
+	const valCameraPitch = document.getElementById('val-cameraPitch');
+	const valCameraSpeed = document.getElementById('val-cameraSpeed');
 
 	function clamp(val, min, max) {
 		return Math.min(Math.max(val, min), max);
@@ -346,6 +352,84 @@ document.addEventListener('DOMContentLoaded', function () {
 	loadSavedPose();
 	updateVars();
 
+	const CAMERA_PITCH_MIN = -25;
+	const CAMERA_PITCH_MAX = 25;
+	const CAMERA_SPEED_MAX = 40;
+
+	function normalizeAngle(value) {
+		let result = value % 360;
+		if (result < 0) result += 360;
+		return result;
+	}
+
+	let manualYaw = cameraYawInput ? clamp(toNumber(cameraYawInput.value, 0), 0, 360) : 0;
+	let manualPitch = cameraPitchInput ? clamp(toNumber(cameraPitchInput.value, 0), CAMERA_PITCH_MIN, CAMERA_PITCH_MAX) : 0;
+	let orbitSpeed = cameraSpeedInput ? clamp(toNumber(cameraSpeedInput.value, 8), 0, CAMERA_SPEED_MAX) : 0;
+	let orbitOffset = 0;
+	let lastCameraFrame = performance.now();
+
+	if (cameraYawInput) cameraYawInput.value = String(manualYaw);
+	if (cameraPitchInput) cameraPitchInput.value = String(manualPitch);
+	if (cameraSpeedInput) cameraSpeedInput.value = String(orbitSpeed);
+
+	function applyCameraTransform() {
+		const totalYaw = normalizeAngle(manualYaw + orbitOffset);
+		const pitch = manualPitch;
+		const translateXPct = Math.sin(totalYaw * Math.PI / 180) * 2.6;
+		const translateYPct = pitch * -0.2;
+		const transform = `translateZ(0) rotateX(${pitch}deg) rotateY(${totalYaw}deg) translate(${translateXPct}%, ${translateYPct}%)`;
+		if (dojoContainer) {
+			dojoContainer.style.transition = 'none';
+			dojoContainer.style.transform = transform;
+		}
+		if (heroStage) {
+			heroStage.style.transition = 'none';
+			heroStage.style.transform = transform;
+		}
+		root.style.setProperty('--camera-yaw', `${totalYaw}deg`);
+		root.style.setProperty('--camera-pitch', `${pitch}deg`);
+		if (valCameraYaw) valCameraYaw.textContent = `${Math.round(totalYaw)}°`;
+		if (valCameraPitch) valCameraPitch.textContent = `${Math.round(pitch)}°`;
+		if (valCameraSpeed) valCameraSpeed.textContent = `${orbitSpeed.toFixed(0)}°/s`;
+	}
+
+	if (cameraYawInput) {
+		cameraYawInput.addEventListener('input', () => {
+			manualYaw = clamp(toNumber(cameraYawInput.value, manualYaw), 0, 360);
+			cameraYawInput.value = String(manualYaw);
+			applyCameraTransform();
+		});
+	}
+
+	if (cameraPitchInput) {
+		cameraPitchInput.addEventListener('input', () => {
+			manualPitch = clamp(toNumber(cameraPitchInput.value, manualPitch), CAMERA_PITCH_MIN, CAMERA_PITCH_MAX);
+			cameraPitchInput.value = String(manualPitch);
+			applyCameraTransform();
+		});
+	}
+
+	if (cameraSpeedInput) {
+		cameraSpeedInput.addEventListener('input', () => {
+			orbitSpeed = clamp(toNumber(cameraSpeedInput.value, orbitSpeed), 0, CAMERA_SPEED_MAX);
+			cameraSpeedInput.value = String(orbitSpeed);
+			applyCameraTransform();
+		});
+	}
+
+	function cameraLoop(now) {
+		const delta = (now - lastCameraFrame) / 1000;
+		lastCameraFrame = now;
+		if (orbitSpeed > 0) {
+			orbitOffset = normalizeAngle(orbitOffset + (orbitSpeed * delta));
+		}
+		applyCameraTransform();
+		window.requestAnimationFrame(cameraLoop);
+	}
+
+	applyCameraTransform();
+	window.requestAnimationFrame(cameraLoop);
+
 	// --- Chef breathing loop: crossfade inhale/exhale frames without keyframes ---
 	const breathInhale = document.getElementById('chef-breath-inhale');
 	const breathExhale = document.getElementById('chef-breath-exhale');
@@ -410,41 +494,4 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// --- Slow auto-rotation camera movement ---
-	let autoRotateAngle = 0;
-	const autoRotateSpeed = 0.015; // degrees per frame - slower
-	const autoRotateMax = 6; // max percentage in either direction
-	let autoRotateDirection = 1;
-
-	function autoRotate() {
-		autoRotateAngle += autoRotateSpeed * autoRotateDirection;
-		
-		// Reverse direction at limits
-		if (autoRotateAngle >= autoRotateMax) {
-			autoRotateDirection = -1;
-		} else if (autoRotateAngle <= -autoRotateMax) {
-			autoRotateDirection = 1;
-		}
-		
-		// Apply rotation
-		const rotateY = autoRotateAngle * 0.8;
-		const translateX = autoRotateAngle * 0.3;
-		
-		// Fixed zoom at 1.0
-		const currentZoom = 1.0;
-		const currentY = 0;
-		
-		if (dojoContainer) {
-			dojoContainer.style.transition = 'none';
-			dojoContainer.style.transform = `translateZ(0) scale(${currentZoom}) rotateY(${rotateY}deg) translate(${translateX}%, ${currentY}%)`;
-		}
-		if (heroStage) {
-			heroStage.style.transition = 'none';
-			heroStage.style.transform = `translateZ(0) scale(${currentZoom}) rotateY(${rotateY}deg) translate(${translateX}%, ${currentY}%)`;
-		}
-		
-		requestAnimationFrame(autoRotate);
-	}
-	
-	autoRotate();
 });
