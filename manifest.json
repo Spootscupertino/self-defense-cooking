@@ -1,0 +1,21 @@
+{
+  "name": "Self Defense Cooking",
+  "short_name": "SDC Dojo",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0a07",
+  "theme_color": "#0d0a07",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/chef-inhale.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/chef-inhale.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
