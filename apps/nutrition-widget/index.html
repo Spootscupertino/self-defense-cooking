@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Nutrition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cinzel:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Typography overrides */
+        body { font-family: 'Noto Serif', serif; }
+        .dojo-font { font-family: 'Cinzel', serif; }
+        .hand-font { font-family: 'Caveat', cursive; }
+        
+        /* Background: Dark Dojo Room */
+        .dojo-bg {
+            background-image: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%), url('/assets/skybox/dojo-front.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #2b2b2b; /* Fallback color */
+        }
+
+        /* Widget Container: Paper Mache Stone */
+        .paper-stone {
+            background-image: url('/assets/sdcburnedwood.png');
+            background-color: rgba(245, 245, 245, 0.92); /* Fallback color */
+            background-size: cover;
+            background-position: center;
+            /* Soft, organic shadow to lift it off the floor */
+            box-shadow: 
+                0 20px 50px -12px rgba(0, 0, 0, 0.5), 
+                inset 0 0 40px rgba(0,0,0,0.05);
+        }
+
+        /* The "Burned" Text Effect */
+        .burned-text {
+            color: #3e2723; /* Dark peat brown */
+            opacity: 0.85;
+            mix-blend-mode: multiply; 
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.4); 
+        }
+        
+        /* Input Styles: Fluid Pills */
+        .fluid-input {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(62, 39, 35, 0.1);
+            backdrop-filter: blur(4px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fluid-input:focus-within {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(62, 39, 35, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar for results list */
+        .results-list::-webkit-scrollbar { width: 6px; }
+        .results-list::-webkit-scrollbar-track { background: transparent; }
+        .results-list::-webkit-scrollbar-thumb { background-color: #d7ccc8; border-radius: 20px; }
+    </style>
+</head>
+<body class="dojo-bg min-h-screen flex items-center justify-center p-6 relative">
+
+    <div class="paper-stone w-full max-w-lg rounded-[3rem] p-10 z-10 relative">
+       
+        <div class="text-center mb-8 relative">
+            <h2 class="text-4xl font-bold dojo-font tracking-widest burned-text">Nutrition</h2>
+        </div>
+
+        <div class="space-y-6">
+           
+            <div class="relative group">
+                <div class="fluid-input rounded-full flex items-center px-4 py-1">
+                    <input type="text" id="searchInput" autocomplete="off" 
+                           class="w-full bg-transparent text-[#3e2723] text-2xl py-3 px-2 outline-none placeholder-[#8d6e63] hand-font font-bold tracking-wide text-center" 
+                           placeholder="Fuel">
+                </div>
+
+                <div id="resultsList" class="results-list absolute z-50 left-4 right-4 mt-2 max-h-56 overflow-y-auto bg-[#faf9f6] rounded-2xl shadow-xl hidden border border-[#efebe9]">
+                    </div>
+            </div>
+
+            <div class="flex gap-4">
+               
+                <div class="fluid-input rounded-full flex-1 flex items-center px-6 py-1">
+                    <input type="number" id="weightInput" value="100" min="0" step="0.1" 
+                           class="w-full bg-transparent text-[#3e2723] text-3xl py-3 outline-none placeholder-[#8d6e63] hand-font font-bold text-center" 
+                           placeholder="0">
+                </div>
+
+                <div class="fluid-input rounded-full flex-[1.5] relative flex items-center">
+                    <select id="unitSelect" class="w-full bg-transparent text-[#3e2723] text-2xl py-4 pl-6 pr-10 outline-none appearance-none hand-font font-bold cursor-pointer tracking-wide">
+                        <option value="g">grams (g)</option>
+                        <option value="oz">ounces (oz)</option>
+                        <option value="lb">pounds (lb)</option>
+                        <option value="cup">cups</option>
+                        <option value="tbsp">tablespoons</option>
+                        <option value="tsp">teaspoons</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-5 flex items-center text-[#8d6e63] opacity-60">
+                        <i class="fa-solid fa-chevron-down text-sm"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="nutritionCard" class="hidden mt-8 pt-8 border-t-2 border-[#5d4037] border-opacity-20 transition-all duration-500 ease-out origin-top transform scale-y-0 opacity-0">
+            
+            <div class="grid grid-cols-2 gap-8 items-center">
+                
+                <div class="text-center">
+                    <p class="text-[#8d6e63] font-bold tracking-widest text-sm uppercase mb-1 dojo-font">Energy</p>
+                    <div class="text-6xl font-bold burned-text dojo-font" id="dispKcal">0</div>
+                    <span class="text-[#5d4037] text-lg hand-font font-bold">kcal</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between items-end border-b border-[#a1887f] border-opacity-30 pb-1">
+                        <span class="text-[#5d4037] font-bold text-lg dojo-font">Protein</span>
+                        <span class="text-2xl font-bold burned-text hand-font" id="dispProtein">0g</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-[#a1887f] border-opacity-30 pb-1">
+                        <span class="text-[#5d4037] font-bold text-lg dojo-font">Fat</span>
+                        <span class="text-2xl font-bold burned-text hand-font" id="dispFat">0g</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-[#a1887f] border-opacity-30 pb-1">
+                        <span class="text-[#5d4037] font-bold text-lg dojo-font">Carbs</span>
+                        <span class="text-2xl font-bold burned-text hand-font" id="dispCarbs">0g</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-6 px-4 py-2 bg-[#d7ccc8] bg-opacity-20 rounded-xl">
+                <div class="text-center">
+                    <span class="block text-xs uppercase tracking-wide text-[#8d6e63] font-bold">Sugar</span>
+                    <span class="text-xl burned-text hand-font font-bold" id="dispSugar">0g</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-xs uppercase tracking-wide text-[#8d6e63] font-bold">Fiber</span>
+                    <span class="text-xl burned-text hand-font font-bold" id="dispFiber">0g</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-xs uppercase tracking-wide text-[#8d6e63] font-bold">Sodium</span>
+                    <span class="text-xl burned-text hand-font font-bold" id="dispSodium">0mg</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --- COMPLETE DOJO PANTRY DATASET (150+ Items) ---
+        // Format: {id, name, kcal, protein, fat, carbs, sugar, fiber, sodium} (per 100g)
+        const foodData = [
+            // --- EXOTIC & CITRUS ---
+            {id: 9128, name: "Yuzu, raw", kcal: 53, protein: 0.8, fat: 0.3, carbs: 13.3, sugar: 2.0, fiber: 0.4, sodium: 0},
+            {id: 9428, name: "Dragon Fruit", kcal: 60, protein: 1.2, fat: 0.0, carbs: 13.0, sugar: 8.0, fiber: 2.9, sodium: 0},
+            {id: 9164, name: "Lychee", kcal: 66, protein: 0.8, fat: 0.4, carbs: 16.5, sugar: 15.2, fiber: 1.3, sodium: 1},
+            {id: 9226, name: "Passion Fruit", kcal: 97, protein: 2.2, fat: 0.7, carbs: 23.4, sugar: 11.2, fiber: 10.4, sodium: 28},
+            {id: 9258, name: "Persimmon", kcal: 70, protein: 0.6, fat: 0.2, carbs: 18.6, sugar: 12.5, fiber: 3.6, sodium: 1},
+            {id: 9286, name: "Pomegranate", kcal: 83, protein: 1.7, fat: 1.2, carbs: 18.7, sugar: 13.7, fiber: 4.0, sodium: 3},
+            {id: 9116, name: "Durian", kcal: 147, protein: 1.5, fat: 5.3, carbs: 27.1, sugar: 0.0, fiber: 3.8, sodium: 2},
+            {id: 9144, name: "Jackfruit", kcal: 95, protein: 1.7, fat: 0.6, carbs: 23.3, sugar: 19.1, fiber: 1.5, sodium: 2},
+            {id: 9069, name: "Starfruit", kcal: 31, protein: 1.0, fat: 0.3, carbs: 6.7, sugar: 4.0, fiber: 2.8, sodium: 2},
+            {id: 9139, name: "Guava", kcal: 68, protein: 2.6, fat: 1.0, carbs: 14.3, sugar: 8.9, fiber: 5.4, sodium: 2},
+            {id: 9226, name: "Papaya", kcal: 43, protein: 0.5, fat: 0.3, carbs: 10.8, sugar: 7.8, fiber: 1.7, sodium: 8},
+            {id: 9148, name: "Kiwi", kcal: 61, protein: 1.1, fat: 0.5, carbs: 14.7, sugar: 9.0, fiber: 3.0, sodium: 3},
+            {id: 9089, name: "Fig", kcal: 74, protein: 0.8, fat: 0.3, carbs: 19.2, sugar: 16.3, fiber: 2.9, sodium: 1},
+            {id: 9156, name: "Kumquat", kcal: 71, protein: 1.9, fat: 0.9, carbs: 15.9, sugar: 9.4, fiber: 6.5, sodium: 10},
+            {id: 9150, name: "Lemon", kcal: 29, protein: 1.1, fat: 0.3, carbs: 9.3, sugar: 2.5, fiber: 2.8, sodium: 2},
+            {id: 9159, name: "Lime", kcal: 30, protein: 0.7, fat: 0.2, carbs: 10.5, sugar: 1.7, fiber: 2.8, sodium: 2},
+            {id: 13000, name: "Beef, Ribeye Steak", kcal: 291, protein: 23.9, fat: 21.8, carbs: 0, sugar: 0, fiber: 0, sodium: 54},
+            {id: 13912, name: "Beef, Sirloin Steak", kcal: 244, protein: 27.1, fat: 14.2, carbs: 0, sugar: 0, fiber: 0, sodium: 56},
+            {id: 13445, name: "Beef, Tenderloin (Filet)", kcal: 260, protein: 25.0, fat: 17.0, carbs: 0, sugar: 0, fiber: 0, sodium: 50},
+            {id: 13065, name: "Beef, New York Strip", kcal: 230, protein: 26.0, fat: 13.0, carbs: 0, sugar: 0, fiber: 0, sodium: 55},
+            {id: 13037, name: "Beef, Porterhouse", kcal: 265, protein: 24.0, fat: 18.0, carbs: 0, sugar: 0, fiber: 0, sodium: 58},
+            {id: 13038, name: "Beef, T-Bone Steak", kcal: 250, protein: 24.0, fat: 16.0, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 13957, name: "Beef, Skirt Steak", kcal: 220, protein: 26.0, fat: 12.0, carbs: 0, sugar: 0, fiber: 0, sodium: 65},
+            {id: 13095, name: "Beef, Flank Steak", kcal: 192, protein: 28.0, fat: 8.0, carbs: 0, sugar: 0, fiber: 0, sodium: 79},
+            {id: 13909, name: "Beef, Flat Iron", kcal: 200, protein: 25.0, fat: 10.0, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 13235, name: "Beef, Short Ribs", kcal: 390, protein: 16.0, fat: 36.0, carbs: 0, sugar: 0, fiber: 0, sodium: 50},
+            {id: 13490, name: "Beef, Brisket", kcal: 280, protein: 26.0, fat: 19.0, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 13084, name: "Beef, Chuck Roast", kcal: 277, protein: 25.5, fat: 19.5, carbs: 0, sugar: 0, fiber: 0, sodium: 70},
+            {id: 13873, name: "Beef, Top Round", kcal: 170, protein: 30.0, fat: 4.5, carbs: 0, sugar: 0, fiber: 0, sodium: 50},
+            {id: 13830, name: "Beef, Bottom Round", kcal: 190, protein: 28.0, fat: 8.0, carbs: 0, sugar: 0, fiber: 0, sodium: 55},
+            {id: 13047, name: "Beef, Ground (80/20)", kcal: 254, protein: 17.2, fat: 20.0, carbs: 0, sugar: 0, fiber: 0, sodium: 66},
+            {id: 13398, name: "Beef, Ground (90/10)", kcal: 176, protein: 20.0, fat: 10.0, carbs: 0, sugar: 0, fiber: 0, sodium: 65},
+            {id: 5027, name: "Chicken Liver", kcal: 119, protein: 16.9, fat: 4.8, carbs: 0.7, sugar: 0, fiber: 0, sodium: 71},
+            {id: 13333, name: "Beef Kidney", kcal: 99, protein: 17.4, fat: 3.1, carbs: 0.3, sugar: 0, fiber: 0, sodium: 182},
+            {id: 5025, name: "Chicken Gizzards", kcal: 94, protein: 17.7, fat: 2.1, carbs: 0, sugar: 0, fiber: 0, sodium: 69},
+            {id: 5029, name: "Chicken Heart", kcal: 153, protein: 15.6, fat: 9.3, carbs: 0.1, sugar: 0, fiber: 0, sodium: 48},
+            {id: 13360, name: "Rocky Mountain Oysters", kcal: 135, protein: 26.0, fat: 3.0, carbs: 1.0, sugar: 0, fiber: 0, sodium: 120},
+            {id: 15235, name: "Eel (Unagi)", kcal: 184, protein: 18.4, fat: 11.7, carbs: 0, sugar: 0, fiber: 0, sodium: 51},
+            {id: 15170, name: "Uni (Sea Urchin)", kcal: 172, protein: 16.0, fat: 10.0, carbs: 3.3, sugar: 0, fiber: 0, sodium: 272},
+            {id: 17195, name: "Frog Legs", kcal: 73, protein: 16.4, fat: 0.3, carbs: 0, sugar: 0, fiber: 0, sodium: 58},
+            {id: 15168, name: "Escargot (Snail)", kcal: 90, protein: 16.1, fat: 1.4, carbs: 2.0, sugar: 0, fiber: 0, sodium: 70},
+            {id: 15144, name: "Crayfish", kcal: 72, protein: 14.9, fat: 1.0, carbs: 0, sugar: 0, fiber: 0, sodium: 62},
+            {id: 17225, name: "Turtle", kcal: 89, protein: 19.8, fat: 0.5, carbs: 0, sugar: 0, fiber: 0, sodium: 68},
+            {id: 17220, name: "Alligator", kcal: 99, protein: 21.0, fat: 1.5, carbs: 0, sugar: 0, fiber: 0, sodium: 35},
+            {id: 13325, name: "Beef Liver", kcal: 135, protein: 20.4, fat: 3.6, carbs: 3.9, sugar: 0, fiber: 0, sodium: 69},
+            {id: 13321, name: "Beef Heart", kcal: 112, protein: 17.7, fat: 3.9, carbs: 0.1, sugar: 0, fiber: 0, sodium: 98},
+            {id: 13340, name: "Beef Tongue", kcal: 284, protein: 19.3, fat: 22.3, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 13348, name: "Oxtail", kcal: 262, protein: 30.8, fat: 14.3, carbs: 0, sugar: 0, fiber: 0, sodium: 233},
+            {id: 13355, name: "Beef Bone Marrow", kcal: 786, protein: 6.7, fat: 84.4, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 13346, name: "Beef Tripe", kcal: 85, protein: 12.1, fat: 3.7, carbs: 0, sugar: 0, fiber: 0, sodium: 46},
+            {id: 13353, name: "Sweetbreads (Beef)", kcal: 236, protein: 14.6, fat: 19.2, carbs: 0, sugar: 0, fiber: 0, sodium: 96},
+            {id: 17220, name: "Wild Boar", kcal: 122, protein: 21.5, fat: 3.3, carbs: 0, sugar: 0, fiber: 0, sodium: 57},
+            {id: 17190, name: "Pheasant", kcal: 133, protein: 23.6, fat: 3.6, carbs: 0, sugar: 0, fiber: 0, sodium: 38},
+            {id: 17057, name: "Veal Cutlet", kcal: 103, protein: 20.6, fat: 1.9, carbs: 0, sugar: 0, fiber: 0, sodium: 83},
+            {id: 15010, name: "Catfish", kcal: 95, protein: 16.4, fat: 2.8, carbs: 0, sugar: 0, fiber: 0, sodium: 43},
+            {id: 17164, name: "Venison (Deer)", kcal: 158, protein: 30.2, fat: 3.2, carbs: 0, sugar: 0, fiber: 0, sodium: 54},
+            {id: 17160, name: "Elk", kcal: 146, protein: 30.2, fat: 1.9, carbs: 0, sugar: 0, fiber: 0, sodium: 58},
+            {id: 17168, name: "Goat", kcal: 143, protein: 27.1, fat: 3.0, carbs: 0, sugar: 0, fiber: 0, sodium: 86},
+            {id: 17176, name: "Rabbit", kcal: 136, protein: 20.1, fat: 5.6, carbs: 0, sugar: 0, fiber: 0, sodium: 47},
+            {id: 17156, name: "Bison", kcal: 146, protein: 28.4, fat: 2.4, carbs: 0, sugar: 0, fiber: 0, sodium: 57},
+            {id: 17200, name: "Duck Breast", kcal: 123, protein: 19.8, fat: 4.2, carbs: 0, sugar: 0, fiber: 0, sodium: 56},
+            {id: 17190, name: "Goose", kcal: 371, protein: 15.9, fat: 33.6, carbs: 0, sugar: 0, fiber: 0, sodium: 73},
+            {id: 17180, name: "Quail", kcal: 227, protein: 25.0, fat: 14.0, carbs: 0, sugar: 0, fiber: 0, sodium: 53},
+            {id: 15171, name: "Octopus", kcal: 82, protein: 14.9, fat: 1.0, carbs: 2.2, sugar: 0, fiber: 0, sodium: 230},
+            {id: 15172, name: "Squid (Calamari)", kcal: 92, protein: 15.6, fat: 1.4, carbs: 3.1, sugar: 0, fiber: 0, sodium: 44},
+            {id: 15170, name: "Oysters", kcal: 81, protein: 9.5, fat: 2.3, carbs: 4.9, sugar: 0, fiber: 0, sodium: 106},
+            {id: 15164, name: "Mussels", kcal: 86, protein: 11.9, fat: 2.2, carbs: 3.7, sugar: 0, fiber: 0, sodium: 286},
+            {id: 15136, name: "Clams", kcal: 74, protein: 12.8, fat: 1.0, carbs: 2.6, sugar: 0, fiber: 0, sodium: 56},
+            {id: 15175, name: "Scallops", kcal: 88, protein: 16.8, fat: 0.8, carbs: 2.4, sugar: 0, fiber: 0, sodium: 161},
+            {id: 15147, name: "Lobster", kcal: 77, protein: 16.5, fat: 0.8, carbs: 0, sugar: 0, fiber: 0, sodium: 296},
+            {id: 15140, name: "Crab", kcal: 87, protein: 18.1, fat: 1.1, carbs: 0, sugar: 0, fiber: 0, sodium: 293},
+            {id: 15155, name: "Shrimp", kcal: 85, protein: 20.1, fat: 0.5, carbs: 0, sugar: 0, fiber: 0, sodium: 119},
+            {id: 15076, name: "Salmon", kcal: 142, protein: 19.8, fat: 6.3, carbs: 0, sugar: 0, fiber: 0, sodium: 44},
+            {id: 15115, name: "Tuna (Yellowfin)", kcal: 109, protein: 24.4, fat: 0.5, carbs: 0, sugar: 0, fiber: 0, sodium: 45},
+            {id: 15015, name: "Cod", kcal: 82, protein: 17.8, fat: 0.7, carbs: 0, sugar: 0, fiber: 0, sodium: 54},
+            {id: 15261, name: "Tilapia", kcal: 96, protein: 20.1, fat: 1.7, carbs: 0, sugar: 0, fiber: 0, sodium: 52},
+            {id: 15036, name: "Halibut", kcal: 111, protein: 22.5, fat: 1.6, carbs: 0, sugar: 0, fiber: 0, sodium: 54},
+            {id: 15057, name: "Mahi Mahi", kcal: 85, protein: 18.5, fat: 0.7, carbs: 0, sugar: 0, fiber: 0, sodium: 88},
+            {id: 15110, name: "Swordfish", kcal: 144, protein: 19.7, fat: 6.7, carbs: 0, sugar: 0, fiber: 0, sodium: 81},
+            {id: 15083, name: "Sea Bass", kcal: 97, protein: 18.4, fat: 2.0, carbs: 0, sugar: 0, fiber: 0, sodium: 68},
+            {id: 15096, name: "Snapper", kcal: 100, protein: 20.5, fat: 1.3, carbs: 0, sugar: 0, fiber: 0, sodium: 64},
+            {id: 15039, name: "Grouper", kcal: 92, protein: 19.4, fat: 1.0, carbs: 0, sugar: 0, fiber: 0, sodium: 53},
+            {id: 15046, name: "Mackerel", kcal: 205, protein: 18.6, fat: 13.9, carbs: 0, sugar: 0, fiber: 0, sodium: 90},
+            {id: 15060, name: "Sardines", kcal: 208, protein: 24.6, fat: 11.5, carbs: 0, sugar: 0, fiber: 0, sodium: 307},
+            {id: 15200, name: "Anchovies", kcal: 210, protein: 28.9, fat: 9.7, carbs: 0, sugar: 0, fiber: 0, sodium: 3668},
+            {id: 20040, name: "Rice, Brown", kcal: 367, protein: 7.5, fat: 3.2, carbs: 76.2, sugar: 0.7, fiber: 3.6, sodium: 4},
+            {id: 20044, name: "Rice, White", kcal: 365, protein: 7.1, fat: 0.7, carbs: 80.0, sugar: 0.1, fiber: 1.3, sodium: 5},
+            {id: 20450, name: "Rice, Basmati", kcal: 365, protein: 7.1, fat: 0.7, carbs: 80.0, sugar: 0.1, fiber: 1.3, sodium: 5},
+            {id: 20451, name: "Rice, Jasmine", kcal: 360, protein: 6.6, fat: 0.8, carbs: 79.0, sugar: 0.1, fiber: 0.9, sodium: 3},
+            {id: 20452, name: "Rice, Arborio", kcal: 356, protein: 6.5, fat: 0.5, carbs: 79.5, sugar: 0.2, fiber: 1.8, sodium: 2},
+            {id: 20088, name: "Rice, Wild", kcal: 357, protein: 14.7, fat: 1.1, carbs: 74.9, sugar: 2.5, fiber: 6.2, sodium: 7},
+            {id: 20137, name: "Quinoa", kcal: 368, protein: 14.1, fat: 6.1, carbs: 64.2, sugar: 0, fiber: 7.0, sodium: 5},
+            {id: 20038, name: "Oats", kcal: 379, protein: 13.2, fat: 6.5, carbs: 67.7, sugar: 1.0, fiber: 10.1, sodium: 6},
+            {id: 20005, name: "Barley", kcal: 352, protein: 9.9, fat: 1.2, carbs: 77.7, sugar: 0.8, fiber: 15.6, sodium: 9},
+            {id: 20023, name: "Farro", kcal: 362, protein: 12.5, fat: 2.1, carbs: 72.8, sugar: 1.2, fiber: 7.9, sodium: 2},
+            {id: 20012, name: "Bulgur", kcal: 342, protein: 12.3, fat: 1.3, carbs: 75.9, sugar: 0.4, fiber: 18.3, sodium: 17},
+            {id: 20058, name: "Millet", kcal: 378, protein: 11.0, fat: 4.2, carbs: 72.9, sugar: 0, fiber: 8.5, sodium: 5},
+            {id: 20420, name: "Pasta (Spaghetti)", kcal: 371, protein: 13.0, fat: 1.5, carbs: 74.7, sugar: 2.7, fiber: 3.2, sodium: 6},
+            {id: 20110, name: "Soba Noodles", kcal: 336, protein: 14.4, fat: 0.7, carbs: 75.0, sugar: 0, fiber: 0, sodium: 700},
+            {id: 20081, name: "Flour, All-Purpose", kcal: 364, protein: 10.3, fat: 1.0, carbs: 76.3, sugar: 0.3, fiber: 2.7, sodium: 2},
+            {id: 20080, name: "Flour, Whole Wheat", kcal: 339, protein: 13.7, fat: 1.9, carbs: 72.6, sugar: 0.4, fiber: 12.2, sodium: 5},
+            {id: 12066, name: "Flour, Almond", kcal: 600, protein: 21.0, fat: 50.0, carbs: 20.0, sugar: 4.0, fiber: 10.0, sodium: 1},
+            {id: 12109, name: "Flour, Coconut", kcal: 443, protein: 17.1, fat: 15.1, carbs: 64.8, sugar: 20.0, fiber: 37.5, sodium: 80},
+            {id: 18060, name: "Sourdough Bread", kcal: 289, protein: 11.5, fat: 3.3, carbs: 53.2, sugar: 2.0, fiber: 2.3, sodium: 630},
+            {id: 18064, name: "White Bread", kcal: 265, protein: 9.2, fat: 3.2, carbs: 49.1, sugar: 5.7, fiber: 2.7, sodium: 491},
+            {id: 18075, name: "Whole Wheat Bread", kcal: 252, protein: 12.5, fat: 3.5, carbs: 42.7, sugar: 4.3, fiber: 6.0, sodium: 455},
+            {id: 18276, name: "Naan", kcal: 310, protein: 9.5, fat: 5.6, carbs: 53.2, sugar: 3.2, fiber: 2.3, sodium: 480},
+            {id: 18413, name: "Pita Bread", kcal: 275, protein: 9.1, fat: 1.2, carbs: 55.7, sugar: 1.0, fiber: 2.2, sodium: 536},
+            {id: 18364, name: "Tortilla (Flour)", kcal: 297, protein: 8.1, fat: 7.2, carbs: 49.3, sugar: 1.6, fiber: 2.6, sodium: 700},
+            {id: 18363, name: "Tortilla (Corn)", kcal: 218, protein: 5.7, fat: 2.8, carbs: 45.0, sugar: 0.8, fiber: 6.0, sodium: 45},
+            {id: 4053, name: "Olive Oil", kcal: 884, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4582, name: "Canola Oil", kcal: 884, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4044, name: "Coconut Oil", kcal: 862, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4679, name: "Avocado Oil", kcal: 884, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4514, name: "Sesame Oil", kcal: 884, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 1002, name: "Ghee", kcal: 876, protein: 0.3, fat: 99.5, carbs: 0, sugar: 0, fiber: 0, sodium: 2},
+            {id: 4574, name: "Duck Fat", kcal: 884, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4001, name: "Beef Tallow", kcal: 902, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 4002, name: "Lard", kcal: 902, protein: 0, fat: 100, carbs: 0, sugar: 0, fiber: 0, sodium: 0},
+            {id: 12061, name: "Almonds", kcal: 579, protein: 21.2, fat: 49.9, carbs: 21.6, sugar: 4.4, fiber: 12.5, sodium: 1},
+            {id: 12155, name: "Walnuts", kcal: 654, protein: 15.2, fat: 65.2, carbs: 13.7, sugar: 2.6, fiber: 6.7, sodium: 2},
+            {id: 12135, name: "Pecans", kcal: 691, protein: 9.2, fat: 72.0, carbs: 13.9, sugar: 4.0, fiber: 9.6, sodium: 0},
+            {id: 12036, name: "Cashews", kcal: 553, protein: 18.2, fat: 43.9, carbs: 30.2, sugar: 5.9, fiber: 3.3, sodium: 12},
+            {id: 12142, name: "Pistachios", kcal: 560, protein: 20.2, fat: 45.3, carbs: 27.2, sugar: 7.7, fiber: 10.6, sodium: 1},
+            {id: 12131, name: "Macadamia Nuts", kcal: 718, protein: 7.9, fat: 75.8, carbs: 13.8, sugar: 4.6, fiber: 8.6, sodium: 5},
+            {id: 12147, name: "Pine Nuts", kcal: 673, protein: 13.7, fat: 68.4, carbs: 13.1, sugar: 3.6, fiber: 3.7, sodium: 2},
+            {id: 12023, name: "Sesame Seeds", kcal: 573, protein: 17.7, fat: 49.7, carbs: 23.4, sugar: 0.3, fiber: 11.8, sodium: 11},
+            {id: 12014, name: "Chia Seeds", kcal: 486, protein: 16.5, fat: 30.7, carbs: 42.1, sugar: 0, fiber: 34.4, sodium: 16},
+            {id: 12220, name: "Flaxseed", kcal: 534, protein: 18.3, fat: 42.2, carbs: 28.9, sugar: 1.6, fiber: 27.3, sodium: 30},
+            {id: 12014, name: "Pumpkin Seeds", kcal: 559, protein: 30.2, fat: 49.0, carbs: 10.7, sugar: 1.4, fiber: 6.0, sodium: 7},
+            {id: 16098, name: "Peanut Butter", kcal: 588, protein: 25.1, fat: 50.4, carbs: 20.1, sugar: 9.2, fiber: 6.0, sodium: 476},
+            {id: 9003, name: "Apple", kcal: 52, protein: 0.3, fat: 0.2, carbs: 13.8, sugar: 10.4, fiber: 2.4, sodium: 1},
+            {id: 9040, name: "Banana", kcal: 89, protein: 1.1, fat: 0.3, carbs: 22.8, sugar: 12.2, fiber: 2.6, sodium: 1},
+            {id: 9050, name: "Blueberries", kcal: 57, protein: 0.7, fat: 0.3, carbs: 14.5, sugar: 10.0, fiber: 2.4, sodium: 1},
+            {id: 9316, name: "Strawberries", kcal: 32, protein: 0.7, fat: 0.3, carbs: 7.7, sugar: 4.9, fiber: 2.0, sodium: 1},
+            {id: 11090, name: "Broccoli", kcal: 34, protein: 2.8, fat: 0.4, carbs: 6.6, sugar: 1.7, fiber: 2.6, sodium: 33},
+            {id: 11124, name: "Carrot", kcal: 41, protein: 0.9, fat: 0.2, carbs: 9.6, sugar: 4.7, fiber: 2.8, sodium: 69},
+            {id: 11457, name: "Spinach", kcal: 23, protein: 2.9, fat: 0.4, carbs: 3.6, sugar: 0.4, fiber: 2.2, sodium: 79},
+            {id: 11529, name: "Tomato", kcal: 18, protein: 0.9, fat: 0.2, carbs: 3.9, sugar: 2.6, fiber: 1.2, sodium: 5},
+            {id: 11215, name: "Garlic", kcal: 149, protein: 6.4, fat: 0.5, carbs: 33.1, sugar: 1.0, fiber: 2.1, sodium: 17},
+            {id: 11282, name: "Onion", kcal: 40, protein: 1.1, fat: 0.1, carbs: 9.3, sugar: 4.2, fiber: 1.7, sodium: 4},
+            {id: 11011, name: "Asparagus", kcal: 20, protein: 2.2, fat: 0.1, carbs: 3.9, sugar: 1.9, fiber: 2.1, sodium: 2},
+            {id: 11352, name: "Potato", kcal: 79, protein: 2.1, fat: 0.1, carbs: 18.0, sugar: 0.6, fiber: 1.3, sodium: 5},
+            {id: 11507, name: "Sweet Potato", kcal: 86, protein: 1.6, fat: 0.1, carbs: 20.1, sugar: 4.2, fiber: 3.0, sodium: 55},
+            {id: 1001, name: "Butter", kcal: 717, protein: 0.9, fat: 81.1, carbs: 0.1, sugar: 0, fiber: 0, sodium: 576},
+            {id: 1012, name: "Cheddar Cheese", kcal: 403, protein: 24.9, fat: 33.1, carbs: 1.3, sugar: 0.5, fiber: 0, sodium: 621},
+            {id: 1013, name: "Mozzarella", kcal: 300, protein: 22.2, fat: 22.4, carbs: 2.2, sugar: 1.0, fiber: 0, sodium: 486},
+            {id: 1123, name: "Egg", kcal: 143, protein: 12.6, fat: 9.5, carbs: 0.7, sugar: 0.4, fiber: 0, sodium: 142},
+            {id: 1077, name: "Milk (Whole)", kcal: 61, protein: 3.2, fat: 3.3, carbs: 4.8, sugar: 5.1, fiber: 0, sodium: 43},
+            {id: 1116, name: "Greek Yogurt", kcal: 59, protein: 10.2, fat: 0.4, carbs: 3.6, sugar: 3.2, fiber: 0, sodium: 36},
+            {id: 16126, name: "Tofu (Firm)", kcal: 145, protein: 15.8, fat: 8.7, carbs: 4.3, sugar: 0, fiber: 2.3, sodium: 14},
+            {id: 16114, name: "Tempeh", kcal: 192, protein: 20.3, fat: 10.8, carbs: 7.6, sugar: 0, fiber: 0, sodium: 9},
+            {id: 16500, name: "Seitan", kcal: 370, protein: 75.0, fat: 1.9, carbs: 13.8, sugar: 0, fiber: 0.6, sodium: 29},
+            {id: 16015, name: "Black Beans", kcal: 341, protein: 21.6, fat: 1.4, carbs: 62.4, sugar: 2.1, fiber: 15.2, sodium: 5},
+            {id: 16057, name: "Chickpeas", kcal: 378, protein: 20.5, fat: 6.0, carbs: 63.0, sugar: 10.7, fiber: 12.2, sodium: 24},
+            {id: 16070, name: "Lentils", kcal: 352, protein: 24.6, fat: 1.1, carbs: 63.4, sugar: 2.0, fiber: 10.7, sodium: 6},
+            {id: 19335, name: "Sugar", kcal: 387, protein: 0, fat: 0, carbs: 100, sugar: 100, fiber: 0, sodium: 1},
+            {id: 19296, name: "Honey", kcal: 304, protein: 0.3, fat: 0, carbs: 82.4, sugar: 82.1, fiber: 0.2, sodium: 4},
+            {id: 19364, name: "Maple Syrup", kcal: 260, protein: 0.0, fat: 0.1, carbs: 67.0, sugar: 60.4, fiber: 0, sodium: 12},
+            {id: 2047, name: "Salt", kcal: 0, protein: 0, fat: 0, carbs: 0, sugar: 0, fiber: 0, sodium: 38758},
+            {id: 2030, name: "Black Pepper", kcal: 251, protein: 10.4, fat: 3.3, carbs: 64.0, sugar: 0.6, fiber: 25.3, sodium: 20},
+            {id: 2053, name: "Balsamic Vinegar", kcal: 88, protein: 0.5, fat: 0, carbs: 17.0, sugar: 15.0, fiber: 0, sodium: 23},
+            {id: 16124, name: "Soy Sauce", kcal: 53, protein: 8.1, fat: 0.6, carbs: 4.9, sugar: 0.4, fiber: 0.8, sodium: 5493},
+            {id: 1012, name: "Cottage Cheese", kcal: 98, protein: 11.1, fat: 4.3, carbs: 3.4, sugar: 2.7, fiber: 0, sodium: 364},
+            {id: 10008, name: "Pork Loin", kcal: 198, protein: 19.7, fat: 12.6, carbs: 0, sugar: 0, fiber: 0, sodium: 56},
+            {id: 10036, name: "Pork Chop", kcal: 230, protein: 21.0, fat: 15.0, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 10182, name: "Bacon", kcal: 541, protein: 37.0, fat: 41.8, carbs: 1.4, sugar: 0, fiber: 0, sodium: 1717},
+            {id: 17006, name: "Lamb Ground", kcal: 282, protein: 16.6, fat: 23.4, carbs: 0, sugar: 0, fiber: 0, sodium: 59},
+            {id: 17020, name: "Lamb Leg", kcal: 180, protein: 20.0, fat: 11.0, carbs: 0, sugar: 0, fiber: 0, sodium: 60},
+            {id: 5006, name: "Chicken Breast", kcal: 120, protein: 22.5, fat: 2.6, carbs: 0, sugar: 0, fiber: 0, sodium: 45},
+            {id: 5091, name: "Chicken Thigh", kcal: 221, protein: 16.5, fat: 16.6, carbs: 0, sugar: 0, fiber: 0, sodium: 76},
+            {id: 5100, name: "Chicken Wing", kcal: 203, protein: 17.0, fat: 14.0, carbs: 0, sugar: 0, fiber: 0, sodium: 70},
+            {id: 5167, name: "Turkey Breast", kcal: 135, protein: 24.6, fat: 3.3, carbs: 0, sugar: 0, fiber: 0, sodium: 50}
+        ];
+
+        // Ensure no duplicates from merge and sort
+        const uniqueFoodData = Array.from(new Map(foodData.map(item => [item.id, item])).values());
+        uniqueFoodData.sort((a, b) => a.name.localeCompare(b.name));
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const resultsList = document.getElementById('resultsList');
+        const weightInput = document.getElementById('weightInput');
+        const unitSelect = document.getElementById('unitSelect');
+        const nutritionCard = document.getElementById('nutritionCard');
+        const displayEls = {
+            kcal: document.getElementById('dispKcal'),
+            protein: document.getElementById('dispProtein'),
+            fat: document.getElementById('dispFat'),
+            carbs: document.getElementById('dispCarbs'),
+            sugar: document.getElementById('dispSugar'),
+            fiber: document.getElementById('dispFiber'),
+            sodium: document.getElementById('dispSodium')
+        };
+
+        let currentFoodItem = null;
+
+        // Conversion Factors (to grams)
+        const unitConversions = {
+            g: 1,
+            oz: 28.3495,
+            lb: 453.592,
+            cup: 236.588,
+            tbsp: 14.7868,
+            tsp: 4.9289
+        };
+
+        // --- FUZZY LOGIC (Levenshtein) ---
+        function levenshtein(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) == a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1)
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
+        // --- SEARCH LOGIC ---
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (query.length < 1) {
+                resultsList.classList.add('hidden');
+                return;
+            }
+
+            const scoredItems = uniqueFoodData.map(food => {
+                const name = food.name.toLowerCase();
+                let score = 0;
+
+                if (name.includes(query)) {
+                    if (name.startsWith(query)) score = 100;
+                    else score = 50;
+                    score -= (name.length - query.length) * 0.1;
+                } else {
+                    const dist = levenshtein(query, name);
+                    const maxLen = Math.max(query.length, name.length);
+                    const similarity = 1 - (dist / maxLen);
+                    if (similarity > 0.4) score = similarity * 20;
+                }
+                return { food, score };
+            });
+
+            const matches = scoredItems
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 10)
+                .map(item => item.food);
+
+            renderResults(matches);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !resultsList.contains(e.target)) {
+                resultsList.classList.add('hidden');
+            }
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if(searchInput.value.trim() === "") {
+                renderResults(uniqueFoodData.slice(0, 10)); 
+            } else {
+                searchInput.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // --- CORE FUNCTIONS ---
+
+        function renderResults(matches) {
+            resultsList.innerHTML = '';
+            if (matches.length === 0) {
+                const div = document.createElement('div');
+                div.className = "px-4 py-3 text-stone-400 text-sm italic hand-font text-lg";
+                div.textContent = "No essence found...";
+                resultsList.appendChild(div);
+            } else {
+                matches.forEach(food => {
+                    const div = document.createElement('div');
+                    div.className = "px-4 py-3 text-[#3e2723] hover:bg-[#efebe9] transition-colors cursor-pointer border-b border-[#efebe9] last:border-0 hand-font text-xl";
+                    div.textContent = food.name;
+                    div.addEventListener('click', () => selectFood(food));
+                    resultsList.appendChild(div);
+                });
+            }
+            resultsList.classList.remove('hidden');
+        }
+
+        function selectFood(food) {
+            currentFoodItem = food;
+            searchInput.value = food.name;
+            resultsList.classList.add('hidden');
+            
+            // Reveal the card
+            nutritionCard.classList.remove('hidden');
+            setTimeout(() => {
+                nutritionCard.classList.remove('scale-y-0', 'opacity-0');
+            }, 10);
+
+            calculateNutrition();
+        }
+
+        function calculateNutrition() {
+            if (!currentFoodItem) return;
+
+            const inputWeight = parseFloat(weightInput.value) || 0;
+            const unit = unitSelect.value;
+            const weightInGrams = inputWeight * unitConversions[unit];
+            const ratio = weightInGrams / 100;
+
+            animateValue(displayEls.kcal, Math.round(currentFoodItem.kcal * ratio));
+            displayEls.protein.textContent = (currentFoodItem.protein * ratio).toFixed(1) + 'g';
+            displayEls.fat.textContent = (currentFoodItem.fat * ratio).toFixed(1) + 'g';
+            displayEls.carbs.textContent = (currentFoodItem.carbs * ratio).toFixed(1) + 'g';
+            displayEls.sugar.textContent = (currentFoodItem.sugar * ratio).toFixed(1) + 'g';
+            displayEls.fiber.textContent = (currentFoodItem.fiber * ratio).toFixed(1) + 'g';
+            displayEls.sodium.textContent = Math.round(currentFoodItem.sodium * ratio) + 'mg';
+        }
+
+        function animateValue(obj, end) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / 500, 1);
+                obj.innerHTML = Math.floor(progress * end);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end;
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        weightInput.addEventListener('input', calculateNutrition);
+        unitSelect.addEventListener('change', calculateNutrition);
+
+    </script>
+</body>
+</html>

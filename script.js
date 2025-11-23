@@ -3,16 +3,20 @@ import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js?mo
 let renderer = null;
 let camera = null;
 let scene = null;
+let skyboxTextures = [];
 let skyboxMesh = null;
 let resizeHandler = null;
 let rafId = null;
 let yawDeg = 0;
 let pitchDeg = 0;
 
+const DEBUG_ENABLED = false;
+
 const PITCH_MAX = 80;
 const PITCH_MIN = -80;
 const YAW_SENSITIVITY = 0.18;
 const PITCH_SENSITIVITY = 0.14;
+const SKYBOX_SIZE = 24000;
 
 let pointerDownHandler = null;
 let pointerMoveHandler = null;
@@ -24,6 +28,56 @@ let pointerStartX = 0;
 let pointerStartY = 0;
 let pointerStartYaw = 0;
 let pointerStartPitch = 0;
+
+function shrinkSkyboxUVs(geometry, margin) {
+    const safeMargin = Number.isFinite(margin) && margin > 0 ? margin : 0;
+    if (!geometry || !geometry.attributes || !geometry.attributes.uv) {
+        return;
+    }
+    const uvAttr = geometry.attributes.uv;
+    const scale = 1 - safeMargin * 2;
+    for (let i = 0; i < uvAttr.count; i += 1) {
+        const u = uvAttr.getX(i);
+        const v = uvAttr.getY(i);
+        uvAttr.setXY(i, u * scale + safeMargin, v * scale + safeMargin);
+    }
+    uvAttr.needsUpdate = true;
+}
+
+function debugLog(message, ...args) {
+    if (!DEBUG_ENABLED) {
+        return;
+    }
+    try {
+        console.log(message, ...args);
+        const formattedArgs = args.length
+            ? ' ' + args.map((item) => {
+                if (item instanceof Error) {
+                    return `${item.message}\n${item.stack || ''}`;
+                }
+                if (typeof item === 'object') {
+                    try {
+                        return JSON.stringify(item, null, 2);
+                    } catch (jsonErr) {
+                        return String(item);
+                    }
+                }
+                return String(item);
+            }).join(' ')
+            : '';
+        const text = `[${new Date().toLocaleTimeString()}] ${String(message)}${formattedArgs}`;
+        if (typeof fetch === 'function') {
+            try {
+                const encoded = encodeURIComponent(text.slice(0, 512));
+                fetch(`/__debug?msg=${encoded}`, { method: 'GET', mode: 'no-cors', keepalive: false }).catch(() => {});
+            } catch (networkErr) {
+                // ignore
+            }
+        }
+    } catch (err) {
+        // ignore secondary logging issues
+    }
+}
 
 function normalizeDegrees(value) {
     const degree = Number.isFinite(value) ? value : Number(value);
@@ -79,38 +133,119 @@ function teardownViewer() {
         renderer.dispose();
         renderer = null;
     }
+    if (skyboxTextures.length) {
+        skyboxTextures.forEach((texture) => {
+            if (texture && texture.dispose) {
+                texture.dispose();
+            }
+        });
+        skyboxTextures = [];
+    }
+    if (skyboxMesh && scene) {
+        scene.remove(skyboxMesh);
+        skyboxMesh.geometry.dispose();
+        skyboxMesh.material.dispose();
+        skyboxMesh = null;
+    }
+    if (scene && scene.background) {
+        scene.background = null;
+    }
+    if (scene && scene.environment) {
+        scene.environment = null;
+    }
     camera = null;
     scene = null;
-    skyboxMesh = null;
 }
 
 function createSkybox() {
-    const textureLoader = new THREE.TextureLoader();
-
-    function loadFace(url) {
-        const texture = textureLoader.load(url, undefined, undefined, (err) => {
-            console.error(`Failed to load texture ${url}`, err);
-        });
-        if ('colorSpace' in texture) {
-            texture.colorSpace = THREE.SRGBColorSpace;
-        } else if ('encoding' in texture) {
-            texture.encoding = THREE.sRGBEncoding;
-        }
-        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-    }
-
-    const materials = [
-        loadFace('assets/skybox/dojo_right.png'),
-        loadFace('assets/skybox/dojo_left.png'),
-        loadFace('assets/skybox/dojo-top.png'),
-        loadFace('assets/skybox/dojo-bottom.png'),
-        loadFace('assets/skybox/dojo-front.png'),
-        loadFace('assets/skybox/dojo-back.png'),
+    const loader = new THREE.TextureLoader();
+    const faces = [
+        'dojo_right.png',
+        'dojo_left.png',
+        'dojo-top.png',
+        'dojo-bottom.png',
+        'dojo-front.png',
+        'dojo-back.png',
     ];
 
-    const geometry = new THREE.BoxGeometry(1200, 1200, 1200);
-    skyboxMesh = new THREE.Mesh(geometry, materials);
-    scene.add(skyboxMesh);
+    const loadFace = (file) => new Promise((resolve, reject) => {
+        loader.load(
+            `assets/skybox/${file}`,
+            (texture) => {
+                const width = texture.image && texture.image.width ? texture.image.width : null;
+                const height = texture.image && texture.image.height ? texture.image.height : null;
+                if ('colorSpace' in texture) {
+                    texture.colorSpace = THREE.SRGBColorSpace;
+                } else if ('encoding' in texture) {
+                    texture.encoding = THREE.sRGBEncoding;
+                }
+                texture.wrapS = THREE.ClampToEdgeWrapping;
+                texture.wrapT = THREE.ClampToEdgeWrapping;
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.LinearFilter;
+                texture.generateMipmaps = false;
+                debugLog('Skybox face ready', file, width, height);
+                resolve(texture);
+            },
+            undefined,
+            (err) => reject(err),
+        );
+    });
+
+    Promise.all(faces.map((file) => loadFace(file)))
+        .then((textures) => {
+            debugLog('Skybox textures loaded');
+            if (!scene) {
+                textures.forEach((texture) => texture.dispose());
+                return;
+            }
+            if (skyboxTextures.length) {
+                skyboxTextures.forEach((texture) => {
+                    if (texture && texture.dispose) {
+                        texture.dispose();
+                    }
+                });
+            }
+            skyboxTextures = textures;
+            const geometry = new THREE.BoxGeometry(SKYBOX_SIZE, SKYBOX_SIZE, SKYBOX_SIZE);
+            const smallestDimension = textures.reduce((acc, texture) => {
+                if (!texture || !texture.image) return acc;
+                const { width, height } = texture.image;
+                const localMin = Math.min(width || acc, height || acc);
+                return Math.min(acc, localMin);
+            }, Infinity);
+            const margin = smallestDimension && Number.isFinite(smallestDimension) && smallestDimension > 0
+                ? 1 / (smallestDimension * 2)
+                : 0;
+            shrinkSkyboxUVs(geometry, margin);
+            const materials = textures.map((texture) => new THREE.MeshBasicMaterial({
+                map: texture,
+                side: THREE.BackSide,
+                depthWrite: false,
+            }));
+            if (skyboxMesh && scene) {
+                scene.remove(skyboxMesh);
+                if (skyboxMesh.geometry) {
+                    skyboxMesh.geometry.dispose();
+                }
+                const priorMaterials = Array.isArray(skyboxMesh.material)
+                    ? skyboxMesh.material
+                    : [skyboxMesh.material];
+                priorMaterials.forEach((material) => {
+                    if (material && material.dispose) {
+                        material.dispose();
+                    }
+                });
+                skyboxMesh = null;
+            }
+            skyboxMesh = new THREE.Mesh(geometry, materials);
+            skyboxMesh.frustumCulled = false;
+            scene.add(skyboxMesh);
+            debugLog('Skybox mesh added to scene');
+        })
+        .catch((err) => {
+            debugLog('Failed to load dojo skybox', err && err.message ? err.message : err);
+        });
 }
 
 function registerPointerControls(canvas) {
@@ -192,16 +327,23 @@ export function initDojoViewer() {
     const aspect = window.innerWidth > 0 && window.innerHeight > 0
         ? window.innerWidth / window.innerHeight
         : 1;
-    camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 2000);
+    camera = new THREE.PerspectiveCamera(110, aspect, 0.05, SKYBOX_SIZE * 2);
     camera.position.set(0, 0, 0);
     camera.rotation.order = 'YXZ';
+    camera.updateProjectionMatrix();
 
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setClearColor(0x000000, 1);
+    if ('outputColorSpace' in renderer) {
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+    } else if ('outputEncoding' in renderer) {
+        renderer.outputEncoding = THREE.sRGBEncoding;
+    }
 
     createSkybox();
+    debugLog('Skybox load initiated');
 
     resizeHandler = () => {
         const width = Math.max(window.innerWidth, 1);
@@ -230,6 +372,7 @@ export function initDojoViewer() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    debugLog('Dojo viewer booting');
     initDojoViewer();
 });
 
