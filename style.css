@@ -163,13 +163,6 @@ body {
     /* No horizontal pacing */
 }
 
-    will-change: transform;
-    transform-origin: center bottom;
-    /* Calm, subtle breathing */
-    animation: idle-breath 8s ease-in-out infinite;
-    position: relative; /* needed for the floor shadow */
-}
-
 .pacing-img {
     display: block;
     max-width: 100%;
@@ -559,4 +552,27 @@ body::after {
     pointer-events: none;
     filter: blur(0.5px) brightness(0.93) saturate(0.98) drop-shadow(0 2px 6px rgba(60,40,20,0.10));
     opacity: 0.92;
+}
+
+/* Chef Button (Nutrition App Link) */
+.chef-button {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%) scale(1.0);
+    z-index: 35; /* Above scene, below UI */
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    display: block;
+}
+
+.chef-button img {
+    display: block;
+    width: 120px; /* Base width, scaled by transform */
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+}
+
+.chef-button:hover {
+    filter: brightness(1.1);
 }
