@@ -1,379 +1,207 @@
-import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js?module';
+// Fresh dojo has no animations.
+// This file also contains a tiny handler to open the user's mail client
+// with the message from the contact box.
 
-let renderer = null;
-let camera = null;
-let scene = null;
-let skyboxTextures = [];
-let skyboxMesh = null;
-let resizeHandler = null;
-let rafId = null;
-let yawDeg = 0;
-let pitchDeg = 0;
+document.addEventListener('DOMContentLoaded', function () {
+	const form = document.getElementById('contact-form');
+	const textarea = document.getElementById('contact-message');
+	if (!form || !textarea) return;
 
-const DEBUG_ENABLED = false;
+	form.addEventListener('submit', function (e) {
+		e.preventDefault();
+		const email = 'eric@selfdefensecooking.com';
+		const subject = encodeURIComponent('Inquiry from Self Defense Cooking');
+		const body = encodeURIComponent(textarea.value || '');
+		// Open the default mail client via mailto
+		window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+	});
+    
+	// No more spinning or flipping for Chef Chilla; he sits still and breathes gently.
 
-const PITCH_MAX = 80;
-const PITCH_MIN = -80;
-const YAW_SENSITIVITY = 0.18;
-const PITCH_SENSITIVITY = 0.14;
-const SKYBOX_SIZE = 24000;
+	// Parallax: subtle background and character movement following mouse
+	const dojoBg = document.getElementById('dojo-bg');
+	const particlesRoot = document.getElementById('particles');
+	const maxBg = 10; // px
+	const maxChar = 12; // px
+	function onPointer(e) {
+		const w = window.innerWidth;
+		const h = window.innerHeight;
+		const x = (e.clientX / w) - 0.5; // -0.5 .. 0.5
+		const y = (e.clientY / h) - 0.5;
+		if (dojoBg) dojoBg.style.transform = `translate(${ -x * maxBg }px, ${ -y * (maxBg/2) }px) scale(1.02)`;
+		if (pacingWrap) pacingWrap.style.transform = `translate(${ x * maxChar }px, ${ y * (maxChar/3) }px)`;
+	}
+	window.addEventListener('pointermove', onPointer);
 
-let pointerDownHandler = null;
-let pointerMoveHandler = null;
-let pointerUpHandler = null;
-let pointerCancelHandler = null;
-let canvasElement = null;
-let activePointerId = null;
-let pointerStartX = 0;
-let pointerStartY = 0;
-let pointerStartYaw = 0;
-let pointerStartPitch = 0;
+	// Particles: generate subtle dust motes
+	if (particlesRoot) {
+		const count = 18;
+		for (let i=0;i<count;i++){
+			const p = document.createElement('div');
+			p.className = 'particle';
+			const left = Math.random() * 100;
+			const size = 2 + Math.random()*8;
+			p.style.left = `${left}%`;
+			p.style.width = `${size}px`;
+			p.style.height = `${size}px`;
+			p.style.bottom = `${5 + Math.random()*30}%`;
+			const dur = 6 + Math.random()*10;
+			const delay = Math.random()*-dur;
+			p.style.animationDuration = `${dur}s`;
+			p.style.animationDelay = `${delay}s`;
+			p.style.opacity = (0.02 + Math.random()*0.06).toString();
+			particlesRoot.appendChild(p);
+		}
 
-function shrinkSkyboxUVs(geometry, margin) {
-    const safeMargin = Number.isFinite(margin) && margin > 0 ? margin : 0;
-    if (!geometry || !geometry.attributes || !geometry.attributes.uv) {
-        return;
-    }
-    const uvAttr = geometry.attributes.uv;
-    const scale = 1 - safeMargin * 2;
-    for (let i = 0; i < uvAttr.count; i += 1) {
-        const u = uvAttr.getX(i);
-        const v = uvAttr.getY(i);
-        uvAttr.setXY(i, u * scale + safeMargin, v * scale + safeMargin);
-    }
-    uvAttr.needsUpdate = true;
-}
+		// Ambient audio: water trickle
+		// Place an audio file at assets/water_trickle.mp3 (short loop). The code will try to play it
+		// only after a user gesture or when the user toggles the button.
+		const audioToggle = document.getElementById('audio-toggle');
+		let ambientAudio = null;
+		const AUDIO_KEY = 'sdc_ambient_audio';
+		const preferred = localStorage.getItem(AUDIO_KEY) === 'on';
 
-function debugLog(message, ...args) {
-    if (!DEBUG_ENABLED) {
-        return;
-    }
-    try {
-        console.log(message, ...args);
-        const formattedArgs = args.length
-            ? ' ' + args.map((item) => {
-                if (item instanceof Error) {
-                    return `${item.message}\n${item.stack || ''}`;
-                }
-                if (typeof item === 'object') {
-                    try {
-                        return JSON.stringify(item, null, 2);
-                    } catch (jsonErr) {
-                        return String(item);
-                    }
-                }
-                return String(item);
-            }).join(' ')
-            : '';
-        const text = `[${new Date().toLocaleTimeString()}] ${String(message)}${formattedArgs}`;
-        if (typeof fetch === 'function') {
-            try {
-                const encoded = encodeURIComponent(text.slice(0, 512));
-                fetch(`/__debug?msg=${encoded}`, { method: 'GET', mode: 'no-cors', keepalive: false }).catch(() => {});
-            } catch (networkErr) {
-                // ignore
-            }
-        }
-    } catch (err) {
-        // ignore secondary logging issues
-    }
-}
+		function createAudio() {
+			if (ambientAudio) return ambientAudio;
+			try {
+				ambientAudio = new Audio('assets/water_trickle.mp3');
+				ambientAudio.loop = true;
+				ambientAudio.preload = 'none';
+				ambientAudio.volume = 0.0; // start muted for fade-in
+			} catch (e) {
+				console.warn('Ambient audio not available', e);
+				ambientAudio = null;
+			}
+			return ambientAudio;
+		}
 
-function normalizeDegrees(value) {
-    const degree = Number.isFinite(value) ? value : Number(value);
-    if (!Number.isFinite(degree)) return 0;
-    return (degree % 360 + 360) % 360;
-}
+		function fadeAudio(toVolume, duration = 700) {
+			const audio = ambientAudio;
+			if (!audio) return Promise.resolve();
+			const from = audio.volume;
+			const start = performance.now();
+			return new Promise((resolve) => {
+				function tick(now) {
+					const t = Math.min(1, (now - start) / duration);
+					audio.volume = from + (toVolume - from) * t;
+					if (t < 1) requestAnimationFrame(tick);
+					else resolve();
+				}
+				requestAnimationFrame(tick);
+			});
+		}
 
-function setOrientation(nextYaw, nextPitch) {
-    if (typeof nextYaw === 'number') {
-        yawDeg = normalizeDegrees(nextYaw);
-    }
-    if (typeof nextPitch === 'number') {
-        const clamped = Math.min(Math.max(nextPitch, PITCH_MIN), PITCH_MAX);
-        pitchDeg = clamped;
-    }
+		async function turnAudioOn() {
+			const audio = createAudio();
+			if (!audio) return;
+			try {
+				await audio.play();
+			} catch (err) {
+				// Some browsers require a user gesture. We'll wait for next gesture.
+				// Nothing else to do here.
+			}
+			// fade to gentle level
+			await fadeAudio(0.16, 900);
+			if (audioToggle) { audioToggle.classList.add('on'); audioToggle.setAttribute('aria-pressed','true'); }
+			localStorage.setItem(AUDIO_KEY, 'on');
+		}
 
-    const yawRad = THREE.MathUtils.degToRad(yawDeg);
-    const pitchRad = THREE.MathUtils.degToRad(pitchDeg);
+		async function turnAudioOff() {
+			if (!ambientAudio) { ambientAudio = createAudio(); }
+			if (!ambientAudio) { if (audioToggle) audioToggle.classList.remove('on'); localStorage.setItem(AUDIO_KEY, 'off'); return; }
+			await fadeAudio(0.0, 600);
+			ambientAudio.pause();
+			ambientAudio.currentTime = 0;
+			if (audioToggle) { audioToggle.classList.remove('on'); audioToggle.setAttribute('aria-pressed','false'); }
+			localStorage.setItem(AUDIO_KEY, 'off');
+		}
 
-    if (camera) {
-        camera.rotation.set(pitchRad, yawRad, 0, 'YXZ');
-    }
-}
+		// user gesture convenience: if user clicked anywhere and pref is on, start audio
+		function tryStartIfPref() {
+			if (localStorage.getItem(AUDIO_KEY) === 'on' || preferred) {
+				createAudio();
+				const playPromise = ambientAudio && ambientAudio.play();
+				if (playPromise && playPromise.then) playPromise.catch(()=>{}).then(()=>{ fadeAudio(0.16, 900); });
+				if (audioToggle) { audioToggle.classList.add('on'); audioToggle.setAttribute('aria-pressed','true'); }
+			}
+		}
 
-function teardownViewer() {
-    if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-    }
-    if (resizeHandler) {
-        window.removeEventListener('resize', resizeHandler);
-        resizeHandler = null;
-    }
-    if (canvasElement && pointerDownHandler) {
-        canvasElement.removeEventListener('pointerdown', pointerDownHandler);
-    }
-    if (pointerMoveHandler) {
-        window.removeEventListener('pointermove', pointerMoveHandler);
-    }
-    if (pointerUpHandler) {
-        window.removeEventListener('pointerup', pointerUpHandler);
-    }
-    if (pointerCancelHandler) {
-        window.removeEventListener('pointercancel', pointerCancelHandler);
-    }
-    pointerDownHandler = null;
-    pointerMoveHandler = null;
-    pointerUpHandler = null;
-    pointerCancelHandler = null;
-    canvasElement = null;
-    activePointerId = null;
-    if (renderer) {
-        renderer.dispose();
-        renderer = null;
-    }
-    if (skyboxTextures.length) {
-        skyboxTextures.forEach((texture) => {
-            if (texture && texture.dispose) {
-                texture.dispose();
-            }
-        });
-        skyboxTextures = [];
-    }
-    if (skyboxMesh && scene) {
-        scene.remove(skyboxMesh);
-        skyboxMesh.geometry.dispose();
-        skyboxMesh.material.dispose();
-        skyboxMesh = null;
-    }
-    if (scene && scene.background) {
-        scene.background = null;
-    }
-    if (scene && scene.environment) {
-        scene.environment = null;
-    }
-    camera = null;
-    scene = null;
-}
+		// Button click toggles audio
+		if (audioToggle) {
+			// reflect saved state
+			if (localStorage.getItem(AUDIO_KEY) === 'on' || preferred) audioToggle.classList.add('on');
+			audioToggle.addEventListener('click', function (e) {
+				e.preventDefault();
+				if (audioToggle.classList.contains('on')) {
+					turnAudioOff();
+				} else {
+					// ensure we have audio element and start it (user gesture present)
+					createAudio();
+					const p = ambientAudio && ambientAudio.play();
+					if (p && p.catch) p.catch(()=>{}).then(()=> fadeAudio(0.16, 900));
+					audioToggle.classList.add('on'); audioToggle.setAttribute('aria-pressed','true');
+					localStorage.setItem(AUDIO_KEY, 'on');
+				}
+			});
+		}
 
-function createSkybox() {
-    const loader = new THREE.TextureLoader();
-    const faces = [
-        'dojo_right.png',
-        'dojo_left.png',
-        'dojo-top.png',
-        'dojo-bottom.png',
-        'dojo-front.png',
-        'dojo-back.png',
-    ];
+		// Start ambient audio on first user pointerdown if pref is on
+		window.addEventListener('pointerdown', function onceStart() {
+			tryStartIfPref();
+			window.removeEventListener('pointerdown', onceStart);
+		});
+	}
 
-    const loadFace = (file) => new Promise((resolve, reject) => {
-        loader.load(
-            `assets/skybox/${file}`,
-            (texture) => {
-                const width = texture.image && texture.image.width ? texture.image.width : null;
-                const height = texture.image && texture.image.height ? texture.image.height : null;
-                if ('colorSpace' in texture) {
-                    texture.colorSpace = THREE.SRGBColorSpace;
-                } else if ('encoding' in texture) {
-                    texture.encoding = THREE.sRGBEncoding;
-                }
-                texture.wrapS = THREE.ClampToEdgeWrapping;
-                texture.wrapT = THREE.ClampToEdgeWrapping;
-                texture.minFilter = THREE.LinearFilter;
-                texture.magFilter = THREE.LinearFilter;
-                texture.generateMipmaps = false;
-                debugLog('Skybox face ready', file, width, height);
-                resolve(texture);
-            },
-            undefined,
-            (err) => reject(err),
-        );
-    });
+	// Gentle idle breathing: a slow scale on the pacing-inner to make meditation feel alive
+	const pacingInner = document.querySelector('.pacing-inner');
+	if (pacingInner) {
+		pacingInner.style.animation += ', idle-breath 5.6s ease-in-out infinite';
+	}
 
-    Promise.all(faces.map((file) => loadFace(file)))
-        .then((textures) => {
-            debugLog('Skybox textures loaded');
-            if (!scene) {
-                textures.forEach((texture) => texture.dispose());
-                return;
-            }
-            if (skyboxTextures.length) {
-                skyboxTextures.forEach((texture) => {
-                    if (texture && texture.dispose) {
-                        texture.dispose();
-                    }
-                });
-            }
-            skyboxTextures = textures;
-            const geometry = new THREE.BoxGeometry(SKYBOX_SIZE, SKYBOX_SIZE, SKYBOX_SIZE);
-            const smallestDimension = textures.reduce((acc, texture) => {
-                if (!texture || !texture.image) return acc;
-                const { width, height } = texture.image;
-                const localMin = Math.min(width || acc, height || acc);
-                return Math.min(acc, localMin);
-            }, Infinity);
-            const margin = smallestDimension && Number.isFinite(smallestDimension) && smallestDimension > 0
-                ? 1 / (smallestDimension * 2)
-                : 0;
-            shrinkSkyboxUVs(geometry, margin);
-            const materials = textures.map((texture) => new THREE.MeshBasicMaterial({
-                map: texture,
-                side: THREE.BackSide,
-                depthWrite: false,
-            }));
-            if (skyboxMesh && scene) {
-                scene.remove(skyboxMesh);
-                if (skyboxMesh.geometry) {
-                    skyboxMesh.geometry.dispose();
-                }
-                const priorMaterials = Array.isArray(skyboxMesh.material)
-                    ? skyboxMesh.material
-                    : [skyboxMesh.material];
-                priorMaterials.forEach((material) => {
-                    if (material && material.dispose) {
-                        material.dispose();
-                    }
-                });
-                skyboxMesh = null;
-            }
-            skyboxMesh = new THREE.Mesh(geometry, materials);
-            skyboxMesh.frustumCulled = false;
-            scene.add(skyboxMesh);
-            debugLog('Skybox mesh added to scene');
-        })
-        .catch((err) => {
-            debugLog('Failed to load dojo skybox', err && err.message ? err.message : err);
-        });
-}
+	// Add idle-breath keyframes dynamically for compatibility
+	const styleSheet = document.createElement('style');
+	styleSheet.textContent = `@keyframes idle-breath { 0%{transform: translateY(0) scale(1);} 50%{transform: translateY(-2px) scale(1.01);} 100%{transform: translateY(0) scale(1);} }`;
+	document.head.appendChild(styleSheet);
 
-function registerPointerControls(canvas) {
-    if (!canvas) return;
+	// --- Tweak panel wiring: allow live adjustments of Chef Chilla using CSS variables ---
+	const root = document.documentElement;
+	const elTranslate = document.getElementById('chef-translateY');
+	const elScale = document.getElementById('chef-scale');
+	const elOffset = document.getElementById('chef-offsetX');
+	const valTranslate = document.getElementById('val-translateY');
+	const valScale = document.getElementById('val-scale');
+	const valOffset = document.getElementById('val-offsetX');
+	const btnReset = document.getElementById('chef-reset');
+	const btnHide = document.getElementById('chef-hide');
 
-    canvas.style.cursor = 'grab';
+	function updateVars() {
+		if (elTranslate) root.style.setProperty('--chef-translate-y', elTranslate.value + 'px');
+		if (elScale) root.style.setProperty('--chef-scale', elScale.value);
+		if (elOffset) root.style.setProperty('--chef-offset-x', elOffset.value + 'px');
+		if (valTranslate) valTranslate.textContent = (elTranslate ? elTranslate.value : getComputedStyle(root).getPropertyValue('--chef-translate-y')) + 'px';
+		if (valScale) valScale.textContent = (elScale ? elScale.value : getComputedStyle(root).getPropertyValue('--chef-scale')) + '×';
+		if (valOffset) valOffset.textContent = (elOffset ? elOffset.value : getComputedStyle(root).getPropertyValue('--chef-offset-x')) + 'px';
+	}
 
-    pointerDownHandler = (event) => {
-        if (typeof event.button === 'number' && event.button !== 0) {
-            return;
-        }
-        activePointerId = event.pointerId;
-        pointerStartX = event.clientX;
-        pointerStartY = event.clientY;
-        pointerStartYaw = yawDeg;
-        pointerStartPitch = pitchDeg;
-        if (canvas.setPointerCapture) {
-            try {
-                canvas.setPointerCapture(activePointerId);
-            } catch (err) {
-                console.warn('Pointer capture failed', err);
-            }
-        }
-        canvas.style.cursor = 'grabbing';
-        event.preventDefault();
-    };
+	if (elTranslate) elTranslate.addEventListener('input', updateVars);
+	if (elScale) elScale.addEventListener('input', updateVars);
+	if (elOffset) elOffset.addEventListener('input', updateVars);
 
-    pointerMoveHandler = (event) => {
-        if (activePointerId === null || event.pointerId !== activePointerId) {
-            return;
-        }
-        const dx = event.clientX - pointerStartX;
-        const dy = event.clientY - pointerStartY;
-        const nextYaw = pointerStartYaw - dx * YAW_SENSITIVITY;
-        const nextPitch = pointerStartPitch - dy * PITCH_SENSITIVITY;
-        setOrientation(nextYaw, nextPitch);
-        event.preventDefault();
-    };
+	if (btnReset) btnReset.addEventListener('click', function () {
+		if (elTranslate) elTranslate.value = -52;
+		if (elScale) elScale.value = 1.32;
+		if (elOffset) elOffset.value = 0;
+		updateVars();
+	});
 
-    const releasePointer = () => {
-        if (canvas && activePointerId !== null && canvas.releasePointerCapture) {
-            try {
-                canvas.releasePointerCapture(activePointerId);
-            } catch (err) {
-                // no-op if pointer capture already released
-            }
-        }
-        activePointerId = null;
-        canvas.style.cursor = 'grab';
-    };
+	if (btnHide) btnHide.addEventListener('click', function () {
+		const panel = document.getElementById('tweak-panel');
+		if (!panel) return;
+		const hidden = panel.getAttribute('aria-hidden') === 'true';
+		panel.setAttribute('aria-hidden', hidden ? 'false' : 'true');
+		panel.style.display = hidden ? 'block' : 'none';
+	});
 
-    pointerUpHandler = (event) => {
-        if (event.pointerId !== activePointerId) return;
-        releasePointer();
-    };
-
-    pointerCancelHandler = (event) => {
-        if (event.pointerId !== activePointerId) return;
-        releasePointer();
-    };
-
-    canvas.addEventListener('pointerdown', pointerDownHandler);
-    window.addEventListener('pointermove', pointerMoveHandler);
-    window.addEventListener('pointerup', pointerUpHandler);
-    window.addEventListener('pointercancel', pointerCancelHandler);
-}
-
-export function initDojoViewer() {
-    const canvas = document.getElementById('dojo-canvas');
-    if (!canvas) {
-        console.error('Dojo viewer: #dojo-canvas not found.');
-        return;
-    }
-
-    teardownViewer();
-
-    scene = new THREE.Scene();
-
-    const aspect = window.innerWidth > 0 && window.innerHeight > 0
-        ? window.innerWidth / window.innerHeight
-        : 1;
-    camera = new THREE.PerspectiveCamera(110, aspect, 0.05, SKYBOX_SIZE * 2);
-    camera.position.set(0, 0, 0);
-    camera.rotation.order = 'YXZ';
-    camera.updateProjectionMatrix();
-
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
-    renderer.setClearColor(0x000000, 1);
-    if ('outputColorSpace' in renderer) {
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-    } else if ('outputEncoding' in renderer) {
-        renderer.outputEncoding = THREE.sRGBEncoding;
-    }
-
-    createSkybox();
-    debugLog('Skybox load initiated');
-
-    resizeHandler = () => {
-        const width = Math.max(window.innerWidth, 1);
-        const height = Math.max(window.innerHeight, 1);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height, false);
-    };
-
-    resizeHandler();
-    window.addEventListener('resize', resizeHandler);
-
-    setOrientation(yawDeg, pitchDeg);
-
-    canvasElement = canvas;
-    registerPointerControls(canvas);
-
-    const renderLoop = () => {
-        rafId = requestAnimationFrame(renderLoop);
-        if (renderer && scene && camera) {
-            renderer.render(scene, camera);
-        }
-    };
-
-    renderLoop();
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    debugLog('Dojo viewer booting');
-    initDojoViewer();
+	// initialize
+	updateVars();
 });
-
-export default initDojoViewer;
