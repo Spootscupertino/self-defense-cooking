@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let autoRotateSpeed = 0.02; // Gentle drift
 
     function onPointerDown(event) {
+        // Ignore interactions on the chef button or other UI elements
+        if (event.target.closest('a, button, input, textarea, .chef-button')) {
+            return;
+        }
         isUserInteracting = true;
         const clientX = event.clientX || (event.touches ? event.touches[0].clientX : 0);
         const clientY = event.clientY || (event.touches ? event.touches[0].clientY : 0);
@@ -53,15 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('touchstart', onPointerDown, { passive: false });
     document.addEventListener('touchmove', (e) => { if(isUserInteracting) e.preventDefault(); onPointerMove(e); }, { passive: false });
     document.addEventListener('touchend', onPointerUp, false);
-
-    // Prevent 3D rotation logic from interfering with the chef button
-    const chefButton = document.getElementById('chef-button');
-    if (chefButton) {
-        const stopProp = (e) => e.stopPropagation();
-        ['mousedown', 'touchstart', 'touchmove', 'touchend'].forEach(evt => 
-            chefButton.addEventListener(evt, stopProp, { passive: false })
-        );
-    }
 
     function animate() {
         requestAnimationFrame(animate);
