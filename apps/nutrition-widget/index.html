@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Nutrition Widget</title>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #fafafa;
+    }
+    h2 {
+        margin-bottom: 10px;
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    button {
+        padding: 12px 18px;
+        font-size: 16px;
+        background: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    #result {
+        margin-top: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Nutrition Lookup</h2>
+<input id="foodInput" placeholder="e.g., Chicken Breast">
+<button onclick="lookup()">Search</button>
+
+<div id="result"></div>
+
+<script>
+const API_KEY = "sWPUoFsAhS9TpaECrA2kEokuypexdIz1FtoW6PSJ";
+
+async function lookup() {
+    const food = document.getElementById("foodInput").value.trim();
+    const result = document.getElementById("result");
+
+    if (!food) {
+        result.innerHTML = "<p>Please type a food name.</p>";
+        return;
+    }
+
+    result.innerHTML = "<p>Searching USDA database...</p>";
+
+    try {
+        // 1. Search for food
+        const searchURL = 
+            `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${API_KEY}&query=${encodeURIComponent(food)}`;
+
+        const searchResp = await fetch(searchURL);
+        const searchData = await searchResp.json();
+
+        if (!searchData.foods || searchData.foods.length === 0) {
+            result.innerHTML = "<p>No results found.</p>";
+            return;
+        }
+
+        const first = searchData.foods[0]; // best match
+        const fdcId = first.fdcId;
+
+        // 2. Get full nutrition facts
+        const detailURL = 
+            `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=${API_KEY}`;
+
+        const detailResp = await fetch(detailURL);
+        const detail = await detailResp.json();
+
+        let nutrients = {};
+        detail.foodNutrients.forEach(n => {
+            nutrients[n.nutrientName] = n.value;
+        });
+
+        result.innerHTML = `
+            <h3>${first.description}</h3>
+            <p><strong>Calories:</strong> ${nutrients["Energy"] || "N/A"}</p>
+            <p><strong>Protein:</strong> ${nutrients["Protein"] || "N/A"} g</p>
+            <p><strong>Fat:</strong> ${nutrients["Total lipid (fat)"] || "N/A"} g</p>
+            <p><strong>Carbs:</strong> ${nutrients["Carbohydrate, by difference"] || "N/A"} g</p>
+        `;
+    } 
+    catch (err) {
+        result.innerHTML = "<p>Error contacting USDA.</p>";
+    }
+}
+</script>
+
+</body>
+</html>
