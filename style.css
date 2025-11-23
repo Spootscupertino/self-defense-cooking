@@ -11,33 +11,54 @@ body {
     font-family: serif;
 }
 
-/* Dojo Container */
-#dojo-container {
-    position: fixed;
-    inset: 0;
+/* 3D Skybox Scene */
+.scene {
     width: 100vw;
     height: 100vh;
+    perspective: 800px;
     overflow: hidden;
+    background: #0d0a07;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
 }
 
-/* Static dojo background */
-#dojo-bg {
-    position: absolute;
+.cube {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center center;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
-/* Wood burn overlay for warmth */
-#wood-overlay {
+.face {
     position: absolute;
-    inset: 0;
-    background: url("assets/dojo/wood_texture.png");
-    opacity: 0.14;
-    mix-blend-mode: multiply;
-    pointer-events: none;
+    width: 2050px;
+    height: 2050px;
+    left: 50%;
+    top: 50%;
+    margin-left: -1025px;
+    margin-top: -1025px;
+    background-size: cover;
+    background-position: center;
+    /* Ensure we render the inside */
+    backface-visibility: visible; 
 }
+
+/* Skybox mapping - Pushing faces out to form a box around the camera */
+/* Note: scaleX(-1) mirrors the image so it looks correct from the inside */
+.face.front  { background-image: url('assets/skybox/dojo-front.png');  transform: rotateY(  0deg) translateZ(-1026px) translateY(8px) scaleX(-1); }
+.face.back   { background-image: url('assets/skybox/dojo-back.png');   transform: rotateY(180deg) translateZ(-1024px) scaleX(-1); }
+.face.left   { background-image: url('assets/skybox/dojo-back.png');   transform: rotateY( 90deg) translateZ(-1024px) scaleX(-1); }
+.face.right  { background-image: url('assets/skybox/dojo-back.png');  transform: rotateY(-90deg) translateZ(-1024px) scaleX(-1); }
+/* Top is ceiling, Bottom is floor. We swapped them previously. */
+.face.top    { background-image: url('assets/skybox/dojo-bottom.png');    transform: rotateX( 90deg) translateZ(-1024px) scaleY(-1); }
+.face.bottom { background-image: url('assets/skybox/dojo-top.png'); transform: rotateX(-90deg) translateZ(-2000px) scaleY(-1); }
+
+/* Remove old container styles */
+/* #dojo-container { ... } */
+
 
 /* Top bar */
 .top-bar {
@@ -45,23 +66,29 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 56px;
+    height: 100px;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    background: rgba(10,8,6,0.45);
-    backdrop-filter: blur(4px);
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
     z-index: 40;
+    pointer-events: none;
 }
 .top-bar-inner {
     font-family: 'Rock Salt', cursive;
-    font-size: 2.2rem;
-    letter-spacing: 0.04em;
-    color: #fff;
-    font-weight: 400;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 1px 0 #bfa76a;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    font-size: 2.4rem;
+    letter-spacing: 0.05em;
+    color: #e8dcb5;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    opacity: 0.95;
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .top-bar-inner {
+        font-size: 1.6rem;
+    }
 }
 
 /* Audio toggle button in header */
@@ -400,41 +427,7 @@ body::after {
 .tweak-panel .row { display:flex; align-items:center; gap:8px; }
 .tweak-panel .value { min-width:44px; text-align:right; font-size:13px; color:#ffd; }
 
-.hero-stage {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: url('assets/dojo-bg.png') center center no-repeat;
-    background-size: cover;
-    overflow: hidden;
-    z-index: 10;
-}
-
-.hero-stage::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40vw;
-    height: 100vh;
-    background: url('assets/dojo/dojo_left.png') left bottom no-repeat;
-    background-size: contain;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.hero-stage::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 40vw;
-    height: 100vh;
-    background: url('assets/dojo/dojo_right.png') right bottom no-repeat;
-    background-size: contain;
-    z-index: 2;
-    pointer-events: none;
-}
+/* Hero stage removed */
 
 .chef-spinner {
     position: absolute;
