@@ -289,6 +289,7 @@
         });
 
         searchInput.addEventListener('focus', () => {
+            searchInput.select();
             if(searchInput.value.trim() === "") {
                 renderResults(uniqueFoodData.slice(0, 10)); 
             } else {
