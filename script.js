@@ -69,14 +69,14 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Explicitly handle click to ensure navigation happens
         chefButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default link behavior just in case
-            window.location.href = chefButton.href;
+            // e.preventDefault(); // Let the default link behavior work
+            // window.location.href = chefButton.href;
         });
         
         // Add touchstart listener for mobile responsiveness
         chefButton.addEventListener('touchstart', (e) => {
-             e.preventDefault(); // Prevent ghost clicks
-             window.location.href = chefButton.href;
+             // e.preventDefault(); // REMOVED: Let the click event fire naturally
+             // window.location.href = chefButton.href;
         }, { passive: false });
     }
 
