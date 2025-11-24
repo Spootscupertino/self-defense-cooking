@@ -63,10 +63,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const chefButton = document.getElementById('chef-button');
     if (chefButton) {
         const stopProp = (e) => e.stopPropagation();
-        // We only stop propagation so the click can bubble up to the <a> tag naturally
-        ['mousedown', 'touchstart', 'touchmove', 'touchend', 'click'].forEach(evt => 
+        
+        // Stop propagation for interaction events so the scene doesn't rotate
+        ['mousedown', 'touchstart', 'touchmove', 'touchend'].forEach(evt => 
             chefButton.addEventListener(evt, stopProp, { passive: false })
         );
+
+        // Explicitly handle click to ensure navigation works reliably
+        chefButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Don't rotate scene
+            // Allow default action (navigation) to proceed
+            // If it still fails, we can uncomment the line below to force it:
+            // window.location.href = chefButton.href;
+        });
     }
 
     function animate() {
