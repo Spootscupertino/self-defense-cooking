@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- v4.0.1 -->
     <title>Self Defense Cooking</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="scene">
@@ -23,15 +25,16 @@
             <a href="apps/nutrition-widget/index.html" class="chef-button" id="chef-button">
                 <img src="assets/chef-inhale.png" alt="Nutrition App">
             </a>
+
+            <!-- Downloads Button (3D) -->
+            <button id="downloadBtn" class="downloads-button">
+                Downloads
+            </button>
         </div>
     </div>
 
 <!-- Site chrome + content overlay -->
-<header class="top-bar" role="banner">
-    <!-- Removed spinning sprite from header -->
-
-    <div class="top-bar-inner">Self Defense Cooking</div>
-</header>
+<!-- Header removed -->
 
 <!-- Lighting overlays and ambient particles for immersion -->
 <div class="lighting-overlays" aria-hidden="true">
@@ -48,45 +51,83 @@
     <button type="submit" class="email-button">Email us</button>
 </form>
 
+<!-- Install Modal -->
+<div id="install-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h3 style="font-size: 24px; margin-bottom: 15px;">Install App</h3>
+        <p id="install-instructions" style="font-family: sans-serif; line-height: 1.5;">Add this app to your home screen for the best experience.</p>
+        <button id="install-action-btn" class="modal-btn hidden">Install Now</button>
+        <button id="close-modal-btn" class="modal-btn secondary">Close</button>
+    </div>
+</div>
+
 <script src="script.js"></script>
 <script>
-  // EMERGENCY FIX: Unregister all service workers to restore site functionality
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for(let registration of registrations) {
-        registration.unregister();
-        console.log('ServiceWorker unregistered');
-      }
-    });
+  // PWA Install Logic
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+  });
+
+  const downloadBtn = document.getElementById('downloadBtn');
+  const installModal = document.getElementById('install-modal');
+  const installActionBtn = document.getElementById('install-action-btn');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const installInstructions = document.getElementById('install-instructions');
+
+  if(downloadBtn) {
+      downloadBtn.addEventListener('click', (e) => {
+          // Prevent 3D rotation when clicking
+          e.stopPropagation();
+          
+          // Show modal
+          installModal.classList.remove('hidden');
+          requestAnimationFrame(() => {
+              installModal.classList.add('active');
+          });
+
+          if (deferredPrompt) {
+              installActionBtn.classList.remove('hidden');
+              installInstructions.textContent = "Click below to install the app on your device.";
+          } else {
+              installActionBtn.classList.add('hidden');
+              // Detect OS for better instructions
+              const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+              if (isIOS) {
+                  installInstructions.textContent = "To install on iOS: Tap the Share button in your browser menu, then select 'Add to Home Screen'.";
+              } else {
+                  installInstructions.textContent = "To install: Tap your browser menu (three dots) and select 'Install App' or 'Add to Home Screen'.";
+              }
+          }
+      });
+      
+      // Prevent rotation on touch
+      downloadBtn.addEventListener('touchstart', (e) => e.stopPropagation(), {passive: false});
+      downloadBtn.addEventListener('touchend', (e) => e.stopPropagation(), {passive: false});
+      downloadBtn.addEventListener('mousedown', (e) => e.stopPropagation());
   }
 
-  /* PWA DISABLED TEMPORARILY
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then(registration => {
-        console.log('ServiceWorker registration successful');
-        
-        // Check for updates
-        registration.onupdatefound = () => {
-          const installingWorker = registration.installing;
-          installingWorker.onstatechange = () => {
-            if (installingWorker.state === 'installed') {
-              if (navigator.serviceWorker.controller) {
-                // New update available
-                console.log('New content is available; please refresh.');
-              } else {
-                // Content is cached for the first time
-                console.log('Content is cached for offline use.');
-              }
-            }
-          };
-        };
-      }).catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
+  if(installActionBtn) {
+      installActionBtn.addEventListener('click', async () => {
+          if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const { outcome } = await deferredPrompt.userChoice;
+              console.log(`User response to the install prompt: ${outcome}`);
+              deferredPrompt = null;
+              // Close modal
+              installModal.classList.remove('active');
+              setTimeout(() => installModal.classList.add('hidden'), 300);
+          }
       });
-    });
   }
-  */
+
+  if(closeModalBtn) {
+      closeModalBtn.addEventListener('click', () => {
+          installModal.classList.remove('active');
+          setTimeout(() => installModal.classList.add('hidden'), 300);
+      });
+  }
 </script>
 </body>
 </html>

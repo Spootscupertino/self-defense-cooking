@@ -151,7 +151,8 @@
             </div>
         </div>
 
-        <div id="nutritionCard" class="hidden mt-8 p-[20px] bg-white/90 rounded-[15px] shadow-xl transition-all duration-500 ease-out origin-top transform scale-y-0 opacity-0">
+        <div id="cardWrapper" class="max-h-0 opacity-0 overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]">
+            <div id="nutritionCard" class="mt-8 p-[20px] bg-white/90 rounded-[15px] shadow-xl transform translate-y-12 transition-transform duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]">
             
             <div class="grid grid-cols-2 gap-8 items-center font-sans text-[#222]">
                 
@@ -191,7 +192,6 @@
                     <span class="text-xl font-bold" id="dispSodium">0mg</span>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -220,6 +220,7 @@
         const weightInput = document.getElementById('weightInput');
         const unitSelect = document.getElementById('unitSelect');
         const nutritionCard = document.getElementById('nutritionCard');
+        const cardWrapper = document.getElementById('cardWrapper');
         const displayEls = {
             kcal: document.getElementById('dispKcal'),
             protein: document.getElementById('dispProtein'),
@@ -337,11 +338,11 @@
             searchInput.value = food.name;
             resultsList.classList.add('hidden');
             
-            // Reveal the card
-            nutritionCard.classList.remove('hidden');
-            setTimeout(() => {
-                nutritionCard.classList.remove('scale-y-0', 'opacity-0');
-            }, 10);
+            // Reveal the card with flow
+            cardWrapper.classList.remove('max-h-0', 'opacity-0');
+            cardWrapper.classList.add('max-h-[800px]', 'opacity-100');
+            
+            nutritionCard.classList.remove('translate-y-12');
 
             calculateNutrition();
         }

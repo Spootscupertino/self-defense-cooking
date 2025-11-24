@@ -63,23 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const chefButton = document.getElementById('chef-button');
     if (chefButton) {
         const stopProp = (e) => e.stopPropagation();
+        // We only stop propagation so the click can bubble up to the <a> tag naturally
         ['mousedown', 'touchstart', 'touchmove', 'touchend', 'click'].forEach(evt => 
             chefButton.addEventListener(evt, stopProp, { passive: false })
         );
-        
-        // Explicitly handle click to ensure navigation happens
-        chefButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = chefButton.href;
-        });
-        
-        // Add touchend listener for mobile responsiveness
-        chefButton.addEventListener('touchend', (e) => {
-             e.preventDefault();
-             e.stopPropagation();
-             window.location.href = chefButton.href;
-        }, { passive: false });
     }
 
     function animate() {

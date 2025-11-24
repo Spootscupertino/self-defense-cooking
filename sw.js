@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sdc-dojo-v8';
+const CACHE_NAME = 'sdc-dojo-v10';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
