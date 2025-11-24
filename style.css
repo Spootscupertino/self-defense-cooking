@@ -96,27 +96,9 @@ body {
     white-space: nowrap;
 }
 
-.mobile-enter-btn {
-    display: none; /* Hidden by default on desktop */
-    margin-left: 20px;
-    background: rgba(246, 176, 66, 0.9);
-    color: #111;
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    pointer-events: auto; /* Ensure it's clickable */
-    z-index: 100;
-}
-
 @media (max-width: 768px) {
     .top-bar-inner {
         font-size: 1.6rem;
-    }
-    .mobile-enter-btn {
-        display: inline-block; /* Show on mobile */
     }
 }
 
