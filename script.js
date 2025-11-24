@@ -69,14 +69,16 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Explicitly handle click to ensure navigation happens
         chefButton.addEventListener('click', (e) => {
-            // e.preventDefault(); // Let the default link behavior work
-            // window.location.href = chefButton.href;
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = chefButton.href;
         });
         
-        // Add touchstart listener for mobile responsiveness
-        chefButton.addEventListener('touchstart', (e) => {
-             // e.preventDefault(); // REMOVED: Let the click event fire naturally
-             // window.location.href = chefButton.href;
+        // Add touchend listener for mobile responsiveness
+        chefButton.addEventListener('touchend', (e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             window.location.href = chefButton.href;
         }, { passive: false });
     }
 
