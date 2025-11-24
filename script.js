@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Explicitly handle click to ensure navigation works reliably
         chefButton.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation(); // Don't rotate scene
-            // Allow default action (navigation) to proceed
-            // If it still fails, we can uncomment the line below to force it:
-            // window.location.href = chefButton.href;
+            console.log('Chef button clicked, navigating to:', chefButton.href);
+            window.location.href = chefButton.href;
         });
     }
 
