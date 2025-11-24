@@ -54,6 +54,7 @@ body {
     /* Ensure we render the inside */
     backface-visibility: visible; 
     -webkit-backface-visibility: visible;
+    pointer-events: none; /* Ensure faces don't block clicks on the button */
 }
 
 /* Skybox mapping - Pushing faces out to form a box around the camera */

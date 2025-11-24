@@ -66,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
         ['mousedown', 'touchstart', 'touchmove', 'touchend', 'click'].forEach(evt => 
             chefButton.addEventListener(evt, stopProp, { passive: false })
         );
+        
+        // Explicitly handle click to ensure navigation happens
+        chefButton.addEventListener('click', (e) => {
+            window.location.href = chefButton.href;
+        });
     }
 
     function animate() {
