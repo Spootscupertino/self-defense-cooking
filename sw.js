@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sdc-dojo-v2';
+const CACHE_NAME = 'sdc-dojo-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -8,8 +8,8 @@ const ASSETS_TO_CACHE = [
   './assets/chef-inhale.png',
   './assets/skybox/dojo-front.png',
   './assets/skybox/dojo-back.png',
-  './assets/skybox/dojo-left.png',
-  './assets/skybox/dojo-right.png',
+  './assets/skybox/dojo_left.png',
+  './assets/skybox/dojo_right.png',
   './assets/skybox/dojo-top.png',
   './assets/skybox/dojo-bottom.png',
   './apps/nutrition-widget/index.html',

@@ -58,6 +58,16 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('touchmove', (e) => { if(isUserInteracting) e.preventDefault(); onPointerMove(e); }, { passive: false });
     document.addEventListener('touchend', onPointerUp, false);
 
+    // Force-enable interaction on the chef button by stopping propagation
+    // This ensures the 3D rotation logic (attached to document) never sees these events
+    const chefButton = document.getElementById('chef-button');
+    if (chefButton) {
+        const stopProp = (e) => e.stopPropagation();
+        ['mousedown', 'touchstart', 'touchmove', 'touchend', 'click'].forEach(evt => 
+            chefButton.addEventListener(evt, stopProp, { passive: false })
+        );
+    }
+
     function animate() {
         requestAnimationFrame(animate);
         // Auto-rotation removed
