@@ -1,9 +1,9 @@
-const CACHE_NAME = 'sdc-dojo-v11';
+const CACHE_NAME = 'sdc-dojo-v12';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './style.css',
-  './script.js',
+  './style.css?v=2',
+  './script.js?v=2',
   './manifest.json',
   './assets/chef-inhale.png',
   './assets/skybox/dojo-front.png',
