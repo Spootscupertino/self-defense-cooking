@@ -13,6 +13,7 @@
         <div class="brand">
           <h1>Recipe Name</h1>
           <p class="subtitle" id="servingsLabel">Yield: 4 portions</p>
+          <div class="allergen-summary" id="allergenSummary" aria-live="polite"></div>
         </div>
         <div class="search-card">
           <label for="recipeSearch">Find a recipe</label>
@@ -20,6 +21,20 @@
           <ul id="searchResults" class="search-results" hidden></ul>
         </div>
         <div class="controls">
+          <details class="control" id="allergenControl">
+            <summary>Allergens</summary>
+            <div class="control-body">
+              <label><input type="checkbox" class="allergen-check" value="Gluten"> Gluten</label>
+              <label><input type="checkbox" class="allergen-check" value="Dairy"> Dairy</label>
+              <label><input type="checkbox" class="allergen-check" value="Eggs"> Eggs</label>
+              <label><input type="checkbox" class="allergen-check" value="Peanuts"> Peanuts</label>
+              <label><input type="checkbox" class="allergen-check" value="Tree Nuts"> Tree Nuts</label>
+              <label><input type="checkbox" class="allergen-check" value="Soy"> Soy</label>
+              <label><input type="checkbox" class="allergen-check" value="Shellfish"> Shellfish</label>
+              <label><input type="checkbox" class="allergen-check" value="Fish"> Fish</label>
+              <label><input type="checkbox" class="allergen-check" value="Sesame"> Sesame</label>
+            </div>
+          </details>
           <details class="control" id="dietaryControl">
             <summary>Dietary Restrictions</summary>
             <div class="control-body">
@@ -57,6 +72,10 @@
             <div class="control-body">
               <input type="range" id="heatSlider" min="0" max="10" value="3">
               <div class="heat-label" id="heatLabel">Mild (3/10)</div>
+              <div class="heat-actions">
+                <button type="button" id="heatAddBtn">Add spice boost</button>
+              </div>
+              <div class="heat-reco" id="heatReco">Try a pinch of black pepper and a squeeze of lemon for gentle warmth.</div>
             </div>
           </details>
 

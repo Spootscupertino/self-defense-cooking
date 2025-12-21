@@ -47,5 +47,8 @@
     "cookMinutes": 0,
     "totalMinutes": 0
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
+  "allergens": [
+    "Eggs"
+  ]
 }

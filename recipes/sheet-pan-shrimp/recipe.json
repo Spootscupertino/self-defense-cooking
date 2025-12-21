@@ -52,5 +52,8 @@
     "cookMinutes": 0,
     "totalMinutes": 0
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips.",
+  "allergens": [
+    "Shellfish"
+  ]
 }

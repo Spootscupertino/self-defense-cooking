@@ -6,6 +6,11 @@
   "properties": {
     "title": { "type": "string" },
     "yield": { "type": ["string", "number"] },
+    "allergens": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Common allergens present in this recipe"
+    },
     "ingredients": {
       "type": "array",
       "items": {
@@ -15,7 +20,12 @@
           "quantity": { "type": ["number", "string"] },
           "unit": { "type": "string" },
           "name": { "type": "string" },
-          "notes": { "type": "string" }
+          "notes": { "type": "string" },
+          "allergens": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Allergens present in this ingredient"
+          }
         }
       }
     },

@@ -2,6 +2,7 @@
   "title": "Baked Salmon",
   "slug": "baked-salmon",
   "yield": 4,
+  "allergens": ["Fish"],
   "ingredients": [
     {
       "quantity": "to taste",
@@ -17,6 +18,12 @@
       "quantity": "1",
       "unit": "tablespoon",
       "name": "olive oil"
+    },
+    {
+      "quantity": "4",
+      "unit": "fillets",
+      "name": "salmon",
+      "allergens": ["Fish"]
     }
   ],
   "directions": [

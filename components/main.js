@@ -11,6 +11,27 @@ import { suggestSubs } from './shared/substitutions.js';
 
 let recipeIndex = [];
 let portionsControl;
+let avoidAllergens = new Set();
+let recipeAllergenSet = new Set();
+
+const ALLERGEN_KEYWORDS = {
+  Gluten: ['wheat', 'flour', 'bread', 'pasta', 'noodle', 'cracker', 'breadcrumb', 'spaghetti', 'tortilla', 'couscous', 'barley', 'rye', 'semolina', 'farro'],
+  Dairy: ['milk', 'cheese', 'butter', 'cream', 'yogurt', 'ghee', 'parmesan', 'cheddar', 'mozzarella', 'feta'],
+  Eggs: ['egg', 'eggs', 'mayo', 'mayonnaise', 'aioli'],
+  Peanuts: ['peanut', 'peanuts', 'satay'],
+  'Tree Nuts': ['almond', 'walnut', 'pecan', 'pistachio', 'cashew', 'hazelnut', 'macadamia', 'nut'],
+  Soy: ['soy', 'tofu', 'edamame', 'tamari', 'miso', 'soy sauce'],
+  Shellfish: ['shrimp', 'prawn', 'lobster', 'crab', 'scallop', 'clam', 'mussel', 'oyster'],
+  Fish: ['salmon', 'tuna', 'cod', 'tilapia', 'anchovy', 'trout', 'bass', 'sardine'],
+  Sesame: ['sesame', 'tahini', 'zaatar']
+};
+
+function detectAllergens(name = '') {
+  const lower = name.toLowerCase();
+  return Object.entries(ALLERGEN_KEYWORDS)
+    .filter(([, keywords]) => keywords.some(k => lower.includes(k)))
+    .map(([label]) => label);
+}
 
 async function fetchJSON(path) {
   const res = await fetch(path);
@@ -25,6 +46,7 @@ function getSlugFromQuery() {
 
 function renderIngredients(listEl, ingredients = []) {
   if (!listEl) return;
+  const detected = new Set(recipeAllergenSet);
   listEl.innerHTML = ingredients
     .map(item => {
       const qty = item.quantity;
@@ -33,9 +55,17 @@ function renderIngredients(listEl, ingredients = []) {
       const unit = item.unit || '';
       const name = item.name || '';
       const baseAttr = Number.isFinite(numericQty) ? numericQty : '';
-      return `<li data-base-qty="${baseAttr}" data-unit="${unit}" data-name="${name}">
+      const explicitAllergens = Array.isArray(item.allergens) ? item.allergens : [];
+      const allergens = explicitAllergens.length ? explicitAllergens : detectAllergens(name);
+      allergens.forEach(a => detected.add(a));
+      const allergenTags = allergens.length
+        ? `<div class="allergen-tags">${allergens.map(a => `<span class="allergen-tag">${a}</span>`).join('')}</div>`
+        : '';
+      const dataAllergens = allergens.join(',');
+      return `<li data-base-qty="${baseAttr}" data-unit="${unit}" data-name="${name}" data-allergens="${dataAllergens}">
         <div class="ing-row">
           <span class="qty">${displayQty}</span> <span class="unit">${unit}</span> <span class="name">${name}</span>
+          ${allergenTags}
           <button class="sub-btn" type="button" data-name="${name}">Substitute</button>
         </div>
         <div class="sub-panel" hidden>
@@ -45,6 +75,9 @@ function renderIngredients(listEl, ingredients = []) {
       </li>`;
     })
     .join('');
+  recipeAllergenSet = detected;
+  updateAllergenSummary();
+  applyAllergenHighlighting();
 }
 
 function renderDirections(listEl, directions = []) {
@@ -66,11 +99,25 @@ async function loadRecipeList() {
 async function fetchRecipeBySlug(slug) {
   if (!slug) return null;
   try {
-    return await fetchJSON(`recipes/${slug}/recipe.json`);
+    const recipe = await fetchJSON(`recipes/${slug}/recipe.json`);
+    recipe.allergens = deriveAllergensFromIngredients(recipe);
+    return recipe;
   } catch (err) {
     console.warn(`Failed to load recipe ${slug}:`, err);
     return null;
   }
+}
+
+function deriveAllergensFromIngredients(recipe = {}) {
+  const topLevel = Array.isArray(recipe.allergens) ? recipe.allergens : [];
+  const ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : [];
+  const found = new Set(topLevel);
+  ingredients.forEach(item => {
+    const explicit = Array.isArray(item.allergens) ? item.allergens : [];
+    explicit.forEach(a => found.add(a));
+    detectAllergens(item.name || '').forEach(a => found.add(a));
+  });
+  return Array.from(found);
 }
 
 function populateRecipe(recipe) {
@@ -86,6 +133,7 @@ function populateRecipe(recipe) {
   const recipeYield = Number(recipe.yield) || 4;
   if (portionInput) portionInput.value = recipeYield;
 
+  recipeAllergenSet = new Set(Array.isArray(recipe.allergens) ? recipe.allergens : []);
   renderIngredients(ingredientsList, recipe.ingredients);
   renderDirections(directionsList, recipe.directions);
   if (notesEl && recipe.notes) notesEl.textContent = recipe.notes;
@@ -144,6 +192,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initPrice(document.getElementById('priceControl'), { portionInput, portionApply });
   initDifficulty(document.getElementById('difficultyControl'));
   initTime(document.getElementById('timeControl'));
+  initAllergenControl();
   refreshControlSummaries();
 
   initSearch(list, async slug => {
@@ -154,6 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (portionInput) portionInput.value = nextYield;
     if (portionsControl?.setBase) portionsControl.setBase(nextYield);
     attachSubstitutionControls(document.getElementById('ingredientsList'));
+    applyAllergenHighlighting();
     refreshControlSummaries();
     updateQueryString(slug);
   }, initialSlug);
@@ -177,6 +227,39 @@ function attachSubstitutionControls(listEl) {
       panel.hidden = !panel.hidden;
     });
   });
+}
+
+function updateAllergenSummary() {
+  const summary = document.getElementById('allergenSummary');
+  if (!summary) return;
+  const list = Array.from(recipeAllergenSet);
+  if (!list.length) {
+    summary.innerHTML = '<span class="allergen-chip">No common allergens detected</span>';
+    return;
+  }
+  summary.innerHTML = list
+    .map(a => `<span class="allergen-chip alert">${a}</span>`)
+    .join('');
+}
+
+function applyAllergenHighlighting() {
+  const items = Array.from(document.querySelectorAll('#ingredientsList li'));
+  items.forEach(li => {
+    const allergens = (li.dataset.allergens || '').split(',').filter(Boolean);
+    const flagged = allergens.some(a => avoidAllergens.has(a));
+    li.classList.toggle('ingredient-flagged', flagged);
+  });
+}
+
+function initAllergenControl() {
+  const checks = Array.from(document.querySelectorAll('.allergen-check'));
+  if (!checks.length) return;
+  const sync = () => {
+    avoidAllergens = new Set(checks.filter(c => c.checked).map(c => c.value));
+    applyAllergenHighlighting();
+  };
+  checks.forEach(c => c.addEventListener('change', sync));
+  sync();
 }
 
 function refreshControlSummaries() {
