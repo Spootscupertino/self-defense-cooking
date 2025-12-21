@@ -13,6 +13,12 @@ let recipeIndex = [];
 let portionsControl;
 let avoidAllergens = new Set();
 let recipeAllergenSet = new Set();
+let categorizedIndex = [];
+let activeCategory = null;
+let statusEl;
+
+const PLACEHOLDER_INGREDIENTS = ['salt', 'black pepper', 'olive oil'];
+const PLACEHOLDER_STEP_PREFIX = 'Prepare ingredients and preheat equipment';
 
 const ALLERGEN_KEYWORDS = {
   Gluten: ['wheat', 'flour', 'bread', 'pasta', 'noodle', 'cracker', 'breadcrumb', 'spaghetti', 'tortilla', 'couscous', 'barley', 'rye', 'semolina', 'farro'],
@@ -89,6 +95,7 @@ async function loadRecipeList() {
   if (recipeIndex.length) return recipeIndex;
   try {
     recipeIndex = await fetchJSON('recipes/list.json');
+    categorizedIndex = recipeIndex.map(item => ({ ...item, categories: categorizeRecipe(item) }));
     return recipeIndex;
   } catch (err) {
     console.warn('Failed to load recipe list:', err);
@@ -168,17 +175,36 @@ function populateRecipe(recipe) {
   setVal('cookTime', recipe.time?.cookMinutes);
 }
 
+const CATEGORIES = [
+  { id: 'chicken', label: 'Chicken', keywords: ['chicken', 'wing'] },
+  { id: 'beef', label: 'Beef', keywords: ['beef', 'hamburger', 'meatball', 'meatloaf'] },
+  { id: 'pork', label: 'Pork', keywords: ['pork', 'ham', 'bacon', 'sausage'] },
+  { id: 'seafood', label: 'Seafood', keywords: ['salmon', 'fish', 'shrimp', 'cod', 'tilapia', 'lobster', 'crab'] },
+  { id: 'pasta', label: 'Pasta & Noodles', keywords: ['pasta', 'noodle', 'ziti', 'lasagna', 'spaghetti', 'mac'] },
+  { id: 'mex', label: 'Tacos & Tex-Mex', keywords: ['taco', 'burrito', 'enchilada', 'quesadilla'] },
+  { id: 'soups', label: 'Soups & Stews', keywords: ['soup', 'stew', 'chili'] },
+  { id: 'breakfast', label: 'Breakfast', keywords: ['pancake', 'omelette', 'toast', 'egg'] },
+  { id: 'veg', label: 'Veggie & Sides', keywords: ['salad', 'vegetable', 'mashed', 'rice', 'beans', 'potato'] },
+  { id: 'dessert', label: 'Dessert', keywords: ['cookie', 'bread', 'cake'] }
+];
+
+function categorizeRecipe(item = {}) {
+  const hay = `${(item.title || '').toLowerCase()} ${(item.slug || '').toLowerCase()}`;
+  const hits = CATEGORIES.filter(cat => cat.keywords.some(k => hay.includes(k))).map(cat => cat.id);
+  return hits.length ? hits : ['other'];
+}
+
 // Bootstraps the componentized controls once the DOM is ready.
 document.addEventListener('DOMContentLoaded', async () => {
   const portionRoot = document.getElementById('portionsControl');
   const portionInput = document.getElementById('portionInput');
   const portionApply = document.getElementById('portionApply');
   const servingsLabel = document.getElementById('servingsLabel');
+  statusEl = document.getElementById('recipeStatus');
 
   const list = await loadRecipeList();
   const initialSlug = getSlugFromQuery() || (list[0] && list[0].slug);
-  const recipe = initialSlug ? await fetchRecipeBySlug(initialSlug) : null;
-  populateRecipe(recipe);
+  const recipe = initialSlug ? await safeSelect(initialSlug) : null;
   const recipeYield = Number(recipe?.yield) || 4;
 
   initDietary(document.getElementById('dietaryControl'));
@@ -196,20 +222,52 @@ document.addEventListener('DOMContentLoaded', async () => {
   initDifficulty(document.getElementById('difficultyControl'));
   initTime(document.getElementById('timeControl'));
   initAllergenControl();
+  initCategoryBoard(categorizedIndex, slug => selectRecipe(slug));
   refreshControlSummaries();
 
-  initSearch(list, async slug => {
-    const nextRecipe = await fetchRecipeBySlug(slug);
-    if (!nextRecipe) return;
-    populateRecipe(nextRecipe);
-    const nextYield = Number(nextRecipe.yield) || 4;
-    if (portionInput) portionInput.value = nextYield;
-    if (portionsControl?.setBase) portionsControl.setBase(nextYield);
-    attachSubstitutionControls(document.getElementById('ingredientsList'));
-    applyAllergenHighlighting();
-    refreshControlSummaries();
-    updateQueryString(slug);
-  }, initialSlug);
+  initSearch(list, selectRecipe, initialSlug);
+
+  const cuisineBrowser = document.getElementById('recipeBrowse');
+  if (cuisineBrowser) {
+    cuisineBrowser.addEventListener('click', e => {
+      const li = e.target.closest('[data-slug]');
+      if (!li) return;
+      e.preventDefault();
+      selectRecipe(li.dataset.slug);
+    });
+  }
+
+  async function safeSelect(slug) {
+    try {
+      const recipe = await fetchRecipeBySlug(slug);
+      if (!recipe) {
+        showStatus(`Could not load recipe: ${slug}`, 'error');
+        return null;
+      }
+      populateRecipe(recipe);
+      const nextYield = Number(recipe.yield) || 4;
+      if (portionInput) portionInput.value = nextYield;
+      if (portionsControl?.setBase) portionsControl.setBase(nextYield);
+      attachSubstitutionControls(document.getElementById('ingredientsList'));
+      applyAllergenHighlighting();
+      refreshControlSummaries();
+      updateQueryString(slug);
+      if (isPlaceholderRecipe(recipe)) {
+        showStatus(`Loaded ${recipe.title || slug} — needs real data (ingredients/steps/macros)`, 'warn');
+      } else {
+        showStatus(`Loaded ${recipe.title || slug}`, 'ok');
+      }
+      return recipe;
+    } catch (err) {
+      console.error('Select recipe failed', slug, err);
+      showStatus(`Error loading recipe: ${slug}`, 'error');
+      return null;
+    }
+  }
+
+  async function selectRecipe(slug) {
+    await safeSelect(slug);
+  }
 });
 
 function attachSubstitutionControls(listEl) {
@@ -263,6 +321,62 @@ function initAllergenControl() {
   };
   checks.forEach(c => c.addEventListener('change', sync));
   sync();
+}
+
+function showStatus(message, tone = 'info') {
+  if (!statusEl) return;
+  statusEl.textContent = message;
+  statusEl.dataset.tone = tone;
+}
+
+function isPlaceholderRecipe(recipe = {}) {
+  const ing = Array.isArray(recipe.ingredients) ? recipe.ingredients : [];
+  const dirs = Array.isArray(recipe.directions) ? recipe.directions : [];
+  const hasOnlyTemplateIngredients =
+    ing.length <= 3 &&
+    ing.every(item => PLACEHOLDER_INGREDIENTS.includes((item.name || '').toLowerCase()));
+  const hasTemplateStep = dirs.some(step => (step || '').startsWith(PLACEHOLDER_STEP_PREFIX));
+  const macros = recipe.macros || {};
+  const nutrition = recipe.nutrition || {};
+  const macrosZero = ['protein', 'carbs', 'fat'].every(k => Number(macros[k] || 0) === 0);
+  const nutritionZero = ['calories', 'sodium', 'saturatedFat'].every(k => Number(nutrition[k] || 0) === 0);
+  return hasOnlyTemplateIngredients || hasTemplateStep || (macrosZero && nutritionZero);
+}
+
+function initCategoryBoard(list = [], onSelect) {
+  const chipsEl = document.getElementById('categoryChips');
+  const picksEl = document.getElementById('categoryPicks');
+  if (!chipsEl || !picksEl) return;
+
+  function renderChips() {
+    chipsEl.innerHTML = CATEGORIES.map(cat => {
+      const active = activeCategory === cat.id ? 'active' : '';
+      return `<button class="category-chip ${active}" data-cat="${cat.id}">${cat.label}</button>`;
+    }).join('');
+    const buttons = Array.from(chipsEl.querySelectorAll('button[data-cat]'));
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.cat;
+        renderChips();
+        renderPicks();
+      });
+    });
+  }
+
+  function renderPicks() {
+    const catId = activeCategory || CATEGORIES[0].id;
+    const picks = list.filter(item => (item.categories || []).includes(catId)).slice(0, 25);
+    const fallback = picks.length ? picks : list.slice(0, 25);
+    picksEl.innerHTML = (picks.length ? picks : fallback)
+      .map(item => `<li data-slug="${item.slug}">${item.title || item.slug}</li>`)
+      .join('');
+    const lis = Array.from(picksEl.querySelectorAll('li[data-slug]'));
+    lis.forEach(li => li.addEventListener('click', () => onSelect?.(li.dataset.slug)));
+  }
+
+  activeCategory = CATEGORIES[0].id;
+  renderChips();
+  renderPicks();
 }
 
 function refreshControlSummaries() {

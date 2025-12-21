@@ -14,12 +14,42 @@
           <h1>Recipe Name</h1>
           <p class="subtitle" id="servingsLabel">Yield: 4 portions</p>
           <div class="allergen-summary" id="allergenSummary" aria-live="polite"></div>
+          <div class="recipe-status" id="recipeStatus" aria-live="polite"></div>
         </div>
         <div class="search-card">
           <label for="recipeSearch">Find a recipe</label>
           <input id="recipeSearch" type="search" placeholder="Search recipes..." autocomplete="off" />
           <ul id="searchResults" class="search-results" hidden></ul>
         </div>
+        <div class="category-board">
+          <div class="category-head">
+            <span class="category-title">Browse by category</span>
+            <span class="category-hint">Tap a category to see the top 25 dishes</span>
+          </div>
+          <div class="category-chips" id="categoryChips"></div>
+          <ul class="category-picks" id="categoryPicks"></ul>
+        </div>
+        <section id="recipeBrowse" class="cuisine-browser" hidden>
+          <h2>Browse Recipes by Cuisine</h2>
+
+          <details>
+            <summary>Mexican</summary>
+            <ul>
+              <li data-slug="tacos">Tacos</li>
+              <li data-slug="enchiladas">Enchiladas</li>
+              <li data-slug="rice-and-beans">Rice & Beans</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Italian</summary>
+            <ul>
+              <li data-slug="chicken-parmesan">Chicken Parmesan</li>
+              <li data-slug="spaghetti-and-meatballs">Spaghetti & Meatballs</li>
+              <li data-slug="baked-ziti">Baked Ziti</li>
+            </ul>
+          </details>
+        </section>
         <div class="controls">
           <details class="control" id="allergenControl">
             <summary>Allergens</summary>

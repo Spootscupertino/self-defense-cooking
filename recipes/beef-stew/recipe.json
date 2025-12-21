@@ -4,48 +4,123 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": 2,
+      "unit": "pounds",
+      "name": "beef chuck, cut into 1.5-inch cubes"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
+      "quantity": 1,
+      "unit": "teaspoon",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": 0.75,
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
-      "quantity": "1",
-      "unit": "tablespoon",
+      "quantity": 2,
+      "unit": "tablespoons",
       "name": "olive oil"
+    },
+    {
+      "quantity": 1,
+      "unit": "cup",
+      "name": "onion, diced"
+    },
+    {
+      "quantity": 1,
+      "unit": "cup",
+      "name": "carrots, sliced"
+    },
+    {
+      "quantity": 1,
+      "unit": "cup",
+      "name": "celery, sliced"
+    },
+    {
+      "quantity": 3,
+      "unit": "cloves",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": 2,
+      "unit": "tablespoons",
+      "name": "tomato paste"
+    },
+    {
+      "quantity": 0.33,
+      "unit": "cup",
+      "name": "all-purpose flour",
+      "allergens": ["Gluten"]
+    },
+    {
+      "quantity": 1,
+      "unit": "cup",
+      "name": "red wine (or extra stock)"
+    },
+    {
+      "quantity": 4,
+      "unit": "cups",
+      "name": "beef stock"
+    },
+    {
+      "quantity": 2,
+      "unit": "cups",
+      "name": "potatoes, 1-inch cubes"
+    },
+    {
+      "quantity": 2,
+      "unit": "pieces",
+      "name": "bay leaves"
+    },
+    {
+      "quantity": 1,
+      "unit": "teaspoon",
+      "name": "dried thyme"
+    },
+    {
+      "quantity": 0.5,
+      "unit": "teaspoon",
+      "name": "smoked paprika"
+    },
+    {
+      "quantity": 1,
+      "unit": "cup",
+      "name": "frozen peas"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Pat beef dry, season with salt and pepper, and dredge lightly in flour.",
+    "Brown beef in olive oil over medium-high heat in batches; set aside.",
+    "Saute onion, carrot, and celery until softened; add garlic and tomato paste and cook 1 minute.",
+    "Deglaze with red wine, scraping fond; simmer 2 minutes.",
+    "Add browned beef, beef stock, bay leaves, thyme, and paprika; bring to a gentle simmer.",
+    "Cover and simmer 60 minutes, then add potatoes; continue simmering until beef and potatoes are tender (20–30 minutes).",
+    "Stir in peas, simmer 2 minutes, adjust salt and pepper, discard bay leaves, serve."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 520,
+    "sodium": 920,
+    "saturatedFat": 7,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 42,
+    "carbs": 38,
+    "fat": 18
   },
   "price": {
-    "perServing": 0,
+    "perServing": 4.75,
     "currency": "USD",
-    "total": 0
+    "total": 19
   },
-  "difficulty": "Easy",
+  "difficulty": "Medium",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "totalMinutes": 110
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Deep browning, gentle simmer, and starch from potatoes thicken the stew; adjust with extra stock if needed."
 }
