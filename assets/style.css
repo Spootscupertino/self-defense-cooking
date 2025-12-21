@@ -84,6 +84,47 @@ body {
   background-blend-mode: multiply, normal, screen, screen;
 }
 
+/* --- Calm the layout: spacing + type --- */
+
+/* Give sections breathing room */
+section,
+.details,
+.category-panel,
+.results-panel,
+#recipeBrowse {
+  padding: 22px 24px;
+}
+
+/* Reduce the “grid prison” feeling */
+#top25Grid,
+.recipe-grid {
+  gap: 18px;
+}
+
+/* Headings: less shouty, more editorial */
+h1, h2, h3 {
+  letter-spacing: -0.3px;
+  line-height: 1.15;
+}
+
+/* Subtle hierarchy instead of hard lines */
+h2 {
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+/* Body text readability */
+p, li, button {
+  line-height: 1.4;
+}
+
+/* Chips shouldn’t feel cramped */
+.category-chip,
+.chip,
+.pill {
+  margin: 6px 6px 6px 0;
+}
+
 .overlay {
   background:
     linear-gradient(180deg, rgba(243, 237, 226, 0.85), rgba(245, 239, 229, 0.78)),
