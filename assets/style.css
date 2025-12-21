@@ -92,13 +92,13 @@ section,
 .category-panel,
 .results-panel,
 #recipeBrowse {
-  padding: 22px 24px;
+  padding: 22px 24px !important;
 }
 
 /* Reduce the “grid prison” feeling */
 #top25Grid,
 .recipe-grid {
-  gap: 18px;
+  gap: 18px !important;
 }
 
 /* Headings: less shouty, more editorial */
