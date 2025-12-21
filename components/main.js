@@ -138,10 +138,13 @@ function populateRecipe(recipe) {
   renderDirections(directionsList, recipe.directions);
   if (notesEl && recipe.notes) notesEl.textContent = recipe.notes;
 
-  // Nutrition/macros
+  // Nutrition/macros (skip zero/empty to preserve defaults)
   const setVal = (id, val) => {
     const el = document.getElementById(id);
-    if (el && val !== undefined && val !== null) el.value = val;
+    const isNumber = typeof val === 'number';
+    const isEmpty = val === undefined || val === null || val === '';
+    const isZero = isNumber && val === 0;
+    if (el && !isEmpty && !isZero) el.value = val;
   };
 
   setVal('caloriesInput', recipe.nutrition?.calories);

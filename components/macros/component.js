@@ -11,7 +11,7 @@ export function initMacros(root) {
 
   function update() {
     const kcal = kcalFromMacros(proteinInput?.value, carbsInput?.value, fatInput?.value);
-    macroSummary.textContent = `~${kcal} kcal / serving`;
+    macroSummary.textContent = kcal > 0 ? `~${kcal} kcal / serving` : 'Macros not provided';
   }
 
   [proteinInput, carbsInput, fatInput].forEach(input => {

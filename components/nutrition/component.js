@@ -17,7 +17,9 @@ export function initNutrition(root, { portionInput } = {}) {
     const s = servings();
     const calTotal = cals * s;
     if (summary) {
-      summary.textContent = `${cals} kcal / serving · ${calTotal} kcal total · ${sodium} mg sodium · ${satFat} g sat fat`;
+      summary.textContent = cals > 0 || sodium > 0 || satFat > 0
+        ? `${cals} kcal / serving · ${calTotal} kcal total · ${sodium} mg sodium · ${satFat} g sat fat`
+        : 'Nutrition not provided';
     }
   }
 
