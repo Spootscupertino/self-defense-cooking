@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1",
+      "unit": "lb",
+      "name": "chicken breast, sliced"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "4",
+      "unit": "cups",
+      "name": "mixed stir-fry vegetables"
+    },
+    {
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "soy sauce"
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "oyster sauce"
     },
     {
       "quantity": "1",
       "unit": "tablespoon",
-      "name": "olive oil"
+      "name": "cornstarch"
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "oil"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Toss sliced chicken with 1 tablespoon soy sauce and cornstarch.",
+    "Stir-fry chicken in hot oil until just cooked; remove.",
+    "Stir-fry vegetables until crisp-tender.",
+    "Return chicken with remaining sauces; toss until glazed."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 450,
+    "sodium": 780,
+    "saturatedFat": 3,
+    "fiber": 2,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 18,
+    "carbs": 55,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 2.1,
     "currency": "USD",
-    "total": 0
+    "total": 8.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 12,
+    "totalMinutes": 27
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Weeknight stir-fry with glossy soy glaze."
 }

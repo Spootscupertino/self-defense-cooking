@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2.5",
+      "unit": "lb",
+      "name": "russet potatoes, peeled"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "milk or cream"
+    },
+    {
+      "quantity": "4",
+      "unit": "tablespoons",
+      "name": "butter"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "salt"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "teaspoon",
+      "name": "black pepper"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, optional"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Boil potatoes in salted water until fork-tender.",
+    "Drain well and mash with butter.",
+    "Stir in warm milk/cream until smooth.",
+    "Season with salt and pepper; add roasted garlic if desired."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 240,
+    "sodium": 360,
+    "saturatedFat": 4,
+    "fiber": 3,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 6,
+    "carbs": 32,
+    "fat": 10
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.1,
     "currency": "USD",
-    "total": 0
+    "total": 4.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 25,
+    "totalMinutes": 40
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Creamy, fluffy mashed potatoes."
 }

@@ -4,56 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "2",
       "unit": "lb",
-      "name": "protein"
+      "name": "cod fillets"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "olive oil"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "paprika"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "lemon zest"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Preheat oven to 400F and line a sheet pan.",
+    "Pat protein dry, then coat with oil, salt, pepper, and spices.",
+    "Roast for 9-19 minutes, flipping once, until browned and cooked through (165F for poultry, 145F for pork).",
+    "Rest 5 minutes and serve with pan juices."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
+    "calories": 320,
+    "sodium": 460,
+    "saturatedFat": 3,
     "fiber": 0,
     "sugar": 0
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 34,
+    "carbs": 4,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 4.5,
     "currency": "USD",
-    "total": 0
+    "total": 18.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 14,
+    "totalMinutes": 24
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips.",
-  "allergens": [
-    "Fish"
-  ]
+  "notes": "Flaky white fish with light seasoning."
 }

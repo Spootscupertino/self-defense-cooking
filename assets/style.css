@@ -15,11 +15,62 @@
   --sign-cedar: #5a2f1f;
   --sign-oak: #7b4a2e;
   --sign-ash: #f3ede2;
+  --card-radius: 18px;
+  --pill-radius: 999px;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.12);
+  --shadow-pill: 0 6px 16px rgba(0,0,0,0.12);
 }
 
 html, body {
   margin: 0;
   padding: 0;
+}
+
+/* Smoother, less-boxy UI pass */
+.search-card,
+.controls > .control,
+.section,
+#recipeBrowse,
+.browse,
+.category-panel,
+.results-panel {
+  border-radius: var(--card-radius) !important;
+  box-shadow: var(--shadow-soft) !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  overflow: hidden;
+}
+
+#recipeBrowse button,
+.chip,
+.pill,
+.category-chip {
+  border-radius: var(--pill-radius) !important;
+  padding: 10px 14px !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: var(--shadow-pill) !important;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+#recipeBrowse button[aria-pressed="true"],
+.category-chip.is-active,
+.chip.is-active {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.14) !important;
+}
+
+.recipe-card,
+.recipe-tile,
+.result-card,
+.grid-card,
+#top25Grid > * {
+  border-radius: calc(var(--card-radius) - 2px) !important;
+  border: 1px solid rgba(0,0,0,0.07) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.10) !important;
+}
+
+* {
+  outline-color: rgba(0,0,0,0.25);
 }
 
 body {

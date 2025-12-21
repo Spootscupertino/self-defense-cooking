@@ -4,51 +4,94 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1",
+      "unit": "tablespoon",
+      "name": "olive oil"
     },
     {
-      "quantity": "to taste",
+      "quantity": "1",
       "unit": "",
+      "name": "yellow onion, diced"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": "3",
+      "unit": "",
+      "name": "carrots, sliced"
+    },
+    {
+      "quantity": "2",
+      "unit": "stalks",
+      "name": "celery, sliced"
+    },
+    {
+      "quantity": "6",
+      "unit": "cups",
+      "name": "chicken broth"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "egg noodles"
+    },
+    {
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "dried thyme"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "shredded cooked chicken"
+    },
+    {
+      "quantity": "1",
+      "unit": "cup",
+      "name": "peas"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Sweat onion, carrot, and celery in oil with a pinch of salt until softened.",
+    "Stir in garlic (and protein if raw) until fragrant or lightly browned.",
+    "Add broth, starch, remaining salt, pepper, and thyme; bring to a simmer.",
+    "Cook 25 minutes until vegetables are tender; adjust seasoning and serve."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 780,
+    "saturatedFat": 3,
+    "fiber": 4,
+    "sugar": 6
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 24,
+    "carbs": 28,
+    "fat": 10
   },
   "price": {
-    "perServing": 0,
+    "perServing": 2.5,
     "currency": "USD",
-    "total": 0
+    "total": 10.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 25,
+    "totalMinutes": 40
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Gluten"
-  ]
+  "notes": "Classic broth soup with noodles and vegetables."
 }

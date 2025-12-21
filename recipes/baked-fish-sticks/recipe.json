@@ -4,53 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "1.5",
       "unit": "lb",
-      "name": "protein"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "name": "white fish, cut into strips"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "panko breadcrumbs"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "flour"
+    },
+    {
+      "quantity": "2",
+      "unit": "",
+      "name": "eggs, beaten"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "paprika"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Heat oven to 425F and line a sheet with parchment.",
+    "Dredge fish in flour, dip in egg, then coat with seasoned panko.",
+    "Arrange on sheet and spray lightly with oil.",
+    "Bake 12-15 minutes until crisp and cooked through."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
+    "calories": 320,
+    "sodium": 460,
+    "saturatedFat": 3,
     "fiber": 0,
     "sugar": 0
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 34,
+    "carbs": 4,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 4.5,
     "currency": "USD",
-    "total": 0
+    "total": 18.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 20,
+    "cookMinutes": 14,
+    "totalMinutes": 34
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+  "notes": "Oven-crisp fish sticks without deep frying."
 }

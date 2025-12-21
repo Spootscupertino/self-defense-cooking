@@ -4,57 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "1.25",
       "unit": "lb",
-      "name": "protein"
+      "name": "large shrimp, peeled"
     },
     {
-      "quantity": "to taste",
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "butter"
+    },
+    {
+      "quantity": "3",
+      "unit": "cloves",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": "0.25",
+      "unit": "teaspoon",
+      "name": "red pepper flakes"
+    },
+    {
+      "quantity": "0.5",
       "unit": "",
-      "name": "salt"
+      "name": "lemon, juiced"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
-    },
-    {
-      "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "parsley, chopped"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Pat shrimp dry and season with salt and pepper.",
+    "Melt butter in a skillet; add garlic until fragrant.",
+    "Add shrimp and red pepper; cook 2-3 minutes per side until pink.",
+    "Finish with lemon juice and parsley; serve immediately."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
+    "calories": 320,
+    "sodium": 460,
+    "saturatedFat": 3,
     "fiber": 0,
     "sugar": 0
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 34,
+    "carbs": 4,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 4.5,
     "currency": "USD",
-    "total": 0
+    "total": 18.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 8,
+    "totalMinutes": 18
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips.",
-  "allergens": [
-    "Dairy",
-    "Shellfish"
-  ]
+  "notes": "Fast skillet shrimp with garlic-lemon butter."
 }

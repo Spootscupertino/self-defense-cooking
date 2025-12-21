@@ -4,51 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1.25",
+      "unit": "lb",
+      "name": "large shrimp, peeled"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "4",
+      "unit": "tablespoons",
+      "name": "butter"
     },
     {
-      "quantity": "1",
-      "unit": "tablespoon",
+      "quantity": "2",
+      "unit": "tablespoons",
       "name": "olive oil"
+    },
+    {
+      "quantity": "4",
+      "unit": "cloves",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "dry white wine"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "",
+      "name": "lemon, juiced"
+    },
+    {
+      "quantity": "0.25",
+      "unit": "cup",
+      "name": "parsley, chopped"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Season shrimp with salt and pepper.",
+    "Saute garlic in butter and oil until fragrant; add shrimp.",
+    "Deglaze with wine and lemon; simmer briefly until shrimp are just opaque.",
+    "Finish with parsley and serve over pasta or bread."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
+    "calories": 320,
+    "sodium": 460,
+    "saturatedFat": 3,
     "fiber": 0,
     "sugar": 0
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 34,
+    "carbs": 4,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 4.5,
     "currency": "USD",
-    "total": 0
+    "total": 18.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 10,
+    "totalMinutes": 20
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Shellfish"
-  ]
+  "notes": "Classic garlicky shrimp with wine and lemon."
 }

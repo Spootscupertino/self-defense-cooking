@@ -4,51 +4,74 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "3",
+      "unit": "cups",
+      "name": "cooked rice, chilled"
     },
     {
-      "quantity": "to taste",
+      "quantity": "2",
       "unit": "",
-      "name": "black pepper"
+      "name": "eggs, beaten"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "mixed vegetables"
+    },
+    {
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "soy sauce"
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "neutral oil"
+    },
+    {
+      "quantity": "2",
+      "unit": "teaspoons",
+      "name": "sesame oil"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "scallions"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "peas"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Heat a wok or skillet over medium-high; scramble eggs in a little oil, then set aside.",
+    "Add oil and protein if using; cook through and move to the side.",
+    "Stir-fry vegetables, then add rice; cook until hot and lightly crisp.",
+    "Stir in soy sauce, sesame oil, add-ins, and eggs; season to taste."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 450,
+    "sodium": 780,
+    "saturatedFat": 3,
+    "fiber": 2,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 18,
+    "carbs": 55,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 2.1,
     "currency": "USD",
-    "total": 0
+    "total": 8.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "totalMinutes": 30
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Eggs"
-  ]
+  "notes": "Egg-forward fried rice with peas."
 }

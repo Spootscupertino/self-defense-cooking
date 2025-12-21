@@ -4,51 +4,59 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
+      "quantity": "6",
       "unit": "",
-      "name": "salt"
+      "name": "eggs"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "milk or cream"
     },
     {
       "quantity": "1",
       "unit": "tablespoon",
-      "name": "olive oil"
+      "name": "butter"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "shredded cheese"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "cooked vegetables or ham"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Whisk eggs with milk and a pinch of salt.",
+    "Melt butter in a nonstick skillet over medium-low heat.",
+    "Pour eggs and gently stir until just set; add fillings and fold.",
+    "Slide onto a plate and serve immediately."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 420,
+    "saturatedFat": 5,
+    "fiber": 2,
+    "sugar": 10
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 15,
+    "carbs": 48,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.8,
     "currency": "USD",
-    "total": 0
+    "total": 7.2
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 8,
+    "totalMinutes": 18
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Eggs"
-  ]
+  "notes": "Soft folded omelette with customizable fillings."
 }

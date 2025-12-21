@@ -4,48 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "2",
+      "unit": "lb",
+      "name": "ground beef"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "breadcrumbs"
+    },
+    {
+      "quantity": "2",
+      "unit": "",
+      "name": "eggs"
+    },
+    {
+      "quantity": "0.75",
+      "unit": "cup",
+      "name": "milk"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "ketchup"
+    },
+    {
+      "quantity": "1",
+      "unit": "",
+      "name": "small onion, minced"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Heat oven to 350F. Mix beef, breadcrumbs, eggs, milk, onion, and garlic until just combined.",
+    "Shape into a loaf on a lined sheet; spread ketchup over the top.",
+    "Bake 55-65 minutes until 160F internal.",
+    "Rest 10 minutes before slicing."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 520,
+    "sodium": 820,
+    "saturatedFat": 6,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 32,
+    "carbs": 34,
+    "fat": 16
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.9,
     "currency": "USD",
-    "total": 0
+    "total": 15.6
   },
-  "difficulty": "Easy",
+  "difficulty": "Medium",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 20,
+    "cookMinutes": 60,
+    "totalMinutes": 80
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Classic beef meatloaf with ketchup glaze."
 }

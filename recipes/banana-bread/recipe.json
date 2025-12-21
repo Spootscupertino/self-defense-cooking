@@ -4,51 +4,74 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
+      "quantity": "3",
       "unit": "",
-      "name": "salt"
+      "name": "ripe bananas, mashed"
     },
     {
-      "quantity": "to taste",
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "melted butter"
+    },
+    {
+      "quantity": "0.75",
+      "unit": "cup",
+      "name": "brown sugar"
+    },
+    {
+      "quantity": "2",
       "unit": "",
-      "name": "black pepper"
+      "name": "eggs"
+    },
+    {
+      "quantity": "1.5",
+      "unit": "cups",
+      "name": "all-purpose flour"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "baking soda"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "teaspoon",
+      "name": "salt"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "cinnamon"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Heat oven to 350F and grease a loaf pan.",
+    "Whisk mashed bananas, butter, sugar, and eggs until smooth.",
+    "Fold in dry ingredients until just combined.",
+    "Bake 50-60 minutes until a tester is clean; cool before slicing."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 310,
+    "sodium": 260,
+    "saturatedFat": 5,
+    "fiber": 3,
+    "sugar": 24
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 5,
+    "carbs": 55,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.2,
     "currency": "USD",
-    "total": 0
+    "total": 4.8
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 55,
+    "totalMinutes": 70
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Gluten"
-  ]
+  "notes": ""
 }

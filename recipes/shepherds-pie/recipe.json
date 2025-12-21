@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "1.25",
+      "unit": "lb",
+      "name": "ground beef or lamb"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "",
+      "name": "onion, diced"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "mixed vegetables"
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "tomato paste"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "beef broth"
+    },
+    {
+      "quantity": "4",
+      "unit": "cups",
+      "name": "mashed potatoes"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Brown meat with onion; drain fat if needed.",
+    "Stir in vegetables and tomato paste; add broth and simmer until thick.",
+    "Spread in a baking dish and top with mashed potatoes.",
+    "Bake at 375F for 25-30 minutes until browned on top."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 520,
+    "sodium": 820,
+    "saturatedFat": 6,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 32,
+    "carbs": 34,
+    "fat": 16
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.9,
     "currency": "USD",
-    "total": 0
+    "total": 15.6
   },
-  "difficulty": "Easy",
+  "difficulty": "Medium",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 25,
+    "cookMinutes": 30,
+    "totalMinutes": 55
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Mashed potato-topped casserole with savory filling."
 }

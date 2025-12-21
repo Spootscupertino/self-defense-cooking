@@ -4,51 +4,74 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "1",
+      "unit": "cup",
+      "name": "unsalted butter, softened"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "brown sugar"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "granulated sugar"
+    },
+    {
+      "quantity": "2",
+      "unit": "",
+      "name": "eggs"
+    },
+    {
+      "quantity": "2.5",
+      "unit": "cups",
+      "name": "all-purpose flour"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "baking soda"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "salt"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "chocolate chips"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Heat oven to 350F. Cream butter and sugars until fluffy; beat in eggs.",
+    "Stir in dry ingredients until just combined, then fold in chocolate chips.",
+    "Scoop onto parchment-lined sheets.",
+    "Bake 10-12 minutes until edges are golden; cool on a rack."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 320,
+    "sodium": 180,
+    "saturatedFat": 10,
+    "fiber": 1,
+    "sugar": 26
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 4,
+    "carbs": 45,
+    "fat": 18
   },
   "price": {
-    "perServing": 0,
+    "perServing": 0.9,
     "currency": "USD",
-    "total": 0
+    "total": 3.6
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 12,
+    "totalMinutes": 27
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Gluten"
-  ]
+  "notes": ""
 }

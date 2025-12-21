@@ -4,48 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2",
+      "unit": "cups",
+      "name": "cooked chicken, diced"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "2",
+      "unit": "cups",
+      "name": "mixed vegetables"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "butter"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "flour"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "chicken broth"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "milk"
+    },
+    {
+      "quantity": "2",
+      "unit": "",
+      "name": "pie crusts"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Heat oven to 400F. Make a roux with butter and flour; whisk in broth and milk until thick.",
+    "Stir in chicken and vegetables; season well.",
+    "Fill pie dish and top with crust; crimp and vent.",
+    "Bake 35-40 minutes until golden and bubbling."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 520,
+    "sodium": 820,
+    "saturatedFat": 6,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 32,
+    "carbs": 34,
+    "fat": 16
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.9,
     "currency": "USD",
-    "total": 0
+    "total": 15.6
   },
-  "difficulty": "Easy",
+  "difficulty": "Medium",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 25,
+    "cookMinutes": 40,
+    "totalMinutes": 65
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Comfort chicken pot pie with creamy filling."
 }

@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "olive oil"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "3",
+      "unit": "cloves",
+      "name": "garlic, sliced"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "can",
+      "name": "crushed tomatoes"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "teaspoon",
+      "name": "red pepper flakes"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "dried oregano"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "sugar (optional)"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Saute aromatics in oil until fragrant.",
+    "Add tomatoes and seasonings; simmer 15-20 minutes.",
+    "Adjust salt and sweetness to taste.",
+    "Cool slightly and serve or store."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 60,
+    "sodium": 180,
+    "saturatedFat": 0.5,
+    "fiber": 1,
+    "sugar": 4
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 2,
+    "carbs": 6,
+    "fat": 4
   },
   "price": {
-    "perServing": 0,
+    "perServing": 0.5,
     "currency": "USD",
-    "total": 0
+    "total": 2.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "totalMinutes": 30
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Pan-cooked tomato sauce for pasta or pizza."
 }

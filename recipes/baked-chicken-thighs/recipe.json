@@ -4,67 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": 4,
-      "unit": "pieces",
-      "name": "chicken thighs"
+      "quantity": "2",
+      "unit": "lb",
+      "name": "bone-in chicken thighs"
     },
     {
-      "quantity": 2,
+      "quantity": "2",
       "unit": "tablespoons",
       "name": "olive oil"
     },
     {
-      "quantity": 1,
-      "unit": "teaspoon",
-      "name": "salt"
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
     },
     {
-      "quantity": 0.5,
+      "quantity": "1",
       "unit": "teaspoon",
       "name": "black pepper"
     },
     {
-      "quantity": 1,
+      "quantity": "1",
       "unit": "teaspoon",
       "name": "garlic powder"
     },
     {
-      "quantity": 1,
+      "quantity": "1",
       "unit": "teaspoon",
-      "name": "paprika"
+      "name": "smoked paprika"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "brown sugar"
     }
   ],
   "directions": [
-    "Preheat oven to 425F (220C).",
-    "Pat chicken thighs dry with paper towels.",
-    "Place chicken on a baking sheet and drizzle with olive oil.",
-    "Season evenly with salt, pepper, garlic powder, and paprika.",
-    "Arrange thighs skin-side up with space between pieces.",
-    "Bake uncovered for 35-45 minutes until skin is crisp and internal temp reaches 165F.",
-    "Rest 5 minutes before serving."
+    "Preheat oven to 400F and line a sheet pan.",
+    "Pat protein dry, then coat with oil, salt, pepper, and spices.",
+    "Roast for 27-37 minutes, flipping once, until browned and cooked through (165F for poultry, 145F for pork).",
+    "Rest 5 minutes and serve with pan juices."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 520,
+    "saturatedFat": 4.5,
+    "fiber": 1,
+    "sugar": 1
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 38,
+    "carbs": 6,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.75,
     "currency": "USD",
-    "total": 0
+    "total": 15.0
   },
   "difficulty": "Easy",
   "time": {
     "prepMinutes": 10,
-    "cookMinutes": 40,
-    "totalMinutes": 50
+    "cookMinutes": 32,
+    "totalMinutes": 42
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Drying the protein and using high heat teaches control under pressure: moisture management equals crisp results."
+  "notes": "Juicy dark meat with caramelized edges."
 }

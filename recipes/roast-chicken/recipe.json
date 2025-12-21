@@ -4,48 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2",
+      "unit": "lb",
+      "name": "whole chicken pieces"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "olive oil"
+    },
+    {
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "paprika"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "thyme"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Preheat oven to 400F and line a sheet pan.",
+    "Pat protein dry, then coat with oil, salt, pepper, and spices.",
+    "Roast for 50-60 minutes, flipping once, until browned and cooked through (165F for poultry, 145F for pork).",
+    "Rest 5 minutes and serve with pan juices."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 520,
+    "saturatedFat": 4.5,
+    "fiber": 1,
+    "sugar": 1
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 38,
+    "carbs": 6,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.75,
     "currency": "USD",
-    "total": 0
+    "total": 15.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 55,
+    "totalMinutes": 65
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Classic roasted chicken for carving."
 }

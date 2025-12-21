@@ -4,53 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "1.5",
       "unit": "lb",
-      "name": "protein"
+      "name": "ground beef/pork blend"
     },
     {
-      "quantity": "to taste",
+      "quantity": "0.75",
+      "unit": "cup",
+      "name": "breadcrumbs"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "grated parmesan"
+    },
+    {
+      "quantity": "2",
       "unit": "",
-      "name": "salt"
+      "name": "eggs"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
     },
     {
-      "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "chopped parsley"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Heat oven to 400F and line a sheet pan.",
+    "Mix all ingredients until just combined; form 16 meatballs.",
+    "Bake 18-22 minutes until browned and 165F internal.",
+    "Serve with marinara or your favorite sauce."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 420,
+    "sodium": 520,
+    "saturatedFat": 4,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 32,
+    "carbs": 24,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.8,
     "currency": "USD",
-    "total": 0
+    "total": 15.2
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "totalMinutes": 35
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+  "notes": "Oven-baked meatballs for pasta, subs, or meal prep."
 }

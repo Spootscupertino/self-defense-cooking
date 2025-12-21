@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "12",
+      "unit": "oz",
+      "name": "fettuccine"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "lb",
+      "name": "chicken breast, sliced"
+    },
+    {
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "butter"
+    },
+    {
+      "quantity": "1",
+      "unit": "cup",
+      "name": "cream"
+    },
+    {
+      "quantity": "1",
+      "unit": "cup",
+      "name": "grated parmesan"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Cook pasta in salted water until al dente.",
+    "Sear chicken in butter until cooked; set aside.",
+    "Add garlic, cream, and parmesan; simmer until slightly thick.",
+    "Toss pasta and chicken in sauce; season and serve."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 620,
+    "sodium": 720,
+    "saturatedFat": 11,
+    "fiber": 3,
+    "sugar": 6
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 27,
+    "carbs": 60,
+    "fat": 22
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.2,
     "currency": "USD",
-    "total": 0
+    "total": 12.8
   },
-  "difficulty": "Easy",
+  "difficulty": "Medium",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "totalMinutes": 35
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Creamy parmesan sauce with seared chicken."
 }

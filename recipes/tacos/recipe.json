@@ -4,48 +4,79 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1",
+      "unit": "lb",
+      "name": "ground beef"
     },
     {
-      "quantity": "to taste",
+      "quantity": "1",
       "unit": "",
-      "name": "black pepper"
+      "name": "small onion, diced"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
     },
     {
       "quantity": "1",
       "unit": "tablespoon",
-      "name": "olive oil"
+      "name": "taco seasoning"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "salsa or tomato sauce"
+    },
+    {
+      "quantity": "8",
+      "unit": "",
+      "name": "warm tortillas"
+    },
+    {
+      "quantity": "1",
+      "unit": "cup",
+      "name": "shredded lettuce"
+    },
+    {
+      "quantity": "1",
+      "unit": "cup",
+      "name": "shredded cheese"
+    },
+    {
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "pico de gallo"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Brown protein with onion in a skillet; drain excess fat if needed.",
+    "Stir in garlic and seasoning until fragrant.",
+    "Add salsa and a splash of water; simmer 5-8 minutes until thickened.",
+    "Serve in warm tortillas with cheese, lettuce, and toppings."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 430,
+    "sodium": 820,
+    "saturatedFat": 5,
+    "fiber": 4,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 28,
+    "carbs": 32,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.0,
     "currency": "USD",
-    "total": 0
+    "total": 12.0
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "totalMinutes": 35
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Weeknight ground beef tacos with fresh toppings."
 }

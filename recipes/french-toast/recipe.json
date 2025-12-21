@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "8",
+      "unit": "slices",
+      "name": "sturdy bread"
     },
     {
-      "quantity": "to taste",
+      "quantity": "4",
       "unit": "",
-      "name": "black pepper"
+      "name": "eggs"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "cup",
+      "name": "milk"
+    },
+    {
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "sugar"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "cinnamon"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "vanilla extract"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Whisk eggs, milk, sugar, cinnamon, and vanilla in a shallow dish.",
+    "Dip bread to soak briefly on each side.",
+    "Cook on a buttered skillet over medium heat until golden on both sides.",
+    "Serve hot with syrup or berries."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 420,
+    "saturatedFat": 5,
+    "fiber": 2,
+    "sugar": 10
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 15,
+    "carbs": 48,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.8,
     "currency": "USD",
-    "total": 0
+    "total": 7.2
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "totalMinutes": 25
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Custardy skillet-fried toast."
 }

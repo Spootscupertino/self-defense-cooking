@@ -4,48 +4,74 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1",
+      "unit": "large head",
+      "name": "romaine lettuce, chopped"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "0.5",
+      "unit": "cup",
+      "name": "parmesan cheese, grated"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
+      "unit": "cup",
+      "name": "croutons"
+    },
+    {
+      "quantity": "1",
+      "unit": "",
+      "name": "lemon, juiced"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "dijon mustard"
+    },
+    {
+      "quantity": "1",
+      "unit": "clove",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": "0.25",
+      "unit": "cup",
       "name": "olive oil"
+    },
+    {
+      "quantity": "2",
+      "unit": "fillets",
+      "name": "anchovy, minced (optional)"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Whisk lemon juice, mustard, garlic, and anchovy with a pinch of salt.",
+    "Slowly stream in olive oil to emulsify.",
+    "Toss romaine with dressing, parmesan, and croutons.",
+    "Serve immediately while crisp."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 240,
+    "sodium": 360,
+    "saturatedFat": 4,
+    "fiber": 3,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 6,
+    "carbs": 32,
+    "fat": 10
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.1,
     "currency": "USD",
-    "total": 0
+    "total": 4.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
+    "prepMinutes": 15,
     "cookMinutes": 0,
-    "totalMinutes": 0
+    "totalMinutes": 15
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "Crisp romaine with tangy parmesan dressing."
 }

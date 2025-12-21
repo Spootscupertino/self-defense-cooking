@@ -4,53 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "2",
       "unit": "lb",
-      "name": "protein"
+      "name": "boneless pork chops"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "2",
+      "unit": "tablespoons",
+      "name": "olive oil"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
       "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "unit": "teaspoon",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "paprika"
+    },
+    {
+      "quantity": "1/3",
+      "unit": "cup",
+      "name": "honey mustard"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Preheat oven to 400F and line a sheet pan.",
+    "Pat protein dry, then coat with oil, salt, pepper, and spices. Toss with glaze to coat evenly.",
+    "Roast for 17-27 minutes, flipping once, until browned and cooked through (165F for poultry, 145F for pork).",
+    "Rest 5 minutes and serve with pan juices."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 410,
+    "sodium": 560,
+    "saturatedFat": 6,
+    "fiber": 1,
+    "sugar": 2
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 35,
+    "carbs": 8,
+    "fat": 18
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.6,
     "currency": "USD",
-    "total": 0
+    "total": 14.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 22,
+    "totalMinutes": 32
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+  "notes": "Tangy-sweet glaze that caramelizes."
 }

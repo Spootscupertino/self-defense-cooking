@@ -4,51 +4,49 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "8",
+      "unit": "slices",
+      "name": "bread"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "6",
+      "unit": "tablespoons",
+      "name": "butter, softened"
     },
     {
-      "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "quantity": "2",
+      "unit": "cups",
+      "name": "shredded cheese mix"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Butter bread slices on one side.",
+    "Place cheese between bread, buttered sides out.",
+    "Cook in a skillet over medium heat until golden and melty, 2-3 minutes per side.",
+    "Rest briefly, slice, and serve."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 420,
+    "sodium": 720,
+    "saturatedFat": 7,
+    "fiber": 2,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 18,
+    "carbs": 32,
+    "fat": 16
   },
   "price": {
-    "perServing": 0,
+    "perServing": 2.2,
     "currency": "USD",
-    "total": 0
+    "total": 8.8
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 5,
+    "cookMinutes": 8,
+    "totalMinutes": 13
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Dairy"
-  ]
+  "notes": "Crispy, melty grilled cheese sandwich."
 }

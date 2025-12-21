@@ -4,48 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "1",
+      "unit": "cup",
+      "name": "long-grain rice"
     },
     {
       "quantity": "1",
       "unit": "tablespoon",
       "name": "olive oil"
+    },
+    {
+      "quantity": "2",
+      "unit": "cloves",
+      "name": "garlic, minced"
+    },
+    {
+      "quantity": "1",
+      "unit": "can",
+      "name": "black beans, rinsed"
+    },
+    {
+      "quantity": "2",
+      "unit": "cups",
+      "name": "broth"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
+      "name": "cumin"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Saute garlic in oil until fragrant.",
+    "Add rice and toast 1-2 minutes.",
+    "Stir in beans, broth, cumin, and salt; bring to a simmer.",
+    "Cover and cook 18 minutes until rice is tender; rest 5 minutes and fluff."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 450,
+    "sodium": 780,
+    "saturatedFat": 3,
+    "fiber": 2,
+    "sugar": 3
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 18,
+    "carbs": 55,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 2.1,
     "currency": "USD",
-    "total": 0
+    "total": 8.4
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "totalMinutes": 30
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+  "notes": "One-pot seasoned rice with black beans."
 }

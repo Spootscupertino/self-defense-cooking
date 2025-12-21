@@ -4,53 +4,69 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "1",
+      "quantity": "1.5",
       "unit": "lb",
-      "name": "protein"
+      "name": "sirloin steak chunks"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "3",
+      "unit": "cups",
+      "name": "broccoli florets, red pepper"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "olive oil"
+    },
+    {
+      "quantity": "1.5",
+      "unit": "teaspoons",
+      "name": "kosher salt"
+    },
+    {
+      "quantity": "1",
+      "unit": "teaspoon",
       "name": "black pepper"
     },
     {
-      "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
+      "quantity": "2",
+      "unit": "teaspoons",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": "1/4",
+      "unit": "cup",
+      "name": "soy-butter drizzle"
     }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Heat oven to 425F and preheat a rimmed sheet pan.",
+    "Toss sirloin steak chunks and vegetables with oil, salt, pepper, and seasoning. Add soy-butter drizzle before roasting.",
+    "Spread in one layer; roast 15-21 minutes, stirring once, until protein is cooked and vegetables are tender.",
+    "Finish with lemon juice or herbs if desired."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 420,
+    "sodium": 520,
+    "saturatedFat": 4,
+    "fiber": 4,
+    "sugar": 5
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 32,
+    "carbs": 24,
+    "fat": 14
   },
   "price": {
-    "perServing": 0,
+    "perServing": 3.8,
     "currency": "USD",
-    "total": 0
+    "total": 15.2
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 12,
+    "cookMinutes": 18,
+    "totalMinutes": 30
   },
-  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+  "notes": "Quick roast steak bites with vegetables."
 }

@@ -4,51 +4,64 @@
   "yield": 4,
   "ingredients": [
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
+      "quantity": "1.5",
+      "unit": "cups",
+      "name": "all-purpose flour"
     },
     {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
+      "quantity": "3.5",
+      "unit": "teaspoons",
+      "name": "baking powder"
     },
     {
       "quantity": "1",
       "unit": "tablespoon",
-      "name": "olive oil"
+      "name": "sugar"
+    },
+    {
+      "quantity": "1",
+      "unit": "",
+      "name": "egg"
+    },
+    {
+      "quantity": "1.25",
+      "unit": "cups",
+      "name": "milk"
+    },
+    {
+      "quantity": "3",
+      "unit": "tablespoons",
+      "name": "melted butter"
     }
   ],
   "directions": [
-    "Prepare ingredients and preheat equipment as appropriate.",
-    "Season thoughtfully and cook with controlled heat.",
-    "Finish, taste, and adjust seasoning before serving."
+    "Whisk dry ingredients together, then add egg, milk, and butter.",
+    "Stir until just combined; some small lumps are fine.",
+    "Cook 1/4-cup portions on a greased griddle until bubbles form; flip and cook to golden.",
+    "Serve warm with syrup or fruit."
   ],
   "nutrition": {
-    "calories": 0,
-    "sodium": 0,
-    "saturatedFat": 0,
-    "fiber": 0,
-    "sugar": 0
+    "calories": 360,
+    "sodium": 420,
+    "saturatedFat": 5,
+    "fiber": 2,
+    "sugar": 10
   },
   "macros": {
-    "protein": 0,
-    "carbs": 0,
-    "fat": 0
+    "protein": 15,
+    "carbs": 48,
+    "fat": 12
   },
   "price": {
-    "perServing": 0,
+    "perServing": 1.8,
     "currency": "USD",
-    "total": 0
+    "total": 7.2
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "totalMinutes": 25
   },
-  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly.",
-  "allergens": [
-    "Gluten"
-  ]
+  "notes": "Fluffy griddle pancakes."
 }
