@@ -1,161 +1,148 @@
+<!-- refactor: external css/js -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- v4.0.1 -->
-    <title>Self Defense Cooking</title>
-    <link rel="stylesheet" href="style.css?v=2">
-    <link rel="manifest" href="manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet">
-    <script>
-        // Capture PWA install prompt early
-        window.deferredPrompt = null;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            window.deferredPrompt = e;
-        });
-    </script>
+  <meta charset="UTF-8">
+  <title>Recipe Template</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="scene">
-        <div class="cube">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face left"></div>
-            <div class="face right"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-
-            <!-- Chef Button (Now inside the 3D world) -->
-            <a href="apps/nutrition-widget/index.html" class="chef-button" id="chef-button">
-                <img src="assets/chef-inhale.png" alt="Nutrition App">
-            </a>
-            <!-- Recipes Button (3D) -->
-            <a href="apps/recipe-engine/index.html" class="recipes-button" id="recipes-button">Recipes</a>
-            <!-- Downloads Button (3D) -->
-            <button id="downloadBtn" class="downloads-button">
-                Downloads
-            </button> <!-- Chef Button (Now inside the 3D world) -->
-            <a href="apps/nutrition-widget/index.html" class="chef-button" id="chef-button">
-            img    <img src="assets/chef-inhale.png" alt="Nutrition App">
-            </a>
-            <!-- Downloads Button (3D) -->
-            <button id="downloadBtn" class="downloads-button">
-                Downloads
-            </button>
+  <div class="overlay">
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">
+          <h1>Recipe Name</h1>
+          <p class="subtitle" id="servingsLabel">Yield: 4 portions</p>
         </div>
+        <div class="search-card">
+          <label for="recipeSearch">Find a recipe</label>
+          <input id="recipeSearch" type="search" placeholder="Search recipes..." autocomplete="off" />
+          <ul id="searchResults" class="search-results" hidden></ul>
+        </div>
+        <div class="controls">
+          <details class="control" id="dietaryControl">
+            <summary>Dietary Restrictions</summary>
+            <div class="control-body">
+              <label><input type="checkbox" value="Vegetarian" class="dietary-check"> Vegetarian</label>
+              <label><input type="checkbox" value="Vegan" class="dietary-check"> Vegan</label>
+              <label><input type="checkbox" value="Gluten-Free" class="dietary-check"> Gluten-Free</label>
+              <label><input type="checkbox" value="Dairy-Free" class="dietary-check"> Dairy-Free</label>
+              <label><input type="checkbox" value="Nut-Free" class="dietary-check"> Nut-Free</label>
+              <div class="chips" id="dietaryChips"></div>
+            </div>
+          </details>
+
+          <details class="control" id="macrosControl">
+            <summary>Macros</summary>
+            <div class="control-body macros-grid">
+              <label>Protein (g)<input type="number" id="proteinInput" min="0" value="30"></label>
+              <label>Carbs (g)<input type="number" id="carbsInput" min="0" value="45"></label>
+              <label>Fat (g)<input type="number" id="fatInput" min="0" value="12"></label>
+              <div class="macro-summary" id="macroSummary">~384 kcal / serving</div>
+            </div>
+          </details>
+
+          <details class="control" id="nutritionControl">
+            <summary>Nutrition</summary>
+            <div class="control-body metrics-grid">
+              <label>Calories<input type="number" id="caloriesInput" min="0" value="420"></label>
+              <label>Sodium (mg)<input type="number" id="sodiumInput" min="0" value="480"></label>
+              <label>Sat. Fat (g)<input type="number" id="satFatInput" min="0" step="0.1" value="6"></label>
+              <div class="metric-value" id="nutritionSummary">420 kcal · 480 mg sodium · 6 g sat fat</div>
+            </div>
+          </details>
+
+          <details class="control" id="heatControl">
+            <summary>Heat Scale</summary>
+            <div class="control-body">
+              <input type="range" id="heatSlider" min="0" max="10" value="3">
+              <div class="heat-label" id="heatLabel">Mild (3/10)</div>
+            </div>
+          </details>
+
+          <details class="control" id="portionsControl">
+            <summary>Portions</summary>
+            <div class="control-body portions">
+              <label>Servings<input type="number" id="portionInput" min="1" value="4"></label>
+              <button id="portionApply" type="button">Scale ingredients</button>
+            </div>
+          </details>
+
+          <details class="control" id="priceControl">
+            <summary>Price</summary>
+            <div class="control-body price-grid">
+              <label>Price / serving<input type="number" id="pricePerServing" min="0" step="0.01" value="4.50"></label>
+              <label>Currency
+                <select id="currencySelect">
+                  <option value="USD" selected>USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                </select>
+              </label>
+              <div class="metric-value" id="priceSummary">$18.00 total</div>
+            </div>
+          </details>
+
+          <details class="control" id="difficultyControl">
+            <summary>Difficulty</summary>
+            <div class="control-body difficulty-row">
+              <select id="difficultySelect">
+                <option value="Easy" selected>Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              <span class="badge" id="difficultyBadge">Easy</span>
+            </div>
+          </details>
+
+          <details class="control" id="timeControl">
+            <summary>Time</summary>
+            <div class="control-body time-grid">
+              <label>Prep (min)<input type="number" id="prepTime" min="0" value="15"></label>
+              <label>Cook (min)<input type="number" id="cookTime" min="0" value="25"></label>
+              <div class="metric-value" id="timeSummary">~40 min total</div>
+            </div>
+          </details>
+        </div>
+      </header>
+
+      <details class="section" open>
+        <summary>Method</summary>
+        <div class="section-content">
+          <p>Describe your cooking technique here. This is where you can introduce the philosophy or inspiration behind the dish.</p>
+        </div>
+      </details>
+
+      <details class="section" open>
+        <summary>Ingredients</summary>
+        <div class="section-content">
+          <ul id="ingredientsList">
+            <li data-base-qty="1" data-unit="cup" data-name="rice"><span class="qty">1</span> <span class="unit">cup</span> <span class="name">rice</span></li>
+            <li data-base-qty="2" data-unit="tbsp" data-name="soy sauce"><span class="qty">2</span> <span class="unit">tbsp</span> <span class="name">soy sauce</span></li>
+            <li data-base-qty="0.5" data-unit="cup" data-name="chopped scallions"><span class="qty">0.5</span> <span class="unit">cup</span> <span class="name">chopped scallions</span></li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="section" open>
+        <summary>Execution</summary>
+        <div class="section-content">
+          <ol>
+            <li>Step one goes here.</li>
+            <li>Step two goes here.</li>
+            <li>…</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary>Notes & Variations</summary>
+        <div class="section-content">
+          <p>Add any personal notes, variations, or serving suggestions here.</p>
+        </div>
+      </details>
     </div>
-
-<!-- Site chrome + content overlay -->
-<!-- Header removed -->
-
-<!-- Lighting overlays and ambient particles for immersion -->
-<div class="lighting-overlays" aria-hidden="true">
-    <div class="spotlight"></div>
-    <div class="vignette"></div>
-</div>
-
-<div id="particles" aria-hidden="true"></div>
-
-<!-- Contact box: opens user's mail client with message -->
-<form id="contact-form" class="contact-box" aria-label="Email enquiries to Self Defense Cooking">
-    <label for="contact-message" class="visually-hidden">Message</label>
-    <textarea id="contact-message" placeholder="Message (optional)" rows="2"></textarea>
-    <button type="submit" class="email-button">Email us</button>
-</form>
-
-<!-- Install Modal -->
-<div id="install-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-        <h3 style="font-size: 24px; margin-bottom: 15px;">Install App</h3>
-        <p id="install-instructions" style="font-family: sans-serif; line-height: 1.5;">Add this app to your home screen for the best experience.</p>
-        <button id="install-action-btn" class="modal-btn hidden">Install Now</button>
-        <button id="close-modal-btn" class="modal-btn secondary">Close</button>
-    </div>
-</div>
-
-<script src="script.js?v=2"></script>
-<script>
-  // Register Service Worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
-        .then(registration => {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, err => {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-  }
-
-  // PWA Install Logic
-  // Note: deferredPrompt is now captured in the <head> script as window.deferredPrompt
-
-  const downloadBtn = document.getElementById('downloadBtn');
-  const installModal = document.getElementById('install-modal');
-  const installActionBtn = document.getElementById('install-action-btn');
-  const closeModalBtn = document.getElementById('close-modal-btn');
-  const installInstructions = document.getElementById('install-instructions');
-
-  if(downloadBtn) {
-      downloadBtn.addEventListener('click', (e) => {
-          // Prevent 3D rotation when clicking
-          e.stopPropagation();
-          
-          // Show modal
-          installModal.classList.remove('hidden');
-          requestAnimationFrame(() => {
-              installModal.classList.add('active');
-          });
-
-          if (window.deferredPrompt) {
-              installActionBtn.classList.remove('hidden');
-              installInstructions.textContent = "Click below to install the app on your device.";
-          } else {
-              installActionBtn.classList.add('hidden');
-              // Detect OS for better instructions
-              const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-              const isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-              if (isIOS) {
-                  installInstructions.textContent = "To install on iOS: Tap the Share button in your browser menu, then select 'Add to Home Screen'.";
-              } else if (isDesktop) {
-                   installInstructions.textContent = "To install on Computer: Look for the 'Install' icon in your browser's address bar (top right), or click the three dots menu -> 'Install Self Defense Cooking'.";
-              } else {
-                  installInstructions.textContent = "To install: Tap your browser menu (three dots) and select 'Install App' or 'Add to Home Screen'.";
-              }
-          }
-      });
-      
-      // Prevent rotation on touch
-      downloadBtn.addEventListener('touchstart', (e) => e.stopPropagation(), {passive: false});
-      downloadBtn.addEventListener('touchend', (e) => e.stopPropagation(), {passive: false});
-      downloadBtn.addEventListener('mousedown', (e) => e.stopPropagation());
-  }
-
-  if(installActionBtn) {
-      installActionBtn.addEventListener('click', async () => {
-          if (window.deferredPrompt) {
-              window.deferredPrompt.prompt();
-              const { outcome } = await window.deferredPrompt.userChoice;
-              console.log(`User response to the install prompt: ${outcome}`);
-              window.deferredPrompt = null;
-              // Close modal
-              installModal.classList.remove('active');
-              setTimeout(() => installModal.classList.add('hidden'), 300);
-          }
-      });
-  }
-
-  if(closeModalBtn) {
-      closeModalBtn.addEventListener('click', () => {
-          installModal.classList.remove('active');
-          setTimeout(() => installModal.classList.add('hidden'), 300);
-      });
-  }
-</script>
+  </div>
+  <script type="module" src="components/main.js"></script>
 </body>
 </html>
