@@ -459,3 +459,69 @@ function initSearch(list = [], onSelect, activeSlug) {
     }
   });
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    initExtras();
+  } catch (err) {
+    console.error('[recipe-engine extras]', err);
+  }
+});
+
+function initExtras() {
+  const searchCard = document.querySelector('.search-card');
+  if (searchCard) {
+    const randomBtn = document.createElement('button');
+    randomBtn.type = 'button';
+    randomBtn.textContent = 'Random recipe';
+    randomBtn.addEventListener('click', () => {
+      if (!Array.isArray(recipeIndex) || recipeIndex.length === 0) return;
+      const random = recipeIndex[Math.floor(Math.random() * recipeIndex.length)];
+      if (random?.slug) loadRecipe(random.slug);
+    });
+    searchCard.appendChild(randomBtn);
+  }
+
+  const ingList = document.getElementById('ingredientsList');
+  if (ingList) {
+    const copyBtn = document.createElement('button');
+    copyBtn.type = 'button';
+    copyBtn.textContent = 'Copy ingredients';
+    copyBtn.addEventListener('click', () => copyIngredients());
+    ingList.parentElement?.appendChild(copyBtn);
+  }
+}
+
+async function copyIngredients() {
+  const ingList = document.getElementById('ingredientsList');
+  if (!ingList) return;
+
+  const lines = Array.from(ingList.querySelectorAll('li'))
+    .map((li) => li.innerText.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+  const text = lines.join('\n');
+
+  try {
+    await navigator.clipboard.writeText(text);
+    setStatus('Ingredients copied to clipboard.');
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    setStatus('Ingredients copied.');
+  }
+}
+
+function setStatus(msg) {
+  const el = document.getElementById('recipeStatus');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.classList.add('active');
+  window.setTimeout(() => el.classList.remove('active'), 3000);
+}
