@@ -1,0 +1,15 @@
+{
+  "name": "self-defense-cooking",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node tools/validate-recipes.mjs",
+    "gen:list": "node tools/generate-list.mjs",
+    "ci": "npm run validate && npm run gen:list"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "fast-glob": "^3.3.2"
+  }
+}
